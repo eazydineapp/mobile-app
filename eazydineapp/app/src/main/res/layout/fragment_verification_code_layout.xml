@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/mar_10">
+
+        <ImageView
+            android:id="@+id/verification_code_back_iv"
+            android:layout_width="@dimen/mar_30"
+            android:layout_height="@dimen/mar_30"
+            android:src="@drawable/ic_arrow_left_white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Verification Code"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/textSize20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mar_2"
+        android:background="@color/colorPrimary" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/mar_20"
+        android:layout_marginLeft="@dimen/mar_30"
+        android:layout_marginRight="@dimen/mar_30"
+        android:layout_marginTop="@dimen/mar_30">
+
+        <TextView
+            android:id="@+id/verification_code_text_1_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="Please type the Verification Code "
+            android:textColor="@color/Gray"
+            android:textSize="@dimen/textSize14sp" />
+
+        <TextView
+            android:id="@+id/verification_code_text_2_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/verification_code_text_1_tv"
+            android:gravity="center"
+            android:text="send to +91 9876543210"
+            android:textColor="@color/Gray"
+            android:textSize="@dimen/textSize14sp" />
+
+        <EditText
+            android:id="@+id/verification_code_otp_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/verification_code_text_2_tv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/mar_25"
+            android:layout_marginTop="50dp"
+            android:background="@null"
+            android:inputType="number"
+            android:letterSpacing="@dimen/text_line_spacing"
+            android:maxLength="4"
+            android:text="5657"
+            android:textSize="@dimen/textSize20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/verification_code_et_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/verification_code_otp_et"
+            android:layout_marginLeft="@dimen/mar_20"
+            android:layout_marginRight="@dimen/mar_20"
+            android:layout_marginTop="@dimen/mar_5"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/mar_0_2"
+                android:layout_marginTop="@dimen/mar_8"
+                android:layout_weight="1"
+                android:background="@color/Gray" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/mar_0_2"
+                android:layout_marginLeft="@dimen/mar_10"
+                android:layout_marginTop="@dimen/mar_8"
+                android:layout_weight="1"
+                android:background="@color/Gray" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/mar_0_2"
+                android:layout_marginLeft="@dimen/mar_10"
+                android:layout_marginTop="@dimen/mar_8"
+                android:layout_weight="1"
+                android:background="@color/Gray" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/mar_0_2"
+                android:layout_marginLeft="@dimen/mar_10"
+                android:layout_marginTop="@dimen/mar_8"
+                android:layout_weight="1"
+                android:background="@color/Gray" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/verification_code_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mar_40"
+            android:layout_below="@+id/verification_code_et_view"
+            android:layout_marginTop="@dimen/mar_30"
+            android:background="@drawable/button_background_red"
+            android:text="Verify now"
+            android:textAllCaps="false"
+            android:textColor="@color/White"
+            android:textSize="@dimen/textSize16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/verification_code_btn"
+            android:layout_marginTop="@dimen/mar_30"
+            android:text="00:48 left"
+            android:textSize="@dimen/textSize14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/verification_code_btn"
+            android:layout_marginTop="@dimen/mar_30"
+            android:text="Resend"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/textSize14sp" />
+
+    </RelativeLayout>
+
+</LinearLayout>
