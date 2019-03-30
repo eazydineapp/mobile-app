@@ -70,13 +70,13 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         searchTab = view.findViewById(R.id.search_tab);
         recyclerFood = view.findViewById(R.id.recyclerFood);
-//        recyclerRestaurants = view.findViewById(R.id.recyclerRestaurants);
-//        view.findViewById(R.id.refine).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(getContext(), RefineActivity.class));
-//            }
-//        });
+        // recyclerRestaurants = view.findViewById(R.id.recyclerRestaurants);
+        view.findViewById(R.id.refine).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), RefineActivity.class));
+            }
+        });
 
         searchTab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +91,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupRecyclerFood();
-//        setupRecyclerRestaurants();
+//      setupRecyclerRestaurants();
     }
 
     private void setupRecyclerRestaurants() {
