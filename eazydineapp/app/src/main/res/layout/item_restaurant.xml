@@ -19,7 +19,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/rest_res_1" />
+                android:src="@drawable/rest_res_1"
+                android:contentDescription="@string/todo" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -36,8 +37,9 @@
                     android:paddingLeft="@dimen/dp8"
                     android:paddingRight="@dimen/dp8"
                     android:paddingTop="2dp"
-                    android:text="4.8"
-                    android:textColor="@android:color/white" />
+                    android:text="@string/_4_8"
+                    android:textColor="@android:color/white"
+                    android:layout_alignParentEnd="true" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -53,10 +55,11 @@
                         android:drawableRight="@drawable/ic_favorite_accent_24dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="Golden fusion china chef"
+                        android:text="@string/golden_fusion_china_chef"
                         android:textColor="@android:color/white"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:drawableEnd="@drawable/ic_favorite_accent_24dp" />
 
                     <TextView
                         android:id="@+id/restDesc"
@@ -64,7 +67,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="Chinese food, south indian food"
+                        android:text="@string/chinese_food_south_indian_food"
                         android:textColor="@android:color/white" />
                 </LinearLayout>
             </RelativeLayout>
@@ -74,7 +77,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="@dimen/dp8">
+            android:padding="@dimen/dp8"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -87,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="Avg. delivery"
+                    android:text="@string/avg_delivery"
                     android:textColor="@color/colorDarkText1"
                     android:textSize="12sp" />
 
@@ -96,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="45 mins"
+                    android:text="@string/_45_mins"
                     android:textColor="@android:color/black"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -112,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="Min order "
+                    android:text="@string/min_order"
                     android:textColor="@color/colorDarkText1"
                     android:textSize="12sp" />
 
@@ -122,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="$10"
+                    android:text="@string/_10"
                     android:textColor="@android:color/black"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -138,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="Payment mode"
+                    android:text="@string/payment_mode"
                     android:textColor="@color/colorDarkText1"
                     android:textSize="12sp" />
 
@@ -147,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="Online, counter"
+                    android:text="@string/online_counter"
                     android:textColor="@android:color/black"
                     android:textSize="12sp" />
             </LinearLayout>

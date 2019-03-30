@@ -42,11 +42,12 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout toolbarLayout;
 
     private Handler mHandler;
-    private final String FRAG_TAG_HOME = "Cookfu";
-    private final String FRAG_TAG_FAVORITE = "Favorites";
+    private final String FRAG_TAG_HOME = "EazyDineApp";
+    private final String FRAG_TAG_FAVORITE = "Recommendations";
     private final String FRAG_TAG_REVIEWS = "My Reviews";
     private final String FRAG_TAG_SUPPORT = "Contact us";
     private final String FRAG_TAG_ORDERS = "My Orders";
+    private final String FRAG_TAG_HISTORY = "History";
     private final String FRAG_TAG_DETAILS = "My Details";
     private String fragTagCurrent = null;
     private int REQUEST_CODE_LOCATION = 99;
