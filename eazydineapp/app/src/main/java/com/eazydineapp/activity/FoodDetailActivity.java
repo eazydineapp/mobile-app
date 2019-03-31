@@ -36,6 +36,8 @@ public class FoodDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         restaurantMenu = getIntent().getParcelableExtra(EXTRA_REST_MENU);
         initUi();
+        //TODO add to cart, generate cart id which is later used as order id, add to same cart. If id is already present for this user no need to generate cart id
+        //TODO onclick listener for add to order
 
     }
 

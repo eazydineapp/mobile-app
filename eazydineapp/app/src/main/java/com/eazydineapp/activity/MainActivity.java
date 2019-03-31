@@ -18,6 +18,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.bumptech.glide.Glide;
+import com.eazydineapp.backend.service.api.OrderService;
+import com.eazydineapp.backend.service.impl.OrderServiceImpl;
+import com.eazydineapp.backend.ui.api.UIOrderService;
+import com.eazydineapp.backend.vo.Order;
 import com.eazydineapp.fragment.DetailsFragment;
 import com.eazydineapp.fragment.FavoriteFragment;
 import com.eazydineapp.fragment.HomeFragment;
@@ -30,6 +34,7 @@ import com.eazydineapp.location.LocationActivity;
 import com.eazydineapp.model.NavItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     ListView mDrawerList;
@@ -42,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout toolbarLayout;
 
     private Handler mHandler;
-    private final String FRAG_TAG_HOME = "Cookfu";
+    private final String FRAG_TAG_HOME = "EazyDine";
     private final String FRAG_TAG_FAVORITE = "Favorites";
     private final String FRAG_TAG_REVIEWS = "My Reviews";
     private final String FRAG_TAG_SUPPORT = "Contact us";

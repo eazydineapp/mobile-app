@@ -26,17 +26,19 @@ public class OrderDAOImpl implements OrderDAO {
     String TAG = "OrderDAOImpl";
 
     String orderPath = PathUtil.getOrderPath();
+    String cartPath = PathUtil.getCartPath();
 
 
     @Override
     public void add(Order order) throws ItemException {
         try {
-            String orderId = DAOUtil.getDatabaseReference().push().getKey();
+            final String orderId = DAOUtil.getDatabaseReference().push().getKey();
             order.setOrderId(orderId);
             System.out.println("Ading the order..");
             DAOUtil.getDatabaseReference().child(orderPath).child(orderId).setValue(order).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
+                    //DAOUtil.getDatabaseReference().child(cartPath).child(orderId).removeValue();
                     Log.d(TAG, "Success adding order");
                 }
             }).addOnFailureListener(new OnFailureListener() {

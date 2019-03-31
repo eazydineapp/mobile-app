@@ -131,8 +131,8 @@ public class PathUtil {
     }
 
 
-
-
-
-
+    public static String getCartPath() {
+        StringBuffer cartPath = getRootPath();
+        return cartPath.toString();
+    }
 }

@@ -12,17 +12,49 @@ import android.view.ViewGroup;
 
 import com.eazydineapp.R;
 import com.eazydineapp.adapter.OrdersAdapter;
+import com.eazydineapp.backend.service.api.OrderService;
+import com.eazydineapp.backend.service.impl.OrderServiceImpl;
+import com.eazydineapp.backend.ui.api.UIOrderService;
+import com.eazydineapp.backend.vo.Order;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrdersFragment extends Fragment {
     private RecyclerView recyclerOrders;
+    private List<Order> dataList;
+    OrdersAdapter ordersAdapter;
 
     public OrdersFragment() {
-        // Required empty public constructor
+        this.dataList = new ArrayList<>();
+    }
+
+    private void loadOrdersForUser() {
+        OrderService orderService = new OrderServiceImpl();
+        orderService.readByUser("1", new UIOrderService() {
+            @Override
+            public void displayAllOrders(List<Order> orders) {
+                dataList.addAll(orders);
+                ordersAdapter.setOrders(dataList);
+            }
+
+            @Override
+            public void displayOrder(com.eazydineapp.backend.vo.Order order) {
+
+            }
+        });
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ordersAdapter = new OrdersAdapter(getContext());
+        loadOrdersForUser();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -40,6 +72,6 @@ public class OrdersFragment extends Fragment {
 
     private void setupOrdersRecycler() {
         recyclerOrders.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerOrders.setAdapter(new OrdersAdapter(getContext()));
+        recyclerOrders.setAdapter(ordersAdapter);
     }
 }

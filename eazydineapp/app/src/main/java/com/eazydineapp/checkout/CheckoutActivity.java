@@ -86,25 +86,10 @@ public class CheckoutActivity extends AppCompatActivity {
                         loadFragment(FRAG_TAG_CONFIRM);
                         break;
                     case 3:
-                        //place order
-                        createOrder();
                         break;
                 }
             }
         });
-    }
-
-    private void createOrder() {
-        Double totalPrice = 0.0;
-        for (CartItem item : cartItems) {
-            totalPrice += item.getPriceTotal();
-        }
-        Order order = new Order("order Id to be generated", OrderStatus.Placed,
-                Calendar.getInstance().getTime().toString(), totalPrice, true, "Anu", "1",
-                "Peacock Indian Cuisine", "Fremont, CA", cartItems);
-
-        OrderService orderService = new OrderServiceImpl();
-        orderService.add(order);
     }
 
     private void loadFragment(final String fragTag) {
