@@ -130,52 +130,43 @@
             android:padding="@dimen/dp16">
 
             <FrameLayout
-                android:layout_width="36dp"
+                android:layout_width="380dp"
                 android:layout_height="36dp"
                 android:layout_gravity="center"
                 android:clickable="true"
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
+                <TextView
+                    android:id="@+id/checkoutText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_shopping_cart_white_24dp"
-                    android:tint="@android:color/white" />
+                    android:layout_gravity="left"
+                    android:duplicateParentState="true"
+                    android:layout_marginRight="@dimen/dp16"
+                    android:text="Place Order"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/checkoutAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="top|right"
-                    android:background="@drawable/bg_primary_rounded_corner_8dp"
-                    android:gravity="center"
-                    android:minWidth="18sp"
-                    android:text="2"
+                    android:layout_gravity="right"
+                    android:duplicateParentState="true"
+                    android:gravity="right"
+                    android:text="Bill $ 1225"
                     android:textColor="@android:color/white"
-                    android:textSize="12sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </FrameLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/dp16"
-                android:layout_marginRight="@dimen/dp16"
-                android:text="Send 2 Kitchen"
-                android:textColor="@android:color/white"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="right"
-                android:text="Bill $ 1225"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
+
+    <include
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/content_main" />
 
 </RelativeLayout>

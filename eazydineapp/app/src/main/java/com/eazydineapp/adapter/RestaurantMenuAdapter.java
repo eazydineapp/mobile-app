@@ -50,7 +50,7 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView itemName, itemDescription, itemPrice;
-        private ImageView itemImage, menuItemAction;
+        private ImageView itemImage;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -58,21 +58,11 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
             itemDescription = itemView.findViewById(R.id.menuItemDescription);
             itemPrice = itemView.findViewById(R.id.menuItemPrice);
             itemImage = itemView.findViewById(R.id.menuItemImage);
-            menuItemAction = itemView.findViewById(R.id.menuItemAction);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     context.startActivity(FoodDetailActivity.newIntent(context, dataList.get(getAdapterPosition())));
-                }
-            });
-
-            menuItemAction.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int pos = getAdapterPosition();
-                    dataList.get(pos).setAdded(!dataList.get(pos).isAdded());
-                    notifyItemChanged(pos);
                 }
             });
         }
@@ -82,7 +72,6 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
             itemPrice.setText(String.valueOf(restaurantMenu.getPrice()));
             itemDescription.setText(restaurantMenu.getDescription());
             itemName.setText(restaurantMenu.getName());
-            menuItemAction.setImageDrawable(ContextCompat.getDrawable(context, restaurantMenu.isAdded() ? R.drawable.ic_done_primary_24dp : R.drawable.ic_add_circle_primary_24dp));
         }
     }
 }
