@@ -24,6 +24,7 @@ import com.eazydineapp.backend.ui.api.UIOrderService;
 import com.eazydineapp.backend.vo.Order;
 import com.eazydineapp.fragment.DetailsFragment;
 import com.eazydineapp.fragment.FavoriteFragment;
+import com.eazydineapp.fragment.HistoryFragment;
 import com.eazydineapp.fragment.HomeFragment;
 import com.eazydineapp.fragment.MyReviewsFragment;
 import com.eazydineapp.fragment.OrdersFragment;
@@ -48,10 +49,11 @@ public class MainActivity extends AppCompatActivity {
 
     private Handler mHandler;
     private final String FRAG_TAG_HOME = "EazyDine";
-    private final String FRAG_TAG_FAVORITE = "Favorites";
+    private final String FRAG_TAG_FAVORITE = "Recommendations";
     private final String FRAG_TAG_REVIEWS = "My Reviews";
     private final String FRAG_TAG_SUPPORT = "Contact us";
     private final String FRAG_TAG_ORDERS = "My Orders";
+    private final String FRAG_TAG_HISTORY = "History";
     private final String FRAG_TAG_DETAILS = "My Details";
     private String fragTagCurrent = null;
     private int REQUEST_CODE_LOCATION = 99;
@@ -70,9 +72,10 @@ public class MainActivity extends AppCompatActivity {
         Glide.with(this).load(R.drawable.background).into(background);
 
         mNavItems.add(new NavItem("Home", "List of restaurants", R.drawable.ic_store_white_24dp));
-        mNavItems.add(new NavItem("My orders", "Current and past orders", R.drawable.ic_restaurant_menu_white_24dp));
+        mNavItems.add(new NavItem("My orders", "Current orders", R.drawable.ic_restaurant_menu_white_24dp));
+        mNavItems.add(new NavItem("History", "Past orders", R.drawable.ic_restaurant_menu_white_24dp));
         mNavItems.add(new NavItem("My details", "Profile, address, payment info", R.drawable.ic_person_pin_white_24dp));
-        mNavItems.add(new NavItem("Favorites", "Favoured chefs", R.drawable.ic_favorite_white_24dp));
+        mNavItems.add(new NavItem("Recommendations", "Recommendations", R.drawable.ic_favorite_white_24dp));
         mNavItems.add(new NavItem("Reviews", "List of reviews", R.drawable.ic_local_activity_white_24dp));
         mNavItems.add(new NavItem("Support", "Have a chat with us", R.drawable.ic_chat_white_24dp));
         mNavItems.add(new NavItem("Rate us", "Rate us on playstore", R.drawable.ic_thumb_up_white_24dp));
@@ -98,18 +101,21 @@ public class MainActivity extends AppCompatActivity {
                         fragTagCurrent = FRAG_TAG_ORDERS;
                         break;
                     case 2:
-                        fragTagCurrent = FRAG_TAG_DETAILS;
+                        fragTagCurrent = FRAG_TAG_HISTORY;
                         break;
                     case 3:
-                        fragTagCurrent = FRAG_TAG_FAVORITE;
+                        fragTagCurrent = FRAG_TAG_DETAILS;
                         break;
                     case 4:
-                        fragTagCurrent = FRAG_TAG_REVIEWS;
+                        fragTagCurrent = FRAG_TAG_FAVORITE;
                         break;
                     case 5:
-                        fragTagCurrent = FRAG_TAG_SUPPORT;
+                        fragTagCurrent = FRAG_TAG_REVIEWS;
                         break;
                     case 6:
+                        fragTagCurrent = FRAG_TAG_SUPPORT;
+                        break;
+                    case 7:
                         break;
                 }
                 mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -174,6 +180,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case FRAG_TAG_SUPPORT:
                 fragment = new SupportFragment();
+                break;
+            case FRAG_TAG_HISTORY:
+                fragment = new HistoryFragment();
                 break;
         }
 

@@ -24,15 +24,21 @@
             android:paddingRight="@dimen/dp8">
 
             <EditText
+                android:id="@+id/search_tab"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
+                android:layout_marginEnd="@dimen/dp8"
                 android:layout_marginRight="@dimen/dp8"
                 android:layout_weight="1"
+                android:autofillHints=""
                 android:background="@drawable/round_white"
+                android:drawableStart="@drawable/ic_search_gray_24dp"
                 android:drawableLeft="@drawable/ic_search_gray_24dp"
                 android:drawablePadding="@dimen/dp8"
                 android:hint="@string/hint_home_search"
+                android:inputType=""
                 android:maxLines="1"
+                android:paddingStart="@dimen/dp8"
                 android:paddingLeft="@dimen/dp8"
                 android:textColor="@android:color/black"
                 android:textColorHint="@android:color/darker_gray"
@@ -48,7 +54,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_tune_gray_24dp" />
+                    android:src="@drawable/ic_tune_gray_24dp"
+                    android:contentDescription="@string/todo2" />
             </FrameLayout>
         </LinearLayout>
     </FrameLayout>
@@ -66,7 +73,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/dp8"
                 android:background="@android:color/white"
                 android:orientation="vertical"
@@ -97,33 +104,33 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:orientation="vertical">
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@android:color/white"-->
+                <!--android:orientation="vertical">-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp16"
-                    android:layout_marginRight="@dimen/dp16"
-                    android:layout_marginTop="@dimen/dp16"
-                    android:layout_weight="1"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:paddingBottom="@dimen/dp4"
-                    android:paddingTop="@dimen/dp4"
-                    android:text="@string/label_restaurants"
-                    android:textStyle="bold" />
+                <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="@dimen/dp16"-->
+                    <!--android:layout_marginRight="@dimen/dp16"-->
+                    <!--android:layout_marginTop="@dimen/dp16"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:ellipsize="end"-->
+                    <!--android:maxLines="1"-->
+                    <!--android:paddingBottom="@dimen/dp4"-->
+                    <!--android:paddingTop="@dimen/dp4"-->
+                    <!--android:text="@string/label_restaurants"-->
+                    <!--android:textStyle="bold" />-->
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerRestaurants"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp8"
-                    android:layout_marginRight="@dimen/dp8" />
-            </LinearLayout>
+                <!--<android.support.v7.widget.RecyclerView-->
+                    <!--android:id="@+id/recyclerRestaurants"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="@dimen/dp8"-->
+                    <!--android:layout_marginRight="@dimen/dp8" />-->
+            <!--</LinearLayout>-->
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

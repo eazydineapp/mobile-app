@@ -12,17 +12,20 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.eazydineapp.R;
 import com.eazydineapp.activity.CartActivity;
 import com.eazydineapp.activity.RefineActivity;
+import com.eazydineapp.activity.RestaurantActivity;
 import com.eazydineapp.adapter.FoodCategoryAdapter;
 import com.eazydineapp.adapter.RestaurantAdapter;
 
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerFood, recyclerRestaurants;
     private TextView cartNotificationCount;
+    private EditText searchTab;
 
 
     public HomeFragment() {
@@ -65,12 +68,20 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        searchTab = view.findViewById(R.id.search_tab);
         recyclerFood = view.findViewById(R.id.recyclerFood);
-        recyclerRestaurants = view.findViewById(R.id.recyclerRestaurants);
+        // recyclerRestaurants = view.findViewById(R.id.recyclerRestaurants);
         view.findViewById(R.id.refine).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), RefineActivity.class));
+            }
+        });
+
+        searchTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), RestaurantActivity.class));
             }
         });
         return view;
@@ -80,7 +91,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupRecyclerFood();
-        setupRecyclerRestaurants();
+//      setupRecyclerRestaurants();
     }
 
     private void setupRecyclerRestaurants() {
