@@ -35,6 +35,7 @@ public class CartActivity extends AppCompatActivity {
     private RecyclerView cartRecycler;
     private ArrayList<CartItem> cartItems;
     private Handler mHandler;
+    private TextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +54,13 @@ public class CartActivity extends AppCompatActivity {
         cartRecycler = findViewById(R.id.cartRecycler);
         loadCartValue();
         setupCartRecycler();
-        findViewById(R.id.checkout).setOnClickListener(new View.OnClickListener() {
+        tv = (TextView)findViewById(R.id.checkoutText);
+        tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 //TODO : create orders, delete cart object, navigate to MyOrders screen
-                TextView tv = (TextView)findViewById(R.id.checkoutText);
                 if("Place Order".equals(tv.getText())) {
-
                     createOrder();
                     loadOrdersFragment();
                     tv.setText("Continue to Order");

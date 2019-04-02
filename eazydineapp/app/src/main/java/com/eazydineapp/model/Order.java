@@ -8,6 +8,8 @@ public class Order {
     private String date, placeName, placeAddress;
     private float orderTotal;
     private int status;
+    private String name;
+    private float priceTotal;
 
     public Order(String date, String placeName, String placeAddress, float orderTotal, int status) {
         this.date = date;
@@ -40,4 +42,5 @@ public class Order {
     public int getStatus() {
         return status;
     }
+
 }

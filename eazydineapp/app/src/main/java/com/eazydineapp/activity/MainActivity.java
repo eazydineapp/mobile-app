@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         Glide.with(this).load(R.drawable.background).into(background);
 
         mNavItems.add(new NavItem("Home", "List of restaurants", R.drawable.ic_store_white_24dp));
-        mNavItems.add(new NavItem("My orders", "Current orders", R.drawable.ic_restaurant_menu_white_24dp));
+        mNavItems.add(new NavItem("My orders", "Current orders", R.drawable.ic_shopping_cart_white_24dp));
         mNavItems.add(new NavItem("History", "Past orders", R.drawable.ic_restaurant_menu_white_24dp));
         mNavItems.add(new NavItem("My details", "Profile, address, payment info", R.drawable.ic_person_pin_white_24dp));
         mNavItems.add(new NavItem("Recommendations", "Recommendations", R.drawable.ic_favorite_white_24dp));

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.eazydineapp.R;
@@ -14,6 +15,7 @@ import com.eazydineapp.backend.service.impl.OrderServiceImpl;
 import com.eazydineapp.backend.ui.api.UIOrderService;
 import com.eazydineapp.backend.vo.Order;
 import com.eazydineapp.backend.vo.OrderStatus;
+import com.eazydineapp.model.CartItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ import java.util.List;
  * @author Shriaithal
  * Code to display Orders
  */
+
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHolder> {
     private Context context;
     private List<Order> dataList;
@@ -57,27 +60,19 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private View orderPreparingContainer;
-        private TextView orderDate, orderPlaceName, orderPlaceAddress, orderTotal, orderStatus;
+        private TextView name, price, priceTotal;
+        private ImageView itemImage;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            orderPreparingContainer = itemView.findViewById(R.id.orderPreparingContainer);
-            orderDate = itemView.findViewById(R.id.orderDate);
-            orderPlaceName = itemView.findViewById(R.id.orderPlaceName);
-            orderPlaceAddress = itemView.findViewById(R.id.orderPlaceAddress);
-            orderTotal = itemView.findViewById(R.id.orderTotal);
-            orderStatus = itemView.findViewById(R.id.orderStatus);
+            name = itemView.findViewById(R.id.itemName);
+            priceTotal = itemView.findViewById(R.id.itemPriceTotal);
+            itemImage = itemView.findViewById(R.id.itemImage);
         }
 
         public void setData(Order order) {
-            orderPreparingContainer.setVisibility(order.getOrderStatus() == OrderStatus.Preparing ? View.VISIBLE : View.GONE);
-            orderDate.setText(order.getOrderDate().replace(" ", "\n"));
-            orderPlaceAddress.setText(order.getRestaurantAddress());
-            orderPlaceName.setText(order.getRestaurantName());
-            orderTotal.setText(String.valueOf(order.getTotalPrice()));
-            orderStatus.setText(order.getOrderStatus().toString());
-            orderStatus.setBackground(ContextCompat.getDrawable(context, order.getOrderStatus() == OrderStatus.Preparing ? R.drawable.round_circle_accent : R.drawable.round_primary));
-        }
+
+         }
+
     }
 }
