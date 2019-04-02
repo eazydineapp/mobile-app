@@ -7,18 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b73eb570-ef9f-49be-b901-20a60161d523" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/eazydineapp/activity/CartActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/eazydineapp/activity/CartActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/eazydineapp/activity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/eazydineapp/activity/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/eazydineapp/adapter/OrdersAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/eazydineapp/adapter/OrdersAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/eazydineapp/fragment/OrdersFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/eazydineapp/fragment/OrdersFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/eazydineapp/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/eazydineapp/model/Order.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_cart.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_cart.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_orders.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_orders.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_order.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_order.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,120 +29,94 @@
     <session id="1159633102">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="5" />
+          <entry key="project.closed" value="7" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.15" value="2" />
+          <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.2" value="1" />
-          <entry key="project.opened" value="6" />
+          <entry key="project.opened" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="java" value="59" />
-          <entry key="xml" value="69" />
+          <entry key="xml" value="70" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JAVA" value="59" />
-          <entry key="XML" value="69" />
+          <entry key="XML" value="70" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="799" />
+          <entry key="java" value="850" />
           <entry key="txt" value="127" />
-          <entry key="xml" value="574" />
+          <entry key="xml" value="607" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="799" />
+          <entry key="JAVA" value="850" />
           <entry key="PLAIN_TEXT" value="127" />
-          <entry key="XML" value="574" />
+          <entry key="XML" value="607" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eazydineapp/activity/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="146">
-              <caret line="72" lean-forward="true" selection-start-line="72" selection-end-line="72" />
+              <caret line="72" selection-start-line="72" selection-end-line="72" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_items_white.xml">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eazydineapp/fragment/OrdersFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="371">
+            <state relative-caret-position="400">
               <caret line="77" column="13" selection-start-line="77" selection-start-column="13" selection-end-line="77" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#906#907#0" expanded="true" />
-                <element signature="e#955#956#0" expanded="true" />
-                <element signature="e#1690#1691#0" expanded="true" />
-                <element signature="e#1722#1723#0" expanded="true" />
-                <element signature="e#2136#2386#0" expanded="true" />
-                <element signature="e#2385#2386#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eazydineapp/activity/CartActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="446">
-              <caret line="65" column="52" selection-start-line="65" selection-start-column="52" selection-end-line="65" selection-end-column="52" />
+            <state relative-caret-position="263">
+              <caret line="72" column="17" selection-start-line="72" selection-start-column="17" selection-end-line="72" selection-end-column="17" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_orders.xml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="192" column="44" selection-start-line="192" selection-start-column="44" selection-end-line="192" selection-end-column="44" />
-              <folding>
-                <element signature="e#3739#7731#0" />
-                <element signature="e#5166#6254#0" />
-                <element signature="e#6272#7356#0" />
-                <element signature="e#7670#7682#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-          <provider selected="true" editor-type-id="android-designer2" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_cart.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="200" column="44" selection-start-line="200" selection-start-column="44" selection-end-line="200" selection-end-column="44" />
+            <state relative-caret-position="124">
+              <caret line="232" column="23" selection-start-line="197" selection-start-column="8" selection-end-line="232" selection-end-column="23" />
               <folding>
-                <element signature="e#3111#3385#0" />
-                <element signature="e#3629#7855#0" />
-                <element signature="e#3817#7809#0" />
-                <element signature="e#5244#6332#0" />
-                <element signature="e#5419#5431#0" expanded="true" />
-                <element signature="e#6350#7434#0" />
-                <element signature="e#7452#7781#0" />
-                <element signature="e#7656#7668#0" expanded="true" />
-                <element signature="e#8095#8107#0" expanded="true" />
+                <element signature="e#3027#3306#0" />
+                <element signature="e#3753#3765#0" expanded="true" />
+                <element signature="e#3923#5103#0" />
+                <element signature="e#5121#6209#0" />
+                <element signature="e#6227#7311#0" />
+                <element signature="e#7684#7696#0" expanded="true" />
+                <element signature="e#7395#8825#0" />
+                <element signature="e#8058#8070#0" expanded="true" />
+                <element signature="e#7697#8263#0" />
               </folding>
             </state>
           </provider>
@@ -158,25 +124,17 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eazydineapp/model/Order.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_cart.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="73">
-              <caret line="16" column="41" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eazydineapp/adapter/OrdersAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="580">
-              <caret line="78" selection-start-line="78" selection-end-line="78" />
+            <state relative-caret-position="327">
+              <caret line="204" column="42" selection-start-line="204" selection-start-column="42" selection-end-line="204" selection-end-column="42" />
               <folding>
-                <element signature="e#1717#1718#0" expanded="true" />
-                <element signature="e#1755#1756#0" expanded="true" />
+                <element signature="e#3111#3385#0" />
+                <element signature="e#7748#7760#0" expanded="true" />
               </folding>
             </state>
           </provider>
+          <provider editor-type-id="android-designer2" />
         </entry>
       </file>
     </leaf>
@@ -223,7 +181,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/eazydineapp/fragment/HistoryFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/item_order_history.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/eazydineapp/adapter/HistoryAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/eazydineapp/activity/CartActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_order.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_order.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/eazydineapp/activity/OrderActivity.java" />
@@ -231,9 +188,10 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/eazydineapp/model/Order.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/eazydineapp/adapter/OrdersAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/eazydineapp/fragment/OrdersFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_cart.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_orders.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/eazydineapp/activity/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_orders.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_cart.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/eazydineapp/activity/CartActivity.java" />
       </list>
     </option>
   </component>
@@ -265,7 +223,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -276,31 +234,7 @@
             <path>
               <item name="eazydineapp" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-            </path>
-            <path>
-              <item name="eazydineapp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="eazydineapp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="eazydineapp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="eazydineapp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="eazydineapp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="drawable" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
             <path>
               <item name="eazydineapp" type="1abcf292:AndroidViewProjectNode" />
@@ -312,7 +246,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane" />
     </panes>
   </component>
@@ -468,10 +402,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="158" y="23" width="1282" height="812" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.21693549" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.21693549" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -540,11 +473,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="191">
           <caret line="23" column="44" lean-forward="true" selection-start-line="23" selection-start-column="44" selection-end-line="23" selection-end-column="44" />
-          <folding>
-            <element signature="e#1033#2971#0" />
-            <element signature="e#2985#4727#0" />
-            <element signature="e#4741#6979#0" />
-          </folding>
         </state>
       </provider>
       <provider editor-type-id="android-designer2" />
@@ -648,42 +576,11 @@
       <provider editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-          <folding>
-            <element signature="e#222#234#0" expanded="true" />
-            <element signature="e#357#609#0" />
-            <element signature="e#615#3529#0" />
-          </folding>
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_order.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="237" lean-forward="true" selection-end-line="237" />
-          <folding>
-            <element signature="e#198#2870#0" />
-            <element signature="e#540#553#0" expanded="true" />
-            <element signature="e#816#830#0" expanded="true" />
-            <element signature="e#1146#1159#0" expanded="true" />
-            <element signature="e#1199#1212#0" expanded="true" />
-            <element signature="e#1158#2212#0" />
-            <element signature="e#2222#2850#0" />
-            <element signature="e#2716#2728#0" expanded="true" />
-            <element signature="e#199#473#0" />
-            <element signature="e#479#6329#0" />
-            <element signature="e#717#4943#0" />
-            <element signature="e#3904#3916#0" expanded="true" />
-            <element signature="e#4110#4122#0" expanded="true" />
-            <element signature="e#5308#5320#0" expanded="true" />
-            <element signature="e#6414#6426#0" expanded="true" />
-            <element signature="e#7545#7557#0" expanded="true" />
-            <element signature="e#8029#8042#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_order.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eazydineapp/model/CartItem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="63">
@@ -691,47 +588,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_order.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="238" lean-forward="true" selection-end-line="238" />
-          <folding>
-            <element signature="e#656#3373#0" />
-            <element signature="e#972#985#0" expanded="true" />
-            <element signature="e#1276#1290#0" expanded="true" />
-            <element signature="e#1638#1651#0" expanded="true" />
-            <element signature="e#1695#1708#0" expanded="true" />
-            <element signature="e#1660#2714#0" />
-            <element signature="e#2724#3352#0" />
-            <element signature="e#3352#3364#0" expanded="true" />
-            <element signature="e#3380#3654#0" />
-            <element signature="e#3661#9516#0" />
-            <element signature="e#3899#8125#0" />
-            <element signature="e#4653#4665#0" expanded="true" />
-            <element signature="e#4875#4887#0" expanded="true" />
-            <element signature="e#6169#6181#0" expanded="true" />
-            <element signature="e#7363#7375#0" expanded="true" />
-            <element signature="e#8586#8598#0" expanded="true" />
-            <element signature="e#9114#9127#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eazydineapp/activity/OrderActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_order.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eazydineapp/activity/OrderActivity.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml">
       <provider editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="23" column="46" lean-forward="true" selection-start-line="23" selection-start-column="46" selection-end-line="23" selection-end-column="46" />
-          <folding>
-            <element signature="e#909#921#0" expanded="true" />
-          </folding>
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer2" />
@@ -778,13 +640,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eazydineapp/model/Order.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="73">
-          <caret line="16" column="41" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_order.xml">
       <provider editor-type-id="text-editor">
         <state relative-caret-position="375">
@@ -797,17 +652,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="945">
           <caret line="84" column="37" selection-start-line="84" selection-start-column="28" selection-end-line="84" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eazydineapp/adapter/OrdersAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="78" selection-start-line="78" selection-end-line="78" />
-          <folding>
-            <element signature="e#1717#1718#0" expanded="true" />
-            <element signature="e#1755#1756#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -860,75 +704,85 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eazydineapp/activity/CartActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="65" column="52" selection-start-line="65" selection-start-column="52" selection-end-line="65" selection-end-column="52" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_done_all_white_24dp.xml">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eazydineapp/fragment/OrdersFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="371">
+        <state relative-caret-position="400">
           <caret line="77" column="13" selection-start-line="77" selection-start-column="13" selection-end-line="77" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#906#907#0" expanded="true" />
-            <element signature="e#955#956#0" expanded="true" />
-            <element signature="e#1690#1691#0" expanded="true" />
-            <element signature="e#1722#1723#0" expanded="true" />
-            <element signature="e#2136#2386#0" expanded="true" />
-            <element signature="e#2385#2386#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_cart.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eazydineapp/model/Order.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="200" column="44" selection-start-line="200" selection-start-column="44" selection-end-line="200" selection-end-column="44" />
-          <folding>
-            <element signature="e#3111#3385#0" />
-            <element signature="e#3629#7855#0" />
-            <element signature="e#3817#7809#0" />
-            <element signature="e#5244#6332#0" />
-            <element signature="e#5419#5431#0" expanded="true" />
-            <element signature="e#6350#7434#0" />
-            <element signature="e#7452#7781#0" />
-            <element signature="e#7656#7668#0" expanded="true" />
-            <element signature="e#8095#8107#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="240">
+          <caret line="16" column="41" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_orders.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="192" column="44" selection-start-line="192" selection-start-column="44" selection-end-line="192" selection-end-column="44" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eazydineapp/adapter/OrdersAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="580">
+          <caret line="78" selection-start-line="78" selection-end-line="78" />
           <folding>
-            <element signature="e#3739#7731#0" />
-            <element signature="e#5166#6254#0" />
-            <element signature="e#6272#7356#0" />
-            <element signature="e#7670#7682#0" expanded="true" />
+            <element signature="e#1717#1718#0" expanded="true" />
+            <element signature="e#1755#1756#0" expanded="true" />
           </folding>
         </state>
       </provider>
-      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_items_white.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_done_all_white_24dp.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eazydineapp/activity/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="146">
-          <caret line="72" lean-forward="true" selection-start-line="72" selection-end-line="72" />
+          <caret line="72" selection-start-line="72" selection-end-line="72" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_orders.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="232" column="23" selection-start-line="197" selection-start-column="8" selection-end-line="232" selection-end-column="23" />
+          <folding>
+            <element signature="e#3027#3306#0" />
+            <element signature="e#3753#3765#0" expanded="true" />
+            <element signature="e#3923#5103#0" />
+            <element signature="e#5121#6209#0" />
+            <element signature="e#6227#7311#0" />
+            <element signature="e#7684#7696#0" expanded="true" />
+            <element signature="e#7395#8825#0" />
+            <element signature="e#8058#8070#0" expanded="true" />
+            <element signature="e#7697#8263#0" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_cart.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="204" column="42" selection-start-line="204" selection-start-column="42" selection-end-line="204" selection-end-column="42" />
+          <folding>
+            <element signature="e#3111#3385#0" />
+            <element signature="e#7748#7760#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/eazydineapp/activity/CartActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="72" column="17" selection-start-line="72" selection-start-column="17" selection-end-line="72" selection-end-column="17" />
         </state>
       </provider>
     </entry>

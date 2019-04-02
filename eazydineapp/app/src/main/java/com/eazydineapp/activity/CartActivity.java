@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -35,7 +36,7 @@ public class CartActivity extends AppCompatActivity {
     private RecyclerView cartRecycler;
     private ArrayList<CartItem> cartItems;
     private Handler mHandler;
-    private TextView tv;
+    private TextView tv,mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class CartActivity extends AppCompatActivity {
         cartRecycler = findViewById(R.id.cartRecycler);
         loadCartValue();
         setupCartRecycler();
+        mp = (TextView) findViewById(R.id.checkoutAmount);
         tv = (TextView)findViewById(R.id.checkoutText);
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +66,8 @@ public class CartActivity extends AppCompatActivity {
                     createOrder();
                     loadOrdersFragment();
                     tv.setText("Continue to Order");
+                    tv.setGravity(Gravity.CENTER);
+                    mp.setText("Make Payment");
                 }else {
                     onBackPressed();
                 }
