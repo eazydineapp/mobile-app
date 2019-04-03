@@ -33,6 +33,7 @@
         android:background="@color/colorPrimary" />
 
     <RelativeLayout
+        android:id="@+id/otpVerificationlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/mar_30"
@@ -172,6 +173,7 @@
             android:textSize="@dimen/textSize14sp" />
 
         <TextView
+            android:id="@+id/resendVerificationCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/verification_code_btn"

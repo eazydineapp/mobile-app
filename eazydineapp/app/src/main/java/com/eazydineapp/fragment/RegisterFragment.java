@@ -84,7 +84,7 @@ public class RegisterFragment extends Fragment {
             errorTextView.requestFocus();
         }
 
-        else if(emailID.length() > 0  && password.length() > 0 && phonenumber.length() == 10 ){
+        else {
             Bundle bundle = new Bundle();
             bundle.putString("email", emailID);
             bundle.putString("password", password);
