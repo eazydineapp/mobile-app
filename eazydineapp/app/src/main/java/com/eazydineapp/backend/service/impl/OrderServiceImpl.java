@@ -33,6 +33,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void getOrderByUserAndRestaurant(String userId, String restaurantId, UIOrderService uiOrderService) {
+        try {
+            orderDAO.getOrderByUserAndRestaurantId(userId, restaurantId, uiOrderService);
+        } catch (ItemException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void getCartByUser(String userId, UIOrderService uiOrderService) {
         try {
             orderDAO.getCartByUser(userId, uiOrderService);

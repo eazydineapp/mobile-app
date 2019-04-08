@@ -16,8 +16,14 @@ import android.widget.TextView;
 
 import com.eazydineapp.R;
 import com.eazydineapp.activity.CartActivity;
+import com.eazydineapp.backend.service.api.OrderService;
+import com.eazydineapp.backend.service.impl.OrderServiceImpl;
+import com.eazydineapp.backend.ui.api.UIOrderService;
+import com.eazydineapp.backend.vo.Order;
 import com.eazydineapp.model.Restaurant;
 import com.eazydineapp.adapter.ViewPagerStateAdapter;
+
+import java.util.List;
 
 public class RestaurantDetailActivity extends AppCompatActivity {
     private static String EXTRA_REST_NAME = "restaurant_name";
@@ -29,7 +35,6 @@ public class RestaurantDetailActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private String title;
     private TextView cartNotificationCount;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +64,28 @@ public class RestaurantDetailActivity extends AppCompatActivity {
     }
 
     private void setCartCount() {
-        int NOTIFICATION_COUNT = 1; //TODO set cart count
-        if (cartNotificationCount != null) {
-            if (NOTIFICATION_COUNT <= 0) {
-                cartNotificationCount.setVisibility(View.GONE);
-            } else {
-                cartNotificationCount.setVisibility(View.VISIBLE);
-                cartNotificationCount.setText(String.valueOf(NOTIFICATION_COUNT));
+        OrderService orderService = new OrderServiceImpl();
+        orderService.getCartByUser("1", new UIOrderService() {
+            @Override
+            public void displayAllOrders(List<Order> orders) {
             }
-        }
+
+            @Override
+            public void displayOrder(Order dbOrder) {
+                int NOTIFICATION_COUNT = 0;
+                if(null != dbOrder) {
+                    NOTIFICATION_COUNT = dbOrder.getItemList().size();
+                }
+                if (cartNotificationCount != null) {
+                    if (NOTIFICATION_COUNT <= 0) {
+                        cartNotificationCount.setVisibility(View.GONE);
+                    } else {
+                        cartNotificationCount.setVisibility(View.VISIBLE);
+                        cartNotificationCount.setText(String.valueOf(NOTIFICATION_COUNT));
+                    }
+                }
+            }
+        });
     }
 
     private void setupViewPager() {

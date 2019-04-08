@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.eazydineapp.R;
 import com.eazydineapp.backend.service.api.OrderService;
 import com.eazydineapp.backend.service.impl.OrderServiceImpl;
+import com.eazydineapp.backend.ui.api.UIOrderService;
 import com.eazydineapp.backend.vo.Order;
 import com.eazydineapp.backend.vo.OrderStatus;
 import com.eazydineapp.model.CartItem;
@@ -25,11 +26,15 @@ import com.eazydineapp.model.RestaurantMenu;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+/**
+ * @author Shriaithal
+ * Display Menu Details, create cart object
+ */
 public class FoodDetailActivity extends AppCompatActivity {
     private static String EXTRA_REST_MENU = "restaurant_menu";
 
-    private CartItem cartItem;
     private RestaurantMenu restaurantMenu;
     private AppBarLayout appBarLayout;
     private CollapsingToolbarLayout collapsingToolbarLayout;
@@ -37,7 +42,7 @@ public class FoodDetailActivity extends AppCompatActivity {
     private ImageView itemQtyPlus, itemQtyMinus;
     private Toolbar toolbar;
     private Button button;
-
+    private int cartItemCount;
 
 
     @Override
@@ -54,11 +59,9 @@ public class FoodDetailActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Add to cart clicked ######################################################################################");
                 addItemToCart();
             }
         });
-
     }
 
     private void initItemQtyButtons() {
@@ -79,7 +82,7 @@ public class FoodDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Integer count = Integer.parseInt(itemQuantity.getText().toString());
-                if(count > 0) --count;
+                if (count > 0) --count;
                 itemQuantity.setText(count.toString());
             }
         });
@@ -88,24 +91,27 @@ public class FoodDetailActivity extends AppCompatActivity {
     private void addItemToCart() {
         ArrayList<CartItem> cartItems = new ArrayList<>();
 
-        cartItem.setQuantity(Integer.parseInt(itemQuantity.getText().toString()));
+        Integer quantity = Integer.parseInt(itemQuantity.getText().toString());
+        CartItem cartItem = new CartItem(restaurantMenu.getName(), restaurantMenu.getCategory(), restaurantMenu.getPrice(), quantity, restaurantMenu.getImagePath(), restaurantMenu.getId());
         cartItems.add(cartItem);
 
-        Order order = new Order("order Id to be generated", OrderStatus.Cart, Calendar.getInstance().getTime().toString(), cartItem.getPriceTotal(), true,
-                "Anu", "1","1", "Peacock Indian Cuisine", "Fremont, CA", cartItems);
+        Order order = new Order("order Id to be generated", OrderStatus.Cart, Calendar.getInstance().getTime().toString(), cartItem.getPriceTotal(), false,
+                "Anu", "1", restaurantMenu.getRestaurantId(), restaurantMenu.getRestaurantName(), restaurantMenu.getRestaurantAddress(), cartItems);
 
         OrderService orderService = new OrderServiceImpl();
         orderService.addToCart(order);
+        cartItemCount++;
     }
 
     private void setItemDetailView() {
-        cartItem = new CartItem("Paneer Kurchan", "Side", 3, 1, "", "1");
-
         TextView nameView = findViewById(R.id.foodName);
-        nameView.setText(cartItem.getName());
+        nameView.setText(restaurantMenu.getName());
 
         TextView priceView = findViewById(R.id.foodPrice);
-        priceView.setText(String.valueOf(cartItem.getPrice()));
+        priceView.setText(String.valueOf(restaurantMenu.getPrice()));
+
+        TextView descriptionView = findViewById(R.id.foodDesc);
+        descriptionView.setText(restaurantMenu.getDescription());
     }
 
     private void initUi() {
@@ -167,15 +173,28 @@ public class FoodDetailActivity extends AppCompatActivity {
     }
 
     private void setCartCount() {
-        int NOTIFICATION_COUNT = 10;
-        if (cartNotificationCount != null) {
-            if (NOTIFICATION_COUNT <= 0) {
-                cartNotificationCount.setVisibility(View.GONE);
-            } else {
-                cartNotificationCount.setVisibility(View.VISIBLE);
-                cartNotificationCount.setText(String.valueOf(NOTIFICATION_COUNT));
+        OrderService orderService = new OrderServiceImpl();
+        orderService.getCartByUser("1", new UIOrderService() {
+            @Override
+            public void displayAllOrders(List<Order> orders) {
             }
-        }
+
+            @Override
+            public void displayOrder(Order dbOrder) {
+                int NOTIFICATION_COUNT = 0;
+                if(null != dbOrder) {
+                    NOTIFICATION_COUNT = cartItemCount = dbOrder.getItemList().size();
+                }
+                if (cartNotificationCount != null) {
+                    if (NOTIFICATION_COUNT <= 0) {
+                        cartNotificationCount.setVisibility(View.GONE);
+                    } else {
+                        cartNotificationCount.setVisibility(View.VISIBLE);
+                        cartNotificationCount.setText(String.valueOf(NOTIFICATION_COUNT));
+                    }
+                }
+            }
+        });
     }
 
     public static Intent newIntent(Context context, RestaurantMenu restaurantMenu) {

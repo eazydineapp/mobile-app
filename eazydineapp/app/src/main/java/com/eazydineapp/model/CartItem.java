@@ -13,6 +13,7 @@ public class CartItem implements Serializable {
     private int quantity;
     private String photoPath;
     private String itemId;
+    private String itemStatus;
 
     public CartItem(){}
 
@@ -56,5 +57,13 @@ public class CartItem implements Serializable {
 
     public float getPriceTotal() {
         return priceTotal;
+    }
+
+    public String getItemStatus() {
+        return itemStatus;
+    }
+
+    public void setItemStatus(String itemStatus) {
+        this.itemStatus = itemStatus;
     }
 }

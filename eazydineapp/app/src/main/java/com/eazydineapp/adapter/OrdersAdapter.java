@@ -27,19 +27,14 @@ import java.util.List;
 
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHolder> {
     private Context context;
-    private List<Order> dataList;
+    private List<CartItem> dataList;
 
     public OrdersAdapter(Context context) {
         this.context = context;
         this.dataList = new ArrayList<>();
     }
 
-    public OrdersAdapter(Context context, List<Order> dataList) {
-        this.context = context;
-        this.dataList = new ArrayList<>(dataList);
-    }
-
-    public void setOrders(List<Order> dataList) {
+    public void setOrderItems(List<CartItem> dataList) {
         this.dataList = new ArrayList<>(dataList);
         notifyDataSetChanged();
     }
@@ -70,7 +65,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
             itemImage = itemView.findViewById(R.id.itemImage);
         }
 
-        public void setData(Order order) {
+        public void setData(CartItem item) {
             //TODO set data values for list page
         }
 

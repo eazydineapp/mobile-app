@@ -30,7 +30,9 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * Created by a_man on 23-01-2018.
+ * @author Shriaithal
+ * Place Order + Make Payment Screen
+ * Load cart value, create order
  */
 
 public class CartActivity extends AppCompatActivity {
@@ -63,8 +65,6 @@ public class CartActivity extends AppCompatActivity {
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //TODO : create orders, delete cart object, navigate to MyOrders screen
                 if("Place Order".equals(tv.getText())) {
                     createOrder();
                     loadOrdersFragment();

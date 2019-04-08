@@ -1,5 +1,5 @@
 package com.eazydineapp.backend.vo;
 
 public enum OrderStatus {
-    Cart, Placed, Preparing, Served;
+    Cart, Placed, Preparing, Served, Paid;
 }

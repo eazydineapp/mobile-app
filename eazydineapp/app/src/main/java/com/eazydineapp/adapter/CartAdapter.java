@@ -68,7 +68,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             quantity = itemView.findViewById(R.id.itemQuantity);
             itemImage = itemView.findViewById(R.id.itemImage);
 
-            itemView.findViewById(R.id.itemQuantityMinus).setOnClickListener(new View.OnClickListener() {
+            /*itemView.findViewById(R.id.itemQuantityMinus).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int pos = getAdapterPosition();
@@ -85,7 +85,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                     dataList.get(pos).setQuantity(dataList.get(pos).getQuantity() + 1);
                     notifyItemChanged(pos);
                 }
-            });
+            });*/
         }
 
         public void setData(CartItem cartItem) {
