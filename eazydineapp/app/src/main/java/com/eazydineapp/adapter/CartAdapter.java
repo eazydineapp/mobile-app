@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.eazydineapp.R;
+import com.eazydineapp.backend.vo.Order;
 import com.eazydineapp.model.CartItem;
 
 import java.util.ArrayList;
@@ -33,6 +34,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     public CartAdapter(Context context, ArrayList<CartItem> dataList) {
         this.context = context;
         this.dataList = new ArrayList<>(dataList);
+    }
+
+    public void setCartItems(List<CartItem> dataList) {
+        this.dataList = new ArrayList<>(dataList);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -84,7 +90,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
         public void setData(CartItem cartItem) {
             name.setText(cartItem.getName());
-            price.setText(context.getString(R.string.rs) + " x " + cartItem.getPrice());
+            price.setText(" x " + context.getString(R.string.rs) + cartItem.getPrice());
             priceTotal.setText(context.getString(R.string.rs) + " " + cartItem.getPriceTotal());
             quantity.setText(String.valueOf(cartItem.getQuantity()));
             //Glide.with(context).load(cartItem.getImageRes()).into(itemImage);

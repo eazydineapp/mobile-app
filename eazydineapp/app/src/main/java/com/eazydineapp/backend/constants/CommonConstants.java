@@ -9,7 +9,7 @@ public interface CommonConstants {
 
 
     String ITEMS_PATH = "items";
-    String ORDER_PATH = "restaurants/restaurantIdchipotle/tableId/transactionId2/orderId1";
+    String ORDER_PATH = "orders";
     String ROOT_PATH = "/";
     String COOK_PATH = "cook";
     String USER_PATH = "users";

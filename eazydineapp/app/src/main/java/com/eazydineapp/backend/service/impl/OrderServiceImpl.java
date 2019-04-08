@@ -15,45 +15,36 @@ public class OrderServiceImpl implements OrderService {
     OrderDAO orderDAO = new OrderDAOImpl();
 
     @Override
-    public void add(Order order) {
+    public void addToCart(Order order) {
         try {
-            orderDAO.add(order);
+            orderDAO.addToCart(order);
         } catch (ItemException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void delete(String id) {
+    public void getOrderByUser(String userId, UIOrderService uiOrderService) {
         try {
-            orderDAO.delete(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void readByCook(String cookId, UIOrderService uiOrderService) {
-        try {
-            orderDAO.readByCook(cookId, uiOrderService);
+            orderDAO.getOrderByUser(userId, uiOrderService);
         } catch (ItemException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void readByUser(String userId, UIOrderService uiOrderService) {
+    public void getCartByUser(String userId, UIOrderService uiOrderService) {
         try {
-            orderDAO.readByUser(userId, uiOrderService);
+            orderDAO.getCartByUser(userId, uiOrderService);
         } catch (ItemException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void update(Order order) {
+    public void updateOrder(Order order) {
         try {
-            orderDAO.update(order);
+            orderDAO.updateOrder(order);
         } catch (ItemException e) {
             e.printStackTrace();
         }

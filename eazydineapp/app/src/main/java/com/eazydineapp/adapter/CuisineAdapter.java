@@ -30,6 +30,7 @@ public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.MyViewHo
     public CuisineAdapter(Context context, CuisineListToggleListener listToggleListener) {
         this.context = context;
         this.listToggleListener = listToggleListener;
+        //TODO Change to categories we have - from DB or Hard code?
         this.dataList = new ArrayList<>();
         this.dataList.add(new CuisineCategory("Popular"));
         this.dataList.add(new CuisineCategory("Main course"));
@@ -91,6 +92,7 @@ public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.MyViewHo
             cuisineItemToggle.setImageDrawable(ContextCompat.getDrawable(context, category.isSelected() ? R.drawable.ic_keyboard_arrow_up_accent_24dp : R.drawable.ic_keyboard_arrow_down_accent_24dp));
 
             cuisineItemList.setLayoutManager(new LinearLayoutManager(context));
+            //TODO load menu items here - create setter method from fragment
             cuisineItemList.setAdapter(new RestaurantMenuAdapter(context));
             cuisineItemList.setVisibility(category.isSelected() ? View.VISIBLE : View.GONE);
 

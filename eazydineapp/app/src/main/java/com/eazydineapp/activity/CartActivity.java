@@ -17,6 +17,7 @@ import com.eazydineapp.R;
 import com.eazydineapp.adapter.CartAdapter;
 import com.eazydineapp.backend.service.api.OrderService;
 import com.eazydineapp.backend.service.impl.OrderServiceImpl;
+import com.eazydineapp.backend.ui.api.UIOrderService;
 import com.eazydineapp.backend.vo.Order;
 import com.eazydineapp.backend.vo.OrderStatus;
 import com.eazydineapp.checkout.CheckoutActivity;
@@ -34,9 +35,11 @@ import java.util.List;
 
 public class CartActivity extends AppCompatActivity {
     private RecyclerView cartRecycler;
+    CartAdapter cartAdapter;
     private ArrayList<CartItem> cartItems;
+    private Order order;
     private Handler mHandler;
-    private TextView tv,mp;
+    private TextView tv,mp, orderPlaceName, orderPlaceAddress, orderTotal, serviceCharge, subTotal, tax;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,28 +99,58 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void createOrder() {
-        Double totalPrice = 0.0;
-        for (CartItem item : cartItems) {
-            totalPrice += item.getPriceTotal();
+        if(null != order) {
+            order.setOrderStatus(OrderStatus.Placed);
+            OrderService orderService = new OrderServiceImpl();
+            orderService.updateOrder(order);
         }
-
-        Order order = new Order("order Id to be generated", OrderStatus.Placed, Calendar.getInstance().getTime().toString(), totalPrice, true, "Anu", "1",
-                "Peacock Indian Cuisine", "Fremont, CA", cartItems);
-
-        OrderService orderService = new OrderServiceImpl();
-        orderService.add(order);
     }
 
     private void setupCartRecycler() {
         cartRecycler.setLayoutManager(new LinearLayoutManager(this));
-        CartAdapter cartAdapter = new CartAdapter(this, this.cartItems);
+        cartAdapter = new CartAdapter(this, this.cartItems);
         cartRecycler.setAdapter(cartAdapter);
     }
 
     private void loadCartValue() {
-        ArrayList<CartItem> cartItems = new ArrayList<>();
-        cartItems.add(new CartItem("Ginger chicken curry", "Entree", 400, 1, "", "1"));
-        cartItems.add(new CartItem("Paneer khurchan", "Entree", 370, 1, "", "2"));
-        this.cartItems = cartItems;
+        order = new Order();
+        cartItems = new ArrayList<>();
+
+        OrderService orderService = new OrderServiceImpl();
+        orderService.getCartByUser("1", new UIOrderService() {
+            @Override
+            public void displayAllOrders(List<Order> orders) {
+            }
+
+            @Override
+            public void displayOrder(Order dbOrder) {
+                order = dbOrder;
+                if(null != dbOrder) {
+                    orderPlaceName = findViewById(R.id.orderPlaceName);
+                    orderPlaceName.setText(dbOrder.getRestaurantName());
+
+                    orderPlaceAddress  = findViewById(R.id.orderPlaceAddress);
+                    orderPlaceAddress.setText(dbOrder.getRestaurantAddress());
+
+                    float serviceChargeVal = 0.04f*dbOrder.getTotalPrice();
+                    serviceCharge  = findViewById(R.id.serviceCharge);
+                    serviceCharge.setText("$"+String.valueOf(serviceChargeVal));
+
+                    float taxVal = 0.1f*dbOrder.getTotalPrice();
+                    tax = findViewById(R.id.tax);
+                    tax.setText("$"+String.valueOf(taxVal));
+
+                    subTotal  = findViewById(R.id.subTotal);
+                    subTotal.setText("$"+String.valueOf(dbOrder.getTotalPrice()));
+
+                    float orderTotalVal = serviceChargeVal + taxVal + dbOrder.getTotalPrice();
+                    orderTotal  = findViewById(R.id.orderTotal);
+                    orderTotal.setText("$"+String.valueOf(orderTotalVal));
+
+                    cartItems.addAll(dbOrder.getItemList());
+                    cartAdapter.setCartItems(cartItems);
+                }
+            }
+        });
     }
 }

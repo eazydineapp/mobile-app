@@ -71,8 +71,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
         }
 
         public void setData(Order order) {
-
-         }
+            //TODO set data values for list page
+        }
 
     }
 }

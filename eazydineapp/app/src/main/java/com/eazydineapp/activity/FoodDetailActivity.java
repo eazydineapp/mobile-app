@@ -11,20 +11,32 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.eazydineapp.R;
+import com.eazydineapp.backend.service.api.OrderService;
+import com.eazydineapp.backend.service.impl.OrderServiceImpl;
+import com.eazydineapp.backend.vo.Order;
+import com.eazydineapp.backend.vo.OrderStatus;
+import com.eazydineapp.model.CartItem;
 import com.eazydineapp.model.RestaurantMenu;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 
 public class FoodDetailActivity extends AppCompatActivity {
     private static String EXTRA_REST_MENU = "restaurant_menu";
 
+    private CartItem cartItem;
     private RestaurantMenu restaurantMenu;
-
     private AppBarLayout appBarLayout;
     private CollapsingToolbarLayout collapsingToolbarLayout;
-    private TextView cartNotificationCount;
+    private TextView cartNotificationCount, itemQuantity;
+    private ImageView itemQtyPlus, itemQtyMinus;
     private Toolbar toolbar;
+    private Button button;
 
 
 
@@ -36,9 +48,64 @@ public class FoodDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         restaurantMenu = getIntent().getParcelableExtra(EXTRA_REST_MENU);
         initUi();
-        //TODO add to cart, generate cart id which is later used as order id, add to same cart. If id is already present for this user no need to generate cart id
-        //TODO onclick listener for add to order
+        initItemQtyButtons();
 
+        button = findViewById(R.id.addToCart);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("Add to cart clicked ######################################################################################");
+                addItemToCart();
+            }
+        });
+
+    }
+
+    private void initItemQtyButtons() {
+        itemQuantity = findViewById(R.id.itemQuantity);
+
+        itemQtyPlus = findViewById(R.id.itemQuantityPlus);
+        itemQtyPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Integer count = Integer.parseInt(itemQuantity.getText().toString());
+                ++count;
+                itemQuantity.setText(count.toString());
+            }
+        });
+
+        itemQtyMinus = findViewById(R.id.itemQuantityMinus);
+        itemQtyMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Integer count = Integer.parseInt(itemQuantity.getText().toString());
+                if(count > 0) --count;
+                itemQuantity.setText(count.toString());
+            }
+        });
+    }
+
+    private void addItemToCart() {
+        ArrayList<CartItem> cartItems = new ArrayList<>();
+
+        cartItem.setQuantity(Integer.parseInt(itemQuantity.getText().toString()));
+        cartItems.add(cartItem);
+
+        Order order = new Order("order Id to be generated", OrderStatus.Cart, Calendar.getInstance().getTime().toString(), cartItem.getPriceTotal(), true,
+                "Anu", "1","1", "Peacock Indian Cuisine", "Fremont, CA", cartItems);
+
+        OrderService orderService = new OrderServiceImpl();
+        orderService.addToCart(order);
+    }
+
+    private void setItemDetailView() {
+        cartItem = new CartItem("Paneer Kurchan", "Side", 3, 1, "", "1");
+
+        TextView nameView = findViewById(R.id.foodName);
+        nameView.setText(cartItem.getName());
+
+        TextView priceView = findViewById(R.id.foodPrice);
+        priceView.setText(String.valueOf(cartItem.getPrice()));
     }
 
     private void initUi() {
@@ -78,6 +145,7 @@ public class FoodDetailActivity extends AppCompatActivity {
                 }
             }
         });
+        setItemDetailView();
     }
 
     @Override

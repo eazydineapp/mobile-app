@@ -34,6 +34,7 @@ public class RestaurantActivity extends AppCompatActivity {
         });
         recyclerRestaurants = findViewById(R.id.recyclerRestaurants);
         setupRecyclerRestaurants();
+        //TODO load restaurants here
     }
 
 

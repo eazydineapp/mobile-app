@@ -34,7 +34,7 @@ public class OrdersFragment extends Fragment {
 
     private void loadOrdersForUser() {
         OrderService orderService = new OrderServiceImpl();
-        orderService.readByUser("1", new UIOrderService() {
+        orderService.getOrderByUser("1", new UIOrderService() {
             @Override
             public void displayAllOrders(List<Order> orders) {
                 dataList.addAll(orders);

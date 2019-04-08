@@ -59,7 +59,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
     }
 
     private void setCartCount() {
-        int NOTIFICATION_COUNT = 1;
+        int NOTIFICATION_COUNT = 1; //TODO set cart count
         if (cartNotificationCount != null) {
             if (NOTIFICATION_COUNT <= 0) {
                 cartNotificationCount.setVisibility(View.GONE);
@@ -73,7 +73,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
     private void setupViewPager() {
         ViewPagerStateAdapter adapter = new ViewPagerStateAdapter(getSupportFragmentManager());
         adapter.addFrag(new CuisineFragment(), "Cuisine");
-        adapter.addFrag(new ReviewFragment(), "Review");
+        //adapter.addFrag(new ReviewFragment(), "Review");
         adapter.addFrag(new InfoFragment(), "Info");
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);

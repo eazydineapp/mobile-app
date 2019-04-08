@@ -80,6 +80,111 @@
 
     </LinearLayout>
 
+    <!--<LinearLayout
+        android:id="@+id/orderStatusIcons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        android:orientation="horizontal"
+        android:layout_below="@+id/orderDatePlaceTotal">
+
+        <LinearLayout
+            android:id="@+id/orderPlacedStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/orderPlaceTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4:00pm"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp8"
+                android:text="Placed"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_circle_primary"
+                android:padding="@dimen/dp8"
+                android:src="@drawable/ic_done_all_white_24dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/orderPreparingStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/orderPreparingTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4:07pm"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp8"
+                android:text="Preparing"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_circle_primary"
+                android:padding="@dimen/dp8"
+                android:src="@drawable/ic_restaurant_menu_white_24dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/orderDeliveredStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/orderDeliverdTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4:00pm"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="invisible" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp8"
+                android:text="Delivered"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_circle_gray"
+                android:padding="@dimen/dp8"
+                android:src="@drawable/ic_store_white_24dp" />
+        </LinearLayout>
+    </LinearLayout>-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerOrders"
@@ -87,7 +192,6 @@
         android:layout_height="match_parent"
         android:background="@color/colorBackground"
         android:layout_below="@+id/orderDatePlaceTotal"/>
-
 
     <LinearLayout
         android:id="@+id/applyFilter"
