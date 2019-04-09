@@ -2,13 +2,13 @@ package com.eazydineapp.backend.vo;
 
 public class Waitlist {
     private String userId;
-    private Long restaurantId;
+    private String restaurantId;
     private Long tableId;
     private WaitStatus status;
 
     public Waitlist() {}
 
-    public Waitlist(String userId, Long restaurantId, WaitStatus status) {
+    public Waitlist(String userId, String restaurantId, WaitStatus status) {
         this.userId = userId;
         this.restaurantId = restaurantId;
         this.tableId = tableId;
@@ -23,11 +23,11 @@ public class Waitlist {
         this.userId = userId;
     }
 
-    public Long getRestaurantId() {
+    public String getRestaurantId() {
         return restaurantId;
     }
 
-    public void setRestaurantId(Long restaurantId) {
+    public void setRestaurantId(String restaurantId) {
         this.restaurantId = restaurantId;
     }
 

@@ -96,7 +96,7 @@ public class HomeFragment extends Fragment {
 
     private void addUserToWaitList(String userId, String restaurantId) {
         OrderService orderService = new OrderServiceImpl();
-        Waitlist waitlist = new Waitlist(userId, Long.parseLong(restaurantId), WaitStatus.Waiting);
+        Waitlist waitlist = new Waitlist(userId, restaurantId, WaitStatus.Waiting);
         orderService.addUserToWaitList(waitlist);
     }
 

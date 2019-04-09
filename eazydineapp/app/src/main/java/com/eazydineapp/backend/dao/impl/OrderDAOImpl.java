@@ -237,7 +237,7 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public void addUserToWaitList(Waitlist waitlist) {
         try {
-            final String waitListPath = PathUtil.getWaitListPath();
+            final String waitListPath = PathUtil.getWaitListPath()+waitlist.getRestaurantId();
             System.out.println("Ading user to waitlist");
             DAOUtil.getDatabaseReference().child(waitListPath).child(waitlist.getUserId()).setValue(waitlist).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
