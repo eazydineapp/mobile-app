@@ -7,6 +7,7 @@ import com.eazydineapp.backend.exception.ItemException;
 import com.eazydineapp.backend.service.api.OrderService;
 import com.eazydineapp.backend.ui.api.UIOrderService;
 import com.eazydineapp.backend.vo.Order;
+import com.eazydineapp.backend.vo.Waitlist;
 
 import java.util.List;
 
@@ -58,5 +59,14 @@ public class OrderServiceImpl implements OrderService {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void addUserToWaitList(Waitlist waitlist) {
+        try {
+            orderDAO.addUserToWaitList(waitlist);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

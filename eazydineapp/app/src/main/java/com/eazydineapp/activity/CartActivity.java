@@ -39,7 +39,7 @@ public class CartActivity extends AppCompatActivity {
     private Order order;
     private Handler mHandler;
     private TextView tv,mp, orderPlaceName, orderPlaceAddress, orderTotal, serviceCharge, subTotal, tax;
-    private String userId, restaurantId;
+    private String userId = "1", restaurantId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +56,7 @@ public class CartActivity extends AppCompatActivity {
             }
         });
         cartRecycler = findViewById(R.id.cartRecycler);
+        restaurantId = getIntent().getStringExtra("eazydine-restaurantId");
         loadCartValue();
         setupCartRecycler();
         mp = (TextView) findViewById(R.id.checkoutAmount);
@@ -64,7 +65,7 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if("Place Order".equals(tv.getText())) {
-                    createOrder();
+                    createOrder(); //TODO check if user has a table, if not pre-order
                     loadOrdersFragment();
                     tv.setText("Continue to Order");
                     tv.setGravity(Gravity.CENTER);
@@ -77,7 +78,11 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void loadOrdersFragment() {
+        Bundle bundle = new Bundle();
+        bundle.putString("eazydine-restaurantId", restaurantId);
+
         final Fragment finalFragment = new OrdersFragment();
+        finalFragment.setArguments(bundle);
         Runnable mPendingRunnable = new Runnable() {
             @Override
             public void run() {
@@ -115,7 +120,7 @@ public class CartActivity extends AppCompatActivity {
         cartItems = new ArrayList<>();
 
         OrderService orderService = new OrderServiceImpl();
-        orderService.getCartByUser("1", new UIOrderService() {
+        orderService.getCartByUser(userId, new UIOrderService() {
             @Override
             public void displayAllOrders(List<Order> orders) {
             }

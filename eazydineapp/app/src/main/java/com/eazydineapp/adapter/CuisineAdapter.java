@@ -34,7 +34,6 @@ public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.MyViewHo
     public CuisineAdapter(Context context, CuisineListToggleListener listToggleListener) {
         this.context = context;
         this.listToggleListener = listToggleListener;
-        //TODO Change to categories we have - from DB or Hard code?
         this.dataList = new ArrayList<>();
         this.menus = new HashMap<>();
         /*this.dataList.add(new CuisineCategory("Popular"));

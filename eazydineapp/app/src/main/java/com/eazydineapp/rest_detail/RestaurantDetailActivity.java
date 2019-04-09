@@ -75,7 +75,9 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         cartActionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), CartActivity.class));
+                Intent newIntent = new Intent(getApplicationContext(), CartActivity.class);
+                newIntent.putExtra("eazydine-restaurantId", restaurant.getId());
+                startActivity(newIntent);
             }
         });
         setCartCount();

@@ -96,7 +96,7 @@ public class FoodDetailActivity extends AppCompatActivity {
         cartItems.add(cartItem);
 
         Order order = new Order("order Id to be generated", OrderStatus.Cart, Calendar.getInstance().getTime().toString(), cartItem.getPriceTotal(), false,
-                "Anu", "1", restaurantMenu.getRestaurantId(), restaurantMenu.getRestaurantName(), restaurantMenu.getRestaurantAddress(), cartItems);
+                "Anu", "1", restaurantMenu.getRestaurantId(), restaurantMenu.getRestaurantName(), restaurantMenu.getRestaurantAddress(), cartItems); //TODO: add user details
 
         OrderService orderService = new OrderServiceImpl();
         orderService.addToCart(order);
@@ -164,7 +164,9 @@ public class FoodDetailActivity extends AppCompatActivity {
         cartActionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), CartActivity.class));
+                Intent newIntent = new Intent(getApplicationContext(), CartActivity.class);
+                newIntent.putExtra("eazydine-restaurantId", restaurantMenu.getRestaurantId());
+                startActivity(newIntent);
             }
         });
         setCartCount();

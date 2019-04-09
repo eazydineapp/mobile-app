@@ -67,7 +67,7 @@ public class RestaurantActivity extends AppCompatActivity {
     }
 
     private void loadRestaurants() {
-        String restaurantId = getIntent().getStringExtra("restaurantId");
+        String restaurantId = getIntent().getStringExtra("eazydine-restaurantId");
         if(null == restaurantId) {
             loadAllRestaurants();
         }else {

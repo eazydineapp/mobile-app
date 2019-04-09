@@ -27,7 +27,8 @@ import java.util.List;
 public class OrdersFragment extends Fragment {
     private RecyclerView recyclerOrders;
     private List<Order> dataList;
-    OrdersAdapter ordersAdapter;
+    private OrdersAdapter ordersAdapter;
+    private String restaurantId;
 
     public OrdersFragment() {
         this.dataList = new ArrayList<>();
@@ -35,7 +36,7 @@ public class OrdersFragment extends Fragment {
 
     private void loadOrdersForUser() {
         OrderService orderService = new OrderServiceImpl();
-        orderService.getOrderByUserAndRestaurant("1", "76", new UIOrderService() {
+        orderService.getOrderByUserAndRestaurant("1", restaurantId, new UIOrderService() { //TODO: pass user id and restaurant id
             @Override
             public void displayAllOrders(List<Order> orders) {
                 dataList.addAll(orders);
@@ -60,7 +61,6 @@ public class OrdersFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ordersAdapter = new OrdersAdapter(getContext());
-        loadOrdersForUser();
     }
 
     @Override
@@ -70,6 +70,9 @@ public class OrdersFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        restaurantId = getArguments().getString("eazydine-restaurantId");
+        loadOrdersForUser();
+
         View view = inflater.inflate(R.layout.fragment_orders, container, false);
         TextView checkOut = view.findViewById(R.id.checkoutText);
         checkOut.setOnClickListener(new View.OnClickListener() {

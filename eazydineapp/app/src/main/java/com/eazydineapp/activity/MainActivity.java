@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private final String FRAG_TAG_DETAILS = "My Details";
     private String fragTagCurrent = null;
     private int REQUEST_CODE_LOCATION = 99;
+    private String restaurantId;
 
 
     @Override
@@ -176,7 +177,10 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new DetailsFragment();
                 break;
             case FRAG_TAG_ORDERS:
+                Bundle bundle = new Bundle();
+                bundle.putString("eazydine-restaurantId", restaurantId); //TODO: Load restaurant id from waitlist
                 fragment = new OrdersFragment();
+                fragment.setArguments(bundle);
                 break;
             case FRAG_TAG_SUPPORT:
                 fragment = new SupportFragment();
@@ -219,5 +223,9 @@ public class MainActivity extends AppCompatActivity {
             loadFragment(FRAG_TAG_HOME);
         else
             super.onBackPressed();
+    }
+
+    public void setRestaurantId(String id) {
+        this.restaurantId = id;
     }
 }

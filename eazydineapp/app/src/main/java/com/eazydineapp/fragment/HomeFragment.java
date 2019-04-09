@@ -18,10 +18,15 @@ import android.widget.TextView;
 
 import com.eazydineapp.R;
 import com.eazydineapp.activity.CartActivity;
+import com.eazydineapp.activity.MainActivity;
 import com.eazydineapp.activity.RefineActivity;
 import com.eazydineapp.activity.RestaurantActivity;
 import com.eazydineapp.adapter.FoodCategoryAdapter;
 import com.eazydineapp.adapter.RestaurantAdapter;
+import com.eazydineapp.backend.service.api.OrderService;
+import com.eazydineapp.backend.service.impl.OrderServiceImpl;
+import com.eazydineapp.backend.vo.WaitStatus;
+import com.eazydineapp.backend.vo.Waitlist;
 
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerFood, recyclerRestaurants;
@@ -78,12 +83,21 @@ public class HomeFragment extends Fragment {
         nfc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String restaurantId = "76";
+                ((MainActivity)getActivity()).setRestaurantId(restaurantId);
+                addUserToWaitList("1", restaurantId); //TODO: user id to be populated
                 Intent newIntent = new Intent(getContext(), RestaurantActivity.class);
-                newIntent.putExtra("restaurantId", "76");
+                newIntent.putExtra("eazydine-restaurantId", restaurantId); //TODO NFC reader to load restaurant id
                 startActivity(newIntent);
             }
         });
         return view;
+    }
+
+    private void addUserToWaitList(String userId, String restaurantId) {
+        OrderService orderService = new OrderServiceImpl();
+        Waitlist waitlist = new Waitlist(userId, Long.parseLong(restaurantId), WaitStatus.Waiting);
+        orderService.addUserToWaitList(waitlist);
     }
 
     @Override

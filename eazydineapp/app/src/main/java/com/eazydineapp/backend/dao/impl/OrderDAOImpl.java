@@ -12,6 +12,7 @@ import com.eazydineapp.backend.util.PathUtil;
 import com.eazydineapp.backend.vo.CartItem;
 import com.eazydineapp.backend.vo.Order;
 import com.eazydineapp.backend.vo.OrderStatus;
+import com.eazydineapp.backend.vo.Waitlist;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -64,8 +65,7 @@ public class OrderDAOImpl implements OrderDAO {
 
     protected void createCart(Order order) {
         try {
-            String userId = "1";
-            final String orderPath = PathUtil.getUserPath() + userId + PathUtil.getOrderPath();
+            final String orderPath = PathUtil.getUserPath() + order.getUserId() + PathUtil.getOrderPath();
             final String orderId = DAOUtil.getDatabaseReference().push().getKey();
             order.setOrderId(orderId);
             System.out.println("Ading the order..");
@@ -127,10 +127,9 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public void getOrderByUser(String userID, final UIOrderService UIOrderService) throws ItemException {
+    public void getOrderByUser(String userId, final UIOrderService UIOrderService) throws ItemException {
         try {
             System.out.println("List of all orders for given restaurant..");
-            String userId = "1";
             final String orderPath = PathUtil.getUserPath() + userId + PathUtil.getOrderPath();
             DAOUtil.getDatabaseReference().child(orderPath).addValueEventListener(
                     new ValueEventListener() {
@@ -187,10 +186,9 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public void getCartByUser(String userID, final UIOrderService UIOrderService) throws ItemException {
+    public void getCartByUser(String userId, final UIOrderService UIOrderService) throws ItemException {
         try {
             System.out.println("List of all orders for given restaurant..");
-            String userId = "1";
             final String orderPath = PathUtil.getUserPath() + userId + PathUtil.getOrderPath();
             Query query = DAOUtil.getDatabaseReference().child(orderPath).orderByChild("orderStatus").equalTo(OrderStatus.Cart.toString());
             query.addValueEventListener(
@@ -233,6 +231,27 @@ public class OrderDAOImpl implements OrderDAO {
         } catch (Exception exception) {
             Log.e(TAG, "Error updating order", exception);
             throw new ItemException("Error", exception);
+        }
+    }
+
+    @Override
+    public void addUserToWaitList(Waitlist waitlist) {
+        try {
+            final String waitListPath = PathUtil.getWaitListPath();
+            System.out.println("Ading user to waitlist");
+            DAOUtil.getDatabaseReference().child(waitListPath).child(waitlist.getUserId()).setValue(waitlist).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.d(TAG, "Success adding user to waitlist");
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Log.e(TAG, "Error adding user to wait", exception);
+                }
+            });
+        } catch (Exception exception) {
+            Log.e(TAG, "Error adding user to wait", exception);
         }
     }
 }

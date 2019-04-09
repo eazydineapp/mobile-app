@@ -27,7 +27,6 @@ public class CuisineFragment extends Fragment {
 
     public CuisineFragment() {
         // Required empty public constructor
-        //TODO load menu here - Actual items to be set on restaurant adapter, cuisine adapter to have only categories
     }
 
     @Override
