@@ -1,6 +1,5 @@
 package com.eazydineapp.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -18,15 +17,13 @@ import com.eazydineapp.adapter.CartAdapter;
 import com.eazydineapp.backend.service.api.OrderService;
 import com.eazydineapp.backend.service.impl.OrderServiceImpl;
 import com.eazydineapp.backend.ui.api.UIOrderService;
+import com.eazydineapp.backend.vo.CartItem;
 import com.eazydineapp.backend.vo.Order;
 import com.eazydineapp.backend.vo.OrderStatus;
-import com.eazydineapp.checkout.CheckoutActivity;
 import com.eazydineapp.fragment.OrdersFragment;
-import com.eazydineapp.model.CartItem;
 
-import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -42,6 +39,7 @@ public class CartActivity extends AppCompatActivity {
     private Order order;
     private Handler mHandler;
     private TextView tv,mp, orderPlaceName, orderPlaceAddress, orderTotal, serviceCharge, subTotal, tax;
+    private String userId, restaurantId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,18 +130,18 @@ public class CartActivity extends AppCompatActivity {
                     orderPlaceAddress  = findViewById(R.id.orderPlaceAddress);
                     orderPlaceAddress.setText(dbOrder.getRestaurantAddress());
 
-                    float serviceChargeVal = 0.04f*dbOrder.getTotalPrice();
+                    float serviceChargeVal = round(0.04f*dbOrder.getTotalPrice());
                     serviceCharge  = findViewById(R.id.serviceCharge);
                     serviceCharge.setText("$"+String.valueOf(serviceChargeVal));
 
-                    float taxVal = 0.1f*dbOrder.getTotalPrice();
+                    float taxVal = round(0.1f*dbOrder.getTotalPrice());
                     tax = findViewById(R.id.tax);
                     tax.setText("$"+String.valueOf(taxVal));
 
                     subTotal  = findViewById(R.id.subTotal);
                     subTotal.setText("$"+String.valueOf(dbOrder.getTotalPrice()));
 
-                    float orderTotalVal = serviceChargeVal + taxVal + dbOrder.getTotalPrice();
+                    float orderTotalVal = round(serviceChargeVal + taxVal + dbOrder.getTotalPrice());
                     orderTotal  = findViewById(R.id.orderTotal);
                     orderTotal.setText("$"+String.valueOf(orderTotalVal));
 
@@ -152,5 +150,11 @@ public class CartActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private float round(float d) {
+        BigDecimal bd = new BigDecimal(Float.toString(d));
+        bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
+        return bd.floatValue();
     }
 }

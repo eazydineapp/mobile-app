@@ -21,7 +21,7 @@ import com.eazydineapp.backend.service.impl.OrderServiceImpl;
 import com.eazydineapp.backend.ui.api.UIOrderService;
 import com.eazydineapp.backend.vo.Order;
 import com.eazydineapp.backend.vo.OrderStatus;
-import com.eazydineapp.model.CartItem;
+import com.eazydineapp.backend.vo.CartItem;
 import com.eazydineapp.model.RestaurantMenu;
 
 import java.util.ArrayList;

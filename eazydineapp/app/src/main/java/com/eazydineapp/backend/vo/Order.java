@@ -1,7 +1,5 @@
 package com.eazydineapp.backend.vo;
 
-import com.eazydineapp.model.CartItem;
-
 import java.util.List;
 
 public class Order {

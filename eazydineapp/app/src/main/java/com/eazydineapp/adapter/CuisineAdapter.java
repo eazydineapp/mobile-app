@@ -12,10 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.eazydineapp.R;
+import com.eazydineapp.backend.vo.Category;
 import com.eazydineapp.model.CuisineCategory;
+import com.eazydineapp.model.RestaurantMenu;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 /**
  * Created by a_man on 31-01-2018.
@@ -24,7 +27,8 @@ import java.util.Collections;
 public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.MyViewHolder> {
     private Context context;
     private ArrayList<CuisineCategory> dataList;
-
+    HashMap<String,ArrayList<RestaurantMenu>> menus;
+    private RestaurantMenuAdapter restaurantMenuAdapter;
     private CuisineListToggleListener listToggleListener;
 
     public CuisineAdapter(Context context, CuisineListToggleListener listToggleListener) {
@@ -32,7 +36,8 @@ public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.MyViewHo
         this.listToggleListener = listToggleListener;
         //TODO Change to categories we have - from DB or Hard code?
         this.dataList = new ArrayList<>();
-        this.dataList.add(new CuisineCategory("Popular"));
+        this.menus = new HashMap<>();
+        /*this.dataList.add(new CuisineCategory("Popular"));
         this.dataList.add(new CuisineCategory("Main course"));
         this.dataList.add(new CuisineCategory("Lunch"));
         this.dataList.add(new CuisineCategory("Breakfast"));
@@ -42,11 +47,26 @@ public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.MyViewHo
         this.dataList.add(new CuisineCategory("Lunch"));
         this.dataList.add(new CuisineCategory("Breakfast"));
         this.dataList.add(new CuisineCategory("Dinner"));
-        this.dataList.add(new CuisineCategory("Appetizer"));
+        this.dataList.add(new CuisineCategory("Appetizer"));*/
+    }
+
+    public void setCategories(ArrayList<CuisineCategory> categories) {
+        this.dataList = categories;
+        notifyDataSetChanged();
+    }
+
+    public void setMenus(HashMap<String,ArrayList<RestaurantMenu>> menus) {
+        this.menus = menus;
+        notifyDataSetChanged();
+    }
+
+    public void setMenuItems(ArrayList<RestaurantMenu> menuItems) {
+        restaurantMenuAdapter.setMenuItems(menuItems);
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        restaurantMenuAdapter = new RestaurantMenuAdapter(context);
         return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.item_cuisine_cat, parent, false));
     }
 
@@ -92,9 +112,9 @@ public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.MyViewHo
             cuisineItemToggle.setImageDrawable(ContextCompat.getDrawable(context, category.isSelected() ? R.drawable.ic_keyboard_arrow_up_accent_24dp : R.drawable.ic_keyboard_arrow_down_accent_24dp));
 
             cuisineItemList.setLayoutManager(new LinearLayoutManager(context));
-            //TODO load menu items here - create setter method from fragment
-            cuisineItemList.setAdapter(new RestaurantMenuAdapter(context));
+            cuisineItemList.setAdapter(restaurantMenuAdapter);
             cuisineItemList.setVisibility(category.isSelected() ? View.VISIBLE : View.GONE);
+            setMenuItems(menus.get(category.getTitle()));
 
             ViewGroup.LayoutParams layoutParams = rootLayout.getLayoutParams();
             layoutParams.height = category.isSelected() ? ViewGroup.LayoutParams.MATCH_PARENT : ViewGroup.LayoutParams.WRAP_CONTENT;

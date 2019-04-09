@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.eazydineapp.R;
-import com.eazydineapp.model.Restaurant;
+import com.eazydineapp.backend.vo.Restaurant;
 import com.eazydineapp.rest_detail.RestaurantDetailActivity;
 
 import java.util.ArrayList;
@@ -26,14 +26,19 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
     public RestaurantAdapter(Context context) {
         this.context = context;
         this.dataList = new ArrayList<>();
-        this.dataList.add(new Restaurant("Paradise Biryani", "Punjabi food, South indian, more", R.drawable.paradise));
+        /*this.dataList.add(new Restaurant("Paradise Biryani", "Punjabi food, South indian, more", R.drawable.paradise));
         this.dataList.add(new Restaurant("Peacock", "Fast food, coffee, mexican", R.drawable.rest_res_2));
         this.dataList.add(new Restaurant("Ulavcharu", "Chinese food, Punjabi food, South indian, Gujrati food", R.drawable.rest_res_3));
         this.dataList.add(new Restaurant("Mcdonalds", "Fast food, coffee, mexican", R.drawable.rest_res_4));
         this.dataList.add(new Restaurant("Global fusion china", "Chinese food, Punjabi food, South indian, Gujrati food", R.drawable.rest_res_1));
         this.dataList.add(new Restaurant("Red chilly ", "Fast food, coffee, mexican", R.drawable.rest_res_2));
         this.dataList.add(new Restaurant("Mexican grill", "Chinese food, Punjabi food, South indian, Gujrati food", R.drawable.rest_res_3));
-        this.dataList.add(new Restaurant("Dennys", "Fast food, coffee, mexican", R.drawable.rest_res_4));
+        this.dataList.add(new Restaurant("Dennys", "Fast food, coffee, mexican", R.drawable.rest_res_4));*/
+    }
+
+    public void setRestaurants(ArrayList<Restaurant> dataList) {
+        this.dataList = dataList;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -59,7 +64,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
             super(itemView);
             name = itemView.findViewById(R.id.restName);
             description = itemView.findViewById(R.id.restDesc);
-            restMinOrderPrice = itemView.findViewById(R.id.restMinOrderPrice);
+            //restMinOrderPrice = itemView.findViewById(R.id.restMinOrderPrice);
             imageView = itemView.findViewById(R.id.restRes);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -72,10 +77,10 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
 
         public void setData(Restaurant restaurant) {
             name.setText(restaurant.getName());
-            description.setText(restaurant.getDescription());
+            description.setText(restaurant.getTagline());
             //restMinOrderPrice.setText(context.getString(R.string.rs) + " 300");
-            restMinOrderPrice.setText("$10");
-            Glide.with(context).load(restaurant.getImageRes()).into(imageView);
+            //restMinOrderPrice.setText("$10");
+            Glide.with(context).load(restaurant.getRestaurantbgimage()).into(imageView);
         }
     }
 }

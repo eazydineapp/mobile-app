@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.eazydineapp.R;
@@ -24,8 +25,8 @@ import com.eazydineapp.adapter.RestaurantAdapter;
 
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerFood, recyclerRestaurants;
-    private TextView cartNotificationCount;
     private EditText searchTab;
+    private ImageView nfc;
 
 
     public HomeFragment() {
@@ -53,23 +54,12 @@ public class HomeFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater); */
     }
 
-    private void setCartCount() {
-        int NOTIFICATION_COUNT = 1;
-        if (cartNotificationCount != null) {
-            if (NOTIFICATION_COUNT <= 0) {
-                cartNotificationCount.setVisibility(View.GONE);
-            } else {
-                cartNotificationCount.setVisibility(View.VISIBLE);
-                cartNotificationCount.setText(String.valueOf(NOTIFICATION_COUNT));
-            }
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         searchTab = view.findViewById(R.id.search_tab);
-        recyclerFood = view.findViewById(R.id.recyclerFood);
+        nfc = view.findViewById(R.id.nfcTag);
+        //recyclerFood = view.findViewById(R.id.recyclerFood);
         // recyclerRestaurants = view.findViewById(R.id.recyclerRestaurants);
         view.findViewById(R.id.refine).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,13 +74,22 @@ public class HomeFragment extends Fragment {
                 startActivity(new Intent(getContext(), RestaurantActivity.class));
             }
         });
+
+        nfc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newIntent = new Intent(getContext(), RestaurantActivity.class);
+                newIntent.putExtra("restaurantId", "76");
+                startActivity(newIntent);
+            }
+        });
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setupRecyclerFood();
+       // setupRecyclerFood();
 //      setupRecyclerRestaurants();
     }
 

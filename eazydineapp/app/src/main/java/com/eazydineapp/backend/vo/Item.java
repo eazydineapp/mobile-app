@@ -1,32 +1,30 @@
 package com.eazydineapp.backend.vo;
 
+import java.io.Serializable;
+
 /**
  * Created by ravisha on 4/26/18.
  */
 
-public class Item {
+public class Item implements Serializable {
+    private Long id;
     private String name;
-    private String category;
     private String description;
     private float price;
-    private int quantity;
-    private String photoPath;
-    private String itemId;
-    private String userName;
+    private int serves;
+    private String imagepath;
+    private Category category;
+    private Menu menu;
 
-    public Item(){
 
+    public Menu getMenu() { return menu; }
+
+    public Long getId() {
+        return id;
     }
 
-    public Item(String name, String category, String description, float price, int quantity, String photoPath, String itemId, String userName) {
-        this.name = name;
-        this.category = category;
-        this.description = description;
-        this.price = price;
-        this.quantity = quantity;
-        this.photoPath = photoPath;
-        this.itemId = itemId;
-        this.userName = userName;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -35,14 +33,6 @@ public class Item {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public String getDescription() {
@@ -61,35 +51,28 @@ public class Item {
         this.price = price;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public String getImagepath() {
+        return imagepath;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setImagepath(String imagepath) {
+        this.imagepath = imagepath;
     }
 
-    public String getPhotoPath() {
-        return photoPath;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setPhotoPath(String photoPath) {
-        this.photoPath = photoPath;
+    public void setCategory(Category category) {
+
+        this.category = category;
     }
 
-    public String getItemId() {
-        return itemId;
+    public int getServes() {
+        return serves;
     }
 
-    public void setItemId(String itemId) {
-        this.itemId = itemId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setServes(int serves) {
+        this.serves = serves;
     }
 }

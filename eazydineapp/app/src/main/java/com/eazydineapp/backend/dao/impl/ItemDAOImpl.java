@@ -32,7 +32,7 @@ public class ItemDAOImpl implements ItemDAO {
     public void add(Item item) throws ItemException{
         try{
             String itemId = DAOUtil.getDatabaseReference().push().getKey();
-            item.setItemId(itemId);
+            //item.setItemId(itemId);
 
             DAOUtil.getDatabaseReference().child(itemPath).child(itemId).setValue(item);
 

@@ -18,8 +18,8 @@ import com.eazydineapp.adapter.OrdersAdapter;
 import com.eazydineapp.backend.service.api.OrderService;
 import com.eazydineapp.backend.service.impl.OrderServiceImpl;
 import com.eazydineapp.backend.ui.api.UIOrderService;
+import com.eazydineapp.backend.vo.CartItem;
 import com.eazydineapp.backend.vo.Order;
-import com.eazydineapp.model.CartItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class OrdersFragment extends Fragment {
 
     private void loadOrdersForUser() {
         OrderService orderService = new OrderServiceImpl();
-        orderService.getOrderByUserAndRestaurant("1", "1", new UIOrderService() {
+        orderService.getOrderByUserAndRestaurant("1", "76", new UIOrderService() {
             @Override
             public void displayAllOrders(List<Order> orders) {
                 dataList.addAll(orders);

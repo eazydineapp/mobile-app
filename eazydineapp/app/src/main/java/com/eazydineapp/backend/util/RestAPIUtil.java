@@ -6,14 +6,16 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.eazydineapp.backend.ui.api.UIRestaurantService;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class RestAPIUtil {
 
-    private final String BASE_URL = "http://54.177.122.80:8080";//"http://192.168.1.109:8080"; //"http://192.168.0.33:8080";//"http://18.221.192.106:8080";
+    private final String BASE_URL = "http://192.168.1.6:8080";
 
     public void executePostAPI(Context context, String uri, JSONObject jsonObject, final UIRestaurantService callback) {
         APIRequestQueue queue =  APIRequestQueue.getInstance(context);
@@ -51,5 +53,24 @@ public class RestAPIUtil {
             }
         });
         queue.getRequestQueue().add(jsonObjectRequest);
+    }
+
+    public void executeGetListAPI(Context context, String uri, final UIRestaurantService callback) {
+        APIRequestQueue queue =  APIRequestQueue.getInstance(context);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET,  BASE_URL + uri, null, new Response.Listener<JSONArray> () {
+
+            @Override
+            public void onResponse(JSONArray jsonArray) {
+                callback.onSuccess(jsonArray);
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("RestApiClient", "Error: " + error.getMessage());
+                callback.onError(error.getMessage());
+            }
+        });
+        queue.getRequestQueue().add(jsonArrayRequest);
     }
 }

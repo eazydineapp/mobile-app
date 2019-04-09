@@ -6,7 +6,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="openDrawer">Drawer open</string>
     <string name="closeDrawer">Drawer close</string>
-    <string name="hint_home_search">Search chef or food</string>
+    <string name="hint_home_search">Search Restaurants</string>
     <string name="label_order">Tap 2 Dine</string>
     <string name="label_restaurants">Restaurants near you</string>
     <string name="rs">"$"</string>

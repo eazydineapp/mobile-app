@@ -1,7 +1,6 @@
 package com.eazydineapp.adapter;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.eazydineapp.R;
-import com.eazydineapp.backend.service.api.OrderService;
-import com.eazydineapp.backend.service.impl.OrderServiceImpl;
-import com.eazydineapp.backend.ui.api.UIOrderService;
-import com.eazydineapp.backend.vo.Order;
-import com.eazydineapp.backend.vo.OrderStatus;
-import com.eazydineapp.model.CartItem;
+import com.eazydineapp.backend.vo.CartItem;
 
 import java.util.ArrayList;
 import java.util.List;

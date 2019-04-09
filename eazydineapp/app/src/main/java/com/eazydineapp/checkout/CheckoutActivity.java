@@ -8,23 +8,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
 
 import com.eazydineapp.R;
-import com.eazydineapp.backend.service.api.OrderService;
-import com.eazydineapp.backend.service.impl.OrderServiceImpl;
-import com.eazydineapp.backend.vo.Item;
-import com.eazydineapp.backend.vo.Order;
-import com.eazydineapp.backend.vo.OrderStatus;
-import com.eazydineapp.model.CartItem;
+import com.eazydineapp.backend.vo.CartItem;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 public class CheckoutActivity extends AppCompatActivity {
 

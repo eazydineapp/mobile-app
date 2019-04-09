@@ -8,10 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.eazydineapp.R;
-import com.eazydineapp.backend.vo.Order;
-import com.eazydineapp.model.CartItem;
+import com.eazydineapp.backend.vo.CartItem;
 
 import java.util.ArrayList;
 import java.util.List;

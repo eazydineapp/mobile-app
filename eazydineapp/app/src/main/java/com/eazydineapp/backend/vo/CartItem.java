@@ -1,4 +1,4 @@
-package com.eazydineapp.model;
+package com.eazydineapp.backend.vo;
 
 import java.io.Serializable;
 
@@ -22,6 +22,7 @@ public class CartItem implements Serializable {
         this.category = category;
         this.price = price;
         this.quantity = quantity;
+        this.priceTotal = this.price * this.quantity;
         this.photoPath = photoPath;
         this.itemId = itemId;
     }
