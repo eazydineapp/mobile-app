@@ -8,7 +8,6 @@ public class Order {
     private String orderDate;
     private float totalPrice;
     private boolean isPaid;
-    private String userName;
     private String userId;
     private String restaurantId;
     private String restaurantName;
@@ -19,14 +18,13 @@ public class Order {
 
     }
 
-    public Order(String orderId, OrderStatus orderStatus, String orderDate, float totalPrice, boolean isPaid, String userName, String userId, String restaurantId,
+    public Order(String orderId, OrderStatus orderStatus, String orderDate, float totalPrice, boolean isPaid, String userId, String restaurantId,
                  String restaurantName, String restaurantAddress, List<CartItem> itemList) {
         this.orderId = orderId;
         this.orderStatus = orderStatus;
         this.orderDate = orderDate;
         this.totalPrice = totalPrice;
         this.isPaid = isPaid;
-        this.userName = userName;
         this.userId = userId;
         this.restaurantId = restaurantId;
         this.restaurantName = restaurantName;
@@ -72,14 +70,6 @@ public class Order {
 
     public void setPaid(boolean paid) {
         isPaid = paid;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getUserId() {

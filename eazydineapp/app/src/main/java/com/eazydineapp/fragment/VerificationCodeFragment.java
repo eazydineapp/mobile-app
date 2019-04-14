@@ -14,6 +14,7 @@ import android.widget.ImageView;
 
 import com.eazydineapp.R;
 import com.eazydineapp.activity.MainActivity;
+import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
 import com.eazydineapp.location.LocationActivity;
 
 import butterknife.BindView;

@@ -25,6 +25,7 @@ import com.eazydineapp.backend.service.impl.OrderServiceImpl;
 import com.eazydineapp.backend.service.impl.RestaurantServiceImpl;
 import com.eazydineapp.backend.ui.api.UIOrderService;
 import com.eazydineapp.backend.ui.api.UIRestaurantService;
+import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
 import com.eazydineapp.backend.vo.Category;
 import com.eazydineapp.backend.vo.Item;
 import com.eazydineapp.backend.vo.Order;
@@ -75,9 +76,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         cartActionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent newIntent = new Intent(getApplicationContext(), CartActivity.class);
-                newIntent.putExtra("eazydine-restaurantId", restaurant.getId());
-                startActivity(newIntent);
+                startActivity(new Intent(getApplicationContext(), CartActivity.class));
             }
         });
         setCartCount();
@@ -85,8 +84,11 @@ public class RestaurantDetailActivity extends AppCompatActivity {
     }
 
     private void setCartCount() {
+        AndroidStoragePrefUtil storagePrefUtil = new AndroidStoragePrefUtil();
+        String userId = storagePrefUtil.getRegisteredUser(this);
+
         OrderService orderService = new OrderServiceImpl();
-        orderService.getCartByUser("1", new UIOrderService() {
+        orderService.getCartByUser(userId, new UIOrderService() {
             @Override
             public void displayAllOrders(List<Order> orders) {
             }
@@ -184,6 +186,9 @@ public class RestaurantDetailActivity extends AppCompatActivity {
 
     private void initUi() {
         restaurant = (Restaurant) getIntent().getSerializableExtra(EXTRA_REST_NAME);
+
+        final AndroidStoragePrefUtil storagePrefUtil = new AndroidStoragePrefUtil();
+        storagePrefUtil.putKeyValue(this, "RESTAURANT_ID", String.valueOf(restaurant.getId()));
 
         TextView restaurantNameView = findViewById(R.id.restName);
         restaurantNameView.setText(restaurant.getName());

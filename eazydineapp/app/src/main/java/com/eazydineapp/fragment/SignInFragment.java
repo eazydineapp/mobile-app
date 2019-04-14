@@ -6,8 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.eazydineapp.R;
+import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
 import com.eazydineapp.interactor.AuthInnerInteractor;
 
 public class SignInFragment extends Fragment {
@@ -32,10 +35,14 @@ public class SignInFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        final Fragment thisFragment = this;
         View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
         view.findViewById(R.id.signIn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                EditText phoneNumber = getActivity().findViewById(R.id.phoneNumber);
+                AndroidStoragePrefUtil storagePrefUtil = new AndroidStoragePrefUtil();
+                storagePrefUtil.saveRegisteredUser(thisFragment, phoneNumber.getText().toString());
                 innerInteractor.switchToMain();
             }
         });

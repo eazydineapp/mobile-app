@@ -19,6 +19,7 @@ import com.eazydineapp.R;
 import com.eazydineapp.backend.service.api.OrderService;
 import com.eazydineapp.backend.service.impl.OrderServiceImpl;
 import com.eazydineapp.backend.ui.api.UIOrderService;
+import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
 import com.eazydineapp.backend.vo.Order;
 import com.eazydineapp.backend.vo.OrderStatus;
 import com.eazydineapp.backend.vo.CartItem;
@@ -43,6 +44,7 @@ public class FoodDetailActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private Button button;
     private int cartItemCount;
+    private String userId;
 
 
     @Override
@@ -52,6 +54,11 @@ public class FoodDetailActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         restaurantMenu = getIntent().getParcelableExtra(EXTRA_REST_MENU);
+
+        AndroidStoragePrefUtil storagePrefUtil = new AndroidStoragePrefUtil();
+        userId = storagePrefUtil.getRegisteredUser(this);
+        storagePrefUtil.getValue(this, "RESTAURANT_ID");
+
         initUi();
         initItemQtyButtons();
 
@@ -96,7 +103,7 @@ public class FoodDetailActivity extends AppCompatActivity {
         cartItems.add(cartItem);
 
         Order order = new Order("order Id to be generated", OrderStatus.Cart, Calendar.getInstance().getTime().toString(), cartItem.getPriceTotal(), false,
-                "Anu", "1", restaurantMenu.getRestaurantId(), restaurantMenu.getRestaurantName(), restaurantMenu.getRestaurantAddress(), cartItems); //TODO: add user details
+                userId, restaurantMenu.getRestaurantId(), restaurantMenu.getRestaurantName(), restaurantMenu.getRestaurantAddress(), cartItems);
 
         OrderService orderService = new OrderServiceImpl();
         orderService.addToCart(order);
@@ -164,9 +171,7 @@ public class FoodDetailActivity extends AppCompatActivity {
         cartActionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent newIntent = new Intent(getApplicationContext(), CartActivity.class);
-                newIntent.putExtra("eazydine-restaurantId", restaurantMenu.getRestaurantId());
-                startActivity(newIntent);
+                startActivity(new Intent(getApplicationContext(), CartActivity.class));
             }
         });
         setCartCount();
@@ -176,7 +181,7 @@ public class FoodDetailActivity extends AppCompatActivity {
 
     private void setCartCount() {
         OrderService orderService = new OrderServiceImpl();
-        orderService.getCartByUser("1", new UIOrderService() {
+        orderService.getCartByUser(userId, new UIOrderService() {
             @Override
             public void displayAllOrders(List<Order> orders) {
             }

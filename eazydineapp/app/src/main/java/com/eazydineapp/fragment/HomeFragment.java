@@ -24,7 +24,10 @@ import com.eazydineapp.activity.RestaurantActivity;
 import com.eazydineapp.adapter.FoodCategoryAdapter;
 import com.eazydineapp.adapter.RestaurantAdapter;
 import com.eazydineapp.backend.service.api.OrderService;
+import com.eazydineapp.backend.service.api.WaitlistService;
 import com.eazydineapp.backend.service.impl.OrderServiceImpl;
+import com.eazydineapp.backend.service.impl.WaitlistServiceImpl;
+import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
 import com.eazydineapp.backend.vo.WaitStatus;
 import com.eazydineapp.backend.vo.Waitlist;
 
@@ -32,7 +35,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerFood, recyclerRestaurants;
     private EditText searchTab;
     private ImageView nfc;
-
+    private String userId;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -64,6 +67,9 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         searchTab = view.findViewById(R.id.search_tab);
         nfc = view.findViewById(R.id.nfcTag);
+
+        final AndroidStoragePrefUtil storagePrefUtil = new AndroidStoragePrefUtil();
+        userId = storagePrefUtil.getRegisteredUser(this);
         //recyclerFood = view.findViewById(R.id.recyclerFood);
         // recyclerRestaurants = view.findViewById(R.id.recyclerRestaurants);
         view.findViewById(R.id.refine).setOnClickListener(new View.OnClickListener() {
@@ -84,8 +90,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String restaurantId = "76";
-                ((MainActivity)getActivity()).setRestaurantId(restaurantId);
-                addUserToWaitList("1", restaurantId); //TODO: user id to be populated
+                storagePrefUtil.putKeyValue(getActivity(), "RESTAURANT_ID", restaurantId);
+                addUserToWaitList(userId, restaurantId);
                 Intent newIntent = new Intent(getContext(), RestaurantActivity.class);
                 newIntent.putExtra("eazydine-restaurantId", restaurantId); //TODO NFC reader to load restaurant id
                 startActivity(newIntent);
@@ -95,9 +101,10 @@ public class HomeFragment extends Fragment {
     }
 
     private void addUserToWaitList(String userId, String restaurantId) {
-        OrderService orderService = new OrderServiceImpl();
-        Waitlist waitlist = new Waitlist(userId, restaurantId, WaitStatus.Waiting);
-        orderService.addUserToWaitList(waitlist);
+        Waitlist waitlist = new Waitlist(userId, restaurantId, -1L, WaitStatus.Waiting);
+
+        WaitlistService waitlistService = new WaitlistServiceImpl();
+        waitlistService.addUserToWaitList(waitlist);
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.eazydineapp.R;
 import com.eazydineapp.backend.vo.CartItem;
 
@@ -91,7 +92,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             price.setText(" x " + context.getString(R.string.rs) + cartItem.getPrice());
             priceTotal.setText(context.getString(R.string.rs) + " " + cartItem.getPriceTotal());
             quantity.setText(String.valueOf(cartItem.getQuantity()));
-            //Glide.with(context).load(cartItem.getImageRes()).into(itemImage);
+            Glide.with(context).load(cartItem.getPhotoPath()).into(itemImage);
         }
     }
 

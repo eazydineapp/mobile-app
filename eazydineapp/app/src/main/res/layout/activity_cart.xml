@@ -101,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -185,21 +185,21 @@
                         android:textColor="@color/colorDarkText3"
                         android:textSize="16sp" />
                 </LinearLayout>
-            </LinearLayout>
+            </LinearLayout>-->
         </android.support.v7.widget.CardView>
 
         <LinearLayout
             android:id="@+id/checkout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="46dp"
             android:background="@color/colorAccent"
             android:orientation="horizontal"
             android:padding="@dimen/dp4">
 
             <TextView
                 android:id="@+id/checkoutText"
-                android:layout_width="190dp"
-                android:layout_height="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:clickable="true"
                 android:gravity="center|right"
@@ -212,8 +212,8 @@
 
             <TextView
                 android:id="@+id/checkoutAmount"
-                android:layout_width="190dp"
-                android:layout_height="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:clickable="true"
                 android:gravity="center|left"

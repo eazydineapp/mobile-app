@@ -12,5 +12,4 @@ public interface OrderDAO {
     void getCartByUser(String userID, final UIOrderService UIOrderService) throws ItemException;
     void getOrderByUserAndRestaurantId(String userId, final String restaurantId, final UIOrderService UIOrderService) throws ItemException;
     void updateOrder(Order order) throws ItemException;
-    void addUserToWaitList(Waitlist waitlist);
 }

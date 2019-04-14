@@ -8,10 +8,9 @@ public class Waitlist {
 
     public Waitlist() {}
 
-    public Waitlist(String userId, String restaurantId, WaitStatus status) {
+    public Waitlist(String userId, String restaurantId, Long tableId, WaitStatus status) {
         this.userId = userId;
         this.restaurantId = restaurantId;
-        this.tableId = tableId;
         this.status = status;
     }
 

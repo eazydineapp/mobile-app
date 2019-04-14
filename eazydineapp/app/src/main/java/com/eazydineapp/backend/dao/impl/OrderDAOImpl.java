@@ -233,25 +233,4 @@ public class OrderDAOImpl implements OrderDAO {
             throw new ItemException("Error", exception);
         }
     }
-
-    @Override
-    public void addUserToWaitList(Waitlist waitlist) {
-        try {
-            final String waitListPath = PathUtil.getWaitListPath()+waitlist.getRestaurantId();
-            System.out.println("Ading user to waitlist");
-            DAOUtil.getDatabaseReference().child(waitListPath).child(waitlist.getUserId()).setValue(waitlist).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Log.d(TAG, "Success adding user to waitlist");
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    Log.e(TAG, "Error adding user to wait", exception);
-                }
-            });
-        } catch (Exception exception) {
-            Log.e(TAG, "Error adding user to wait", exception);
-        }
-    }
 }

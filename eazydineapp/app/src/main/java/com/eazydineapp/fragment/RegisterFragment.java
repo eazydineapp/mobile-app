@@ -9,9 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.eazydineapp.R;
+import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +51,11 @@ public class RegisterFragment extends Fragment {
 
     @OnClick({R.id.register_btn})
     public void onClickRegister() {
+
+        EditText phoneNumber = getActivity().findViewById(R.id.phoneNumber);
+        AndroidStoragePrefUtil storagePrefUtil = new AndroidStoragePrefUtil();
+        storagePrefUtil.saveRegisteredUser(this, phoneNumber.getText().toString());
+
         Fragment verificationCodeFragment = new VerificationCodeFragment();
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.splashFrame, verificationCodeFragment, TAG);
