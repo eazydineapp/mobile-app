@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private final String FRAG_TAG_DETAILS = "My Details";
     private String fragTagCurrent = null;
     private int REQUEST_CODE_LOCATION = 99;
+    private String restaurantId;
 
 
     @Override
@@ -75,10 +76,10 @@ public class MainActivity extends AppCompatActivity {
         mNavItems.add(new NavItem("My orders", "Current orders", R.drawable.ic_shopping_cart_white_24dp));
         mNavItems.add(new NavItem("History", "Past orders", R.drawable.ic_restaurant_menu_white_24dp));
         mNavItems.add(new NavItem("My details", "Profile, address, payment info", R.drawable.ic_person_pin_white_24dp));
-        mNavItems.add(new NavItem("Recommendations", "Recommendations", R.drawable.ic_favorite_white_24dp));
+        /*mNavItems.add(new NavItem("Recommendations", "Recommendations", R.drawable.ic_favorite_white_24dp));
         mNavItems.add(new NavItem("Reviews", "List of reviews", R.drawable.ic_local_activity_white_24dp));
         mNavItems.add(new NavItem("Support", "Have a chat with us", R.drawable.ic_chat_white_24dp));
-        mNavItems.add(new NavItem("Rate us", "Rate us on playstore", R.drawable.ic_thumb_up_white_24dp));
+        mNavItems.add(new NavItem("Rate us", "Rate us on playstore", R.drawable.ic_thumb_up_white_24dp));*/
 
         // DrawerLayout
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -219,5 +220,9 @@ public class MainActivity extends AppCompatActivity {
             loadFragment(FRAG_TAG_HOME);
         else
             super.onBackPressed();
+    }
+
+    public void setRestaurantId(String id) {
+        this.restaurantId = id;
     }
 }

@@ -27,10 +27,15 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
     public RestaurantMenuAdapter(Context context) {
         this.context = context;
         this.dataList = new ArrayList<>();
-        this.dataList.add(new RestaurantMenu("Dal makhni", "Black dal, slow cooked overnight with ghee and fresh cream", 300, R.drawable.rest_res_1));
-        this.dataList.add(new RestaurantMenu("Paneer khurchan", "A rich tomato, butter and cream based gravy, lightly spiced", 370, R.drawable.rest_res_2));
-        this.dataList.add(new RestaurantMenu("Thai red curry", "Thai red curry with assorted vegetables and tofu with butter top ups", 250, R.drawable.rest_res_3));
-        this.dataList.add(new RestaurantMenu("Ginget chicken curry", "Tomato based curry cooked in a flavoured gravy with ginger", 400, R.drawable.rest_res_4));
+        /*this.dataList.add(new RestaurantMenu("1","Dal makhni","Black dal, slow cooked overnight with ghee and fresh cream","entree", 300, "", "1", "Peacock India Cuisine", "Fremont, CA"));
+        this.dataList.add(new RestaurantMenu("2","Paneer khurchan", "A rich tomato, butter and cream based gravy, lightly spiced", "entree",370, "","1", "Peacock India Cuisine", "Fremont, CA"));
+        this.dataList.add(new RestaurantMenu("3","Thai red curry", "Thai red curry with assorted vegetables and tofu with butter top ups", "entree",250, "","1", "Peacock India Cuisine", "Fremont, CA"));
+        this.dataList.add(new RestaurantMenu("4","Ginget chicken curry", "Tomato based curry cooked in a flavoured gravy with ginger", "entree",400, "", "1", "Peacock India Cuisine", "Fremont, CA"));*/
+    }
+
+    public void setMenuItems(ArrayList<RestaurantMenu> menuItems) {
+        this.dataList = menuItems;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -68,7 +73,7 @@ public class RestaurantMenuAdapter extends RecyclerView.Adapter<RestaurantMenuAd
         }
 
         public void setData(RestaurantMenu restaurantMenu) {
-            Glide.with(context).load(restaurantMenu.getImageRes()).into(itemImage);
+            Glide.with(context).load(restaurantMenu.getImagePath()).into(itemImage);
             itemPrice.setText(String.valueOf(restaurantMenu.getPrice()));
             itemDescription.setText(restaurantMenu.getDescription());
             itemName.setText(restaurantMenu.getName());

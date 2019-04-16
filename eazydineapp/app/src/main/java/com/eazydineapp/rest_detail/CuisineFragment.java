@@ -11,13 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.eazydineapp.model.CuisineCategory;
+import com.eazydineapp.model.RestaurantMenu;
 import com.eazydineapp.util.MyLinearLayoutManager;
 import com.eazydineapp.R;
 import com.eazydineapp.adapter.CuisineAdapter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class CuisineFragment extends Fragment {
     private RecyclerView cuisineRecycler;
     private MyLinearLayoutManager linearLayoutManager;
+    private CuisineAdapter cuisineAdapter;
 
     public CuisineFragment() {
         // Required empty public constructor
@@ -44,7 +50,7 @@ public class CuisineFragment extends Fragment {
     private void setupCuisineRecycler() {
         linearLayoutManager = new MyLinearLayoutManager(getContext());
         cuisineRecycler.setLayoutManager(linearLayoutManager);
-        cuisineRecycler.setAdapter(new CuisineAdapter(getContext(), new CuisineAdapter.CuisineListToggleListener() {
+        cuisineAdapter = new CuisineAdapter(getContext(), new CuisineAdapter.CuisineListToggleListener() {
             @Override
             public void OnListExpanded(final boolean selected) {
                 if (selected) {
@@ -57,6 +63,15 @@ public class CuisineFragment extends Fragment {
                     }
                 }, 500);
             }
-        }));
+        });
+        cuisineRecycler.setAdapter(cuisineAdapter);
+    }
+
+    public void setCategory(ArrayList<CuisineCategory>categories) {
+        cuisineAdapter.setCategories(categories);
+    }
+
+    public void  setMenu( HashMap<String,ArrayList<RestaurantMenu>> menus) {
+        cuisineAdapter.setMenus(menus);
     }
 }

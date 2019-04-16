@@ -14,13 +14,13 @@
         android:padding="@dimen/dp32">
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dp16"
             android:fontFamily="@font/roboto"
-            android:hint="Email Address"
-            android:inputType="textEmailAddress"
+            android:hint="Phone Number"
+            android:inputType="phone"
             android:textSize="16sp" />
 
         <LinearLayout
@@ -50,16 +50,6 @@
                 android:textSize="16sp" />
 
         </LinearLayout>
-
-        <EditText
-            android:id="@+id/phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp4"
-            android:fontFamily="@font/roboto"
-            android:hint="10 digit Phone Number"
-            android:inputType="phone"
-            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/errorTextView"

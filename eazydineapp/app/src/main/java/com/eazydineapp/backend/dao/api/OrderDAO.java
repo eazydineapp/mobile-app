@@ -4,11 +4,12 @@ package com.eazydineapp.backend.dao.api;
 import com.eazydineapp.backend.exception.ItemException;
 import com.eazydineapp.backend.ui.api.UIOrderService;
 import com.eazydineapp.backend.vo.Order;
+import com.eazydineapp.backend.vo.Waitlist;
 
 public interface OrderDAO {
-    void add(Order order) throws ItemException;
-    void readByCook(String cookId, final UIOrderService uiOrderService) throws ItemException;
-    void readByUser(String userID, final UIOrderService UIOrderService) throws ItemException;
-    void delete(String id) throws Exception;
-    void update(Order order) throws ItemException;
+    void addToCart(Order order) throws ItemException;
+    void getOrderByUser(String userID, final UIOrderService UIOrderService) throws ItemException;
+    void getCartByUser(String userID, final UIOrderService UIOrderService) throws ItemException;
+    void getOrderByUserAndRestaurantId(String userId, final String restaurantId, final UIOrderService UIOrderService) throws ItemException;
+    void updateOrder(Order order) throws ItemException;
 }

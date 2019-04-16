@@ -2,13 +2,14 @@ package com.eazydineapp.backend.service.api;
 
 
 import com.eazydineapp.backend.ui.api.UIOrderService;
+import com.eazydineapp.backend.ui.api.UIWaitlistService;
 import com.eazydineapp.backend.vo.Order;
+import com.eazydineapp.backend.vo.Waitlist;
 
 public interface OrderService {
-    void add(Order order);
-    void delete(String id);
-    void readByCook(String cookId, UIOrderService uiOrderService);
-    void readByUser(String userId, UIOrderService uiOrderService);
-    void update(Order order);
-
+    void addToCart(Order order);
+    void getOrderByUser(String userId, UIOrderService uiOrderService);
+    void getOrderByUserAndRestaurant(String userId, String restaurantId, UIOrderService uiOrderService);
+    void getCartByUser(String userId, UIOrderService uiOrderService);
+    void updateOrder(Order order);
 }

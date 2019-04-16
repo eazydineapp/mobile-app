@@ -1,17 +1,15 @@
 package com.eazydineapp.backend.vo;
 
-import com.eazydineapp.model.CartItem;
-
 import java.util.List;
 
 public class Order {
     private String orderId;
     private OrderStatus orderStatus;
     private String orderDate;
-    private Double totalPrice;
+    private float totalPrice;
     private boolean isPaid;
-    private String userName;
     private String userId;
+    private String restaurantId;
     private String restaurantName;
     private String restaurantAddress;
     private List<CartItem> itemList;
@@ -20,14 +18,15 @@ public class Order {
 
     }
 
-    public Order(String orderId, OrderStatus orderStatus, String orderDate, Double totalPrice, boolean isPaid, String userName, String userId, String restaurantName, String restaurantAddress, List<CartItem> itemList) {
+    public Order(String orderId, OrderStatus orderStatus, String orderDate, float totalPrice, boolean isPaid, String userId, String restaurantId,
+                 String restaurantName, String restaurantAddress, List<CartItem> itemList) {
         this.orderId = orderId;
         this.orderStatus = orderStatus;
         this.orderDate = orderDate;
         this.totalPrice = totalPrice;
         this.isPaid = isPaid;
-        this.userName = userName;
         this.userId = userId;
+        this.restaurantId = restaurantId;
         this.restaurantName = restaurantName;
         this.restaurantAddress = restaurantAddress;
         this.itemList = itemList;
@@ -57,11 +56,11 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public Double getTotalPrice() {
+    public float getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(Double totalPrice) {
+    public void setTotalPrice(float totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -73,14 +72,6 @@ public class Order {
         isPaid = paid;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public String getUserId() {
         return userId;
     }
@@ -88,6 +79,10 @@ public class Order {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
+    public String getRestaurantId() { return restaurantId; }
+
+    public void setRestaurantId(String restaurantId) { this.restaurantId = restaurantId; }
 
     public String getRestaurantName() { return restaurantName; }
 

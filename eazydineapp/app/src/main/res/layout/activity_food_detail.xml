@@ -40,7 +40,7 @@
                     android:orientation="horizontal"
                     android:padding="@dimen/dp16">
 
-                    <TextView
+                   <!-- <TextView
                         android:id="@+id/foodRating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
                         android:paddingRight="@dimen/dp8"
                         android:paddingTop="2dp"
                         android:text="4.8"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/white" /> -->
 
                     <ImageView
                         android:id="@+id/foodFav"
@@ -206,6 +206,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/addToCart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/round_accent"

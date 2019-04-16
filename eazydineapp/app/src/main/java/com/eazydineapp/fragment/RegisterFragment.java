@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.eazydineapp.R;
+import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
 import com.eazydineapp.model.User;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -28,8 +29,8 @@ import butterknife.OnClick;
 
 public class RegisterFragment extends Fragment {
 
-     EditText email, pswd, confirmpswd, pnumber;
-     TextView errorTextView;
+    EditText pswd, confirmpswd, pnumber;
+    TextView errorTextView;
 
     @BindView(R.id.register_btn)
     Button mRegisterBtn;
@@ -52,7 +53,6 @@ public class RegisterFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mViewPager = (ViewPager) getActivity().findViewById(R.id.auth_viewpager);
-        email = (EditText)  getActivity().findViewById(R.id.email);
         pswd = (EditText)  getActivity().findViewById(R.id.password);
         pnumber = (EditText)  getActivity().findViewById(R.id.phone);
         confirmpswd = (EditText)  getActivity().findViewById(R.id.confirmpassword);
@@ -70,7 +70,6 @@ public class RegisterFragment extends Fragment {
 
     @OnClick({R.id.register_btn})
     public void onClickRegister() {
-        String emailID = email.getText().toString();
         String password = pswd.getText().toString();
         String phonenumber = pnumber.getText().toString();
         String confirmpassword = confirmpswd.getText().toString();
@@ -79,14 +78,15 @@ public class RegisterFragment extends Fragment {
             errorTextView.append("Password is not matching.");
         }
 
-        if(emailID.isEmpty()  || password.isEmpty() || phonenumber.isEmpty() || phonenumber.length() < 10){
+        if(password.isEmpty() || phonenumber.isEmpty() || phonenumber.length() < 10){
             errorTextView.append("Invalid Entry");
             errorTextView.requestFocus();
         }
 
         else {
+            AndroidStoragePrefUtil storagePrefUtil = new AndroidStoragePrefUtil();
+            storagePrefUtil.saveRegisteredUser(this, phonenumber);
             Bundle bundle = new Bundle();
-            bundle.putString("email", emailID);
             bundle.putString("password", password);
             bundle.putString("phone", phonenumber);
             Fragment verificationCodeFragment = new VerificationCodeFragment();

@@ -13,20 +13,29 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.eazydineapp.R;
 import com.eazydineapp.activity.CartActivity;
+import com.eazydineapp.activity.MainActivity;
 import com.eazydineapp.activity.RefineActivity;
 import com.eazydineapp.activity.RestaurantActivity;
 import com.eazydineapp.adapter.FoodCategoryAdapter;
 import com.eazydineapp.adapter.RestaurantAdapter;
+import com.eazydineapp.backend.service.api.OrderService;
+import com.eazydineapp.backend.service.api.WaitlistService;
+import com.eazydineapp.backend.service.impl.OrderServiceImpl;
+import com.eazydineapp.backend.service.impl.WaitlistServiceImpl;
+import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
+import com.eazydineapp.backend.vo.WaitStatus;
+import com.eazydineapp.backend.vo.Waitlist;
 
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerFood, recyclerRestaurants;
-    private TextView cartNotificationCount;
     private EditText searchTab;
-
+    private ImageView nfc;
+    private String userId;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -53,23 +62,15 @@ public class HomeFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater); */
     }
 
-    private void setCartCount() {
-        int NOTIFICATION_COUNT = 1;
-        if (cartNotificationCount != null) {
-            if (NOTIFICATION_COUNT <= 0) {
-                cartNotificationCount.setVisibility(View.GONE);
-            } else {
-                cartNotificationCount.setVisibility(View.VISIBLE);
-                cartNotificationCount.setText(String.valueOf(NOTIFICATION_COUNT));
-            }
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         searchTab = view.findViewById(R.id.search_tab);
-        recyclerFood = view.findViewById(R.id.recyclerFood);
+        nfc = view.findViewById(R.id.nfcTag);
+
+        final AndroidStoragePrefUtil storagePrefUtil = new AndroidStoragePrefUtil();
+        userId = storagePrefUtil.getRegisteredUser(this);
+        //recyclerFood = view.findViewById(R.id.recyclerFood);
         // recyclerRestaurants = view.findViewById(R.id.recyclerRestaurants);
         view.findViewById(R.id.refine).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,13 +85,32 @@ public class HomeFragment extends Fragment {
                 startActivity(new Intent(getContext(), RestaurantActivity.class));
             }
         });
+
+        nfc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String restaurantId = "76";
+                storagePrefUtil.putKeyValue(getActivity(), "RESTAURANT_ID", restaurantId);
+                addUserToWaitList(userId, restaurantId);
+                Intent newIntent = new Intent(getContext(), RestaurantActivity.class);
+                newIntent.putExtra("eazydine-restaurantId", restaurantId); //TODO NFC reader to load restaurant id
+                startActivity(newIntent);
+            }
+        });
         return view;
+    }
+
+    private void addUserToWaitList(String userId, String restaurantId) {
+        Waitlist waitlist = new Waitlist(userId, restaurantId, -1L, WaitStatus.Waiting);
+
+        WaitlistService waitlistService = new WaitlistServiceImpl();
+        waitlistService.addUserToWaitList(waitlist);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setupRecyclerFood();
+       // setupRecyclerFood();
 //      setupRecyclerRestaurants();
     }
 

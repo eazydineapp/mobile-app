@@ -6,7 +6,9 @@ import com.eazydineapp.backend.dao.impl.OrderDAOImpl;
 import com.eazydineapp.backend.exception.ItemException;
 import com.eazydineapp.backend.service.api.OrderService;
 import com.eazydineapp.backend.ui.api.UIOrderService;
+import com.eazydineapp.backend.ui.api.UIWaitlistService;
 import com.eazydineapp.backend.vo.Order;
+import com.eazydineapp.backend.vo.Waitlist;
 
 import java.util.List;
 
@@ -15,45 +17,45 @@ public class OrderServiceImpl implements OrderService {
     OrderDAO orderDAO = new OrderDAOImpl();
 
     @Override
-    public void add(Order order) {
+    public void addToCart(Order order) {
         try {
-            orderDAO.add(order);
+            orderDAO.addToCart(order);
         } catch (ItemException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void delete(String id) {
+    public void getOrderByUser(String userId, UIOrderService uiOrderService) {
         try {
-            orderDAO.delete(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void readByCook(String cookId, UIOrderService uiOrderService) {
-        try {
-            orderDAO.readByCook(cookId, uiOrderService);
+            orderDAO.getOrderByUser(userId, uiOrderService);
         } catch (ItemException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void readByUser(String userId, UIOrderService uiOrderService) {
+    public void getOrderByUserAndRestaurant(String userId, String restaurantId, UIOrderService uiOrderService) {
         try {
-            orderDAO.readByUser(userId, uiOrderService);
+            orderDAO.getOrderByUserAndRestaurantId(userId, restaurantId, uiOrderService);
         } catch (ItemException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void update(Order order) {
+    public void getCartByUser(String userId, UIOrderService uiOrderService) {
         try {
-            orderDAO.update(order);
+            orderDAO.getCartByUser(userId, uiOrderService);
+        } catch (ItemException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateOrder(Order order) {
+        try {
+            orderDAO.updateOrder(order);
         } catch (ItemException e) {
             e.printStackTrace();
         }

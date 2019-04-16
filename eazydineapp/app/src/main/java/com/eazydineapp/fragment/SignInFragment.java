@@ -16,13 +16,14 @@ import android.widget.TextView;
 
 import com.eazydineapp.R;
 import com.eazydineapp.activity.MainActivity;
+import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
 import com.eazydineapp.interactor.AuthInnerInteractor;
 
 import butterknife.OnClick;
 
 public class SignInFragment extends Fragment {
     private AuthInnerInteractor innerInteractor;
-    EditText email, pswd;
+    EditText phoneNumber, pswd;
     TextView errorTextView;
     private static final String TAG = SignInFragment.class.getName();
 
@@ -45,20 +46,23 @@ public class SignInFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
-        email = (EditText)  view.findViewById(R.id.email);
+        phoneNumber = (EditText)  view.findViewById(R.id.phoneNumber);
         pswd = (EditText)  view.findViewById(R.id.password);
         errorTextView = (TextView) view.findViewById(R.id.errorTextView);
+        final Fragment thisFragment = this;
         view.findViewById(R.id.signIn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String emailID = email.getText().toString();
+                String phoneNumberStr = phoneNumber.getText().toString();
                 String password = pswd.getText().toString();
 
-                if(emailID.isEmpty() || password.isEmpty()){
+                if(phoneNumberStr.isEmpty() || password.isEmpty()){
                     errorTextView.append("Invalid entry");
                     errorTextView.requestFocus();
                 }
-                else if(emailID.length() > 0  && password.length() > 0 ){
+                else if(phoneNumberStr.length() > 0  && password.length() > 0 ){
+                    AndroidStoragePrefUtil storagePrefUtil = new AndroidStoragePrefUtil();
+                    storagePrefUtil.saveRegisteredUser(thisFragment, phoneNumberStr);
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     getActivity().startActivity(intent);
                     getActivity().finish();

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.eazydineapp.R;
-import com.eazydineapp.model.CartItem;
+import com.eazydineapp.backend.vo.CartItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +33,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     public CartAdapter(Context context, ArrayList<CartItem> dataList) {
         this.context = context;
         this.dataList = new ArrayList<>(dataList);
+    }
+
+    public void setCartItems(List<CartItem> dataList) {
+        this.dataList = new ArrayList<>(dataList);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -62,7 +67,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             quantity = itemView.findViewById(R.id.itemQuantity);
             itemImage = itemView.findViewById(R.id.itemImage);
 
-            itemView.findViewById(R.id.itemQuantityMinus).setOnClickListener(new View.OnClickListener() {
+            /*itemView.findViewById(R.id.itemQuantityMinus).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int pos = getAdapterPosition();
@@ -79,15 +84,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                     dataList.get(pos).setQuantity(dataList.get(pos).getQuantity() + 1);
                     notifyItemChanged(pos);
                 }
-            });
+            });*/
         }
 
         public void setData(CartItem cartItem) {
             name.setText(cartItem.getName());
-            price.setText(context.getString(R.string.rs) + " x " + cartItem.getPrice());
+            price.setText(" x " + context.getString(R.string.rs) + cartItem.getPrice());
             priceTotal.setText(context.getString(R.string.rs) + " " + cartItem.getPriceTotal());
             quantity.setText(String.valueOf(cartItem.getQuantity()));
-            //Glide.with(context).load(cartItem.getImageRes()).into(itemImage);
+            Glide.with(context).load(cartItem.getPhotoPath()).into(itemImage);
         }
     }
 

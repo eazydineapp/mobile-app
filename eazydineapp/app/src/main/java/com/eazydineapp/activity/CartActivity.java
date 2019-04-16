@@ -1,42 +1,58 @@
 package com.eazydineapp.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.eazydineapp.R;
 import com.eazydineapp.adapter.CartAdapter;
 import com.eazydineapp.backend.service.api.OrderService;
+import com.eazydineapp.backend.service.api.WaitlistService;
 import com.eazydineapp.backend.service.impl.OrderServiceImpl;
+import com.eazydineapp.backend.service.impl.WaitlistServiceImpl;
+import com.eazydineapp.backend.ui.api.UIOrderService;
+import com.eazydineapp.backend.ui.api.UIWaitlistService;
+import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
+import com.eazydineapp.backend.vo.CartItem;
 import com.eazydineapp.backend.vo.Order;
 import com.eazydineapp.backend.vo.OrderStatus;
-import com.eazydineapp.checkout.CheckoutActivity;
+import com.eazydineapp.backend.vo.WaitStatus;
+import com.eazydineapp.backend.vo.Waitlist;
 import com.eazydineapp.fragment.OrdersFragment;
-import com.eazydineapp.model.CartItem;
 
-import java.io.Serializable;
+import java.math.BigDecimal;
+import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
- * Created by a_man on 23-01-2018.
+ * @author Shriaithal
+ * Place Order + Make Payment Screen
+ * Load cart value, create order
  */
 
 public class CartActivity extends AppCompatActivity {
     private RecyclerView cartRecycler;
+    CartAdapter cartAdapter;
     private ArrayList<CartItem> cartItems;
+    private Order order;
     private Handler mHandler;
-    private TextView tv,mp;
+    private TextView tv,orderPlaceName, orderPlaceAddress, orderTotal, serviceCharge, subTotal, tax, orderDate;
+    private String userId, restaurantId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,36 +69,36 @@ public class CartActivity extends AppCompatActivity {
             }
         });
         cartRecycler = findViewById(R.id.cartRecycler);
+
+        AndroidStoragePrefUtil storagePrefUtil = new AndroidStoragePrefUtil();
+        userId = storagePrefUtil.getRegisteredUser(this);
+        restaurantId = storagePrefUtil.getValue(this, "RESTAURANT_ID");
+
         loadCartValue();
         setupCartRecycler();
-        mp = (TextView) findViewById(R.id.checkoutAmount);
         tv = (TextView)findViewById(R.id.checkoutText);
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //TODO : create orders, delete cart object, navigate to MyOrders screen
                 if("Place Order".equals(tv.getText())) {
-                    createOrder();
-                    loadOrdersFragment();
-                    tv.setText("Continue to Order");
-                    tv.setGravity(Gravity.CENTER);
-                    mp.setText("Make Payment");
+                    placeOrder();
                 }else {
-                    onBackPressed();
+                   /* Intent newIntent = new Intent(getApplicationContext(), RestaurantActivity.class);
+                    newIntent.putExtra("eazydine-restaurantId", restaurantId);
+                    startActivity(newIntent);*/
+                   onBackPressed();
                 }
             }
         });
     }
 
     private void loadOrdersFragment() {
-        final Fragment finalFragment = new OrdersFragment();
         Runnable mPendingRunnable = new Runnable() {
             @Override
             public void run() {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-                fragmentTransaction.replace(R.id.mainFrame, finalFragment, "My Orders");
+                fragmentTransaction.replace(R.id.mainFrame, new OrdersFragment(), "My Orders");
                 fragmentTransaction.commitAllowingStateLoss();
             }
         };
@@ -95,29 +111,103 @@ public class CartActivity extends AppCompatActivity {
         mHandler.post(mPendingRunnable);
     }
 
-    private void createOrder() {
-        Double totalPrice = 0.0;
-        for (CartItem item : cartItems) {
-            totalPrice += item.getPriceTotal();
+    private void placeOrder() {
+        if(null != order) {
+            WaitlistService waitlistService = new WaitlistServiceImpl();
+            waitlistService.getWaitStatus(order.getRestaurantId(), order.getUserId(), new UIWaitlistService() {
+                @Override
+                public void displayWaitStatus(Waitlist user) {
+                    if(null != user && WaitStatus.Assigned == user.getStatus()) {
+                        order.setOrderStatus(OrderStatus.Placed);
+                        createOrder();
+                    }else {
+                        displayPreOrderDialog();
+                    }
+                }
+            });
         }
+    }
 
-        Order order = new Order("order Id to be generated", OrderStatus.Placed, Calendar.getInstance().getTime().toString(), totalPrice, true, "Anu", "1",
-                "Peacock Indian Cuisine", "Fremont, CA", cartItems);
-
+    private void createOrder() {
         OrderService orderService = new OrderServiceImpl();
-        orderService.add(order);
+        orderService.updateOrder(order);
+        loadOrdersFragment();
+
+        tv.setText("Continue To Order");
+        tv.setGravity(Gravity.CENTER);
+    }
+    private void displayPreOrderDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
+        builder.setMessage("Thank your for letting  us know your order, Please wait to be seated");
+        builder.setCancelable(true);
+
+        builder.setPositiveButton(
+                "Continue",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        order.setOrderStatus(OrderStatus.PreOrder);
+                        createOrder();
+                        dialog.cancel();
+                    }
+                });
+
+        builder.setNegativeButton(
+                "Cancel Order",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder.create();
+        alert11.show();
+
     }
 
     private void setupCartRecycler() {
         cartRecycler.setLayoutManager(new LinearLayoutManager(this));
-        CartAdapter cartAdapter = new CartAdapter(this, this.cartItems);
+        cartAdapter = new CartAdapter(this, this.cartItems);
         cartRecycler.setAdapter(cartAdapter);
     }
 
     private void loadCartValue() {
-        ArrayList<CartItem> cartItems = new ArrayList<>();
-        cartItems.add(new CartItem("Ginger chicken curry", "Entree", 400, 1, "", "1"));
-        cartItems.add(new CartItem("Paneer khurchan", "Entree", 370, 1, "", "2"));
-        this.cartItems = cartItems;
+        order = new Order();
+        cartItems = new ArrayList<>();
+
+        OrderService orderService = new OrderServiceImpl();
+        orderService.getCartByUser(userId, new UIOrderService() {
+            @Override
+            public void displayAllOrders(List<Order> orders) {
+            }
+
+            @Override
+            public void displayOrder(Order dbOrder) {
+                order = dbOrder;
+                if(null != dbOrder) {
+                    orderPlaceName = findViewById(R.id.orderPlaceName);
+                    orderPlaceName.setText(dbOrder.getRestaurantName());
+
+                    orderPlaceAddress  = findViewById(R.id.orderPlaceAddress);
+                    orderPlaceAddress.setText(dbOrder.getRestaurantAddress());
+
+                    orderTotal  = findViewById(R.id.orderTotal);
+                    orderTotal.setText("$"+String.valueOf(dbOrder.getTotalPrice()));
+
+                    Date date = new Date(dbOrder.getOrderDate());
+                    orderDate = findViewById(R.id.orderDate);
+                    orderDate.setText(String.valueOf(date.getDate()) +" "+ new DateFormatSymbols().getMonths()[date.getMonth()]);
+
+                    cartItems.addAll(dbOrder.getItemList());
+                    cartAdapter.setCartItems(cartItems);
+                }
+            }
+        });
+    }
+
+    private float round(float d) {
+        BigDecimal bd = new BigDecimal(Float.toString(d));
+        bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
+        return bd.floatValue();
     }
 }
