@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.eazydineapp.R;
-import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -25,6 +24,8 @@ import butterknife.OnClick;
 
 public class RegisterFragment extends Fragment {
 
+    EditText pnumber;
+    TextView errorTextView;
 
     @BindView(R.id.register_btn)
     Button mRegisterBtn;
@@ -47,22 +48,43 @@ public class RegisterFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mViewPager = (ViewPager) getActivity().findViewById(R.id.auth_viewpager);
+        pnumber = (EditText)  getActivity().findViewById(R.id.phone);
+        errorTextView = (TextView) getActivity().findViewById(R.id.errorTextView);
     }
 
-    @OnClick({R.id.register_btn})
-    public void onClickRegister() {
-
-        EditText phoneNumber = getActivity().findViewById(R.id.phoneNumber);
-        AndroidStoragePrefUtil storagePrefUtil = new AndroidStoragePrefUtil();
-        storagePrefUtil.saveRegisteredUser(this, phoneNumber.getText().toString());
-
-        Fragment verificationCodeFragment = new VerificationCodeFragment();
+    @OnClick({R.id.switchSignIn})
+    public void onClickSignIn(){
+        Fragment signInFragment = new SignInFragment();
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.splashFrame, verificationCodeFragment, TAG);
+        fragmentTransaction.replace(R.id.splashFrame, signInFragment, TAG);
         fragmentTransaction.addToBackStack(TAG);
         fragmentTransaction.commit();
     }
 
+    @OnClick({R.id.register_btn})
+    public void onClickRegister() {
+        String phonenumber = pnumber.getText().toString();
 
+        if(phonenumber.isEmpty() || (phonenumber.length() < 10 && phonenumber.length() > 15)){
+            errorTextView.append("Invalid Entry");
+            errorTextView.requestFocus();
+        }
+
+        else {
+            if(phonenumber.length() == 10) {
+                phonenumber = "+1"+phonenumber;
+            }
+
+            Bundle bundle = new Bundle();
+            bundle.putString("phone", phonenumber);
+            Fragment verificationCodeFragment = new VerificationCodeFragment();
+            verificationCodeFragment.setArguments(bundle);
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.splashFrame, verificationCodeFragment, TAG);
+            fragmentTransaction.addToBackStack(TAG);
+            fragmentTransaction.commit();
+        }
+
+    }
 
 }

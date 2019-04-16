@@ -221,8 +221,4 @@ public class MainActivity extends AppCompatActivity {
         else
             super.onBackPressed();
     }
-
-    public void setRestaurantId(String id) {
-        this.restaurantId = id;
-    }
 }
