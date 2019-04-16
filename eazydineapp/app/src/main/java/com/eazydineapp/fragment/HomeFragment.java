@@ -1,10 +1,12 @@
 package com.eazydineapp.fragment;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,7 +29,9 @@ import com.eazydineapp.backend.service.api.OrderService;
 import com.eazydineapp.backend.service.api.WaitlistService;
 import com.eazydineapp.backend.service.impl.OrderServiceImpl;
 import com.eazydineapp.backend.service.impl.WaitlistServiceImpl;
+import com.eazydineapp.backend.ui.api.UIWaitlistService;
 import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
+import com.eazydineapp.backend.vo.OrderStatus;
 import com.eazydineapp.backend.vo.WaitStatus;
 import com.eazydineapp.backend.vo.Waitlist;
 
@@ -36,6 +40,7 @@ public class HomeFragment extends Fragment {
     private EditText searchTab;
     private ImageView nfc;
     private String userId;
+    private WaitlistService waitlistService = new WaitlistServiceImpl();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -92,25 +97,61 @@ public class HomeFragment extends Fragment {
                 String restaurantId = "76";
                 storagePrefUtil.putKeyValue(getActivity(), "RESTAURANT_ID", restaurantId);
                 addUserToWaitList(userId, restaurantId);
-                Intent newIntent = new Intent(getContext(), RestaurantActivity.class);
-                newIntent.putExtra("eazydine-restaurantId", restaurantId); //TODO NFC reader to load restaurant id
-                startActivity(newIntent);
             }
         });
         return view;
     }
 
-    private void addUserToWaitList(String userId, String restaurantId) {
-        Waitlist waitlist = new Waitlist(userId, restaurantId, -1L, WaitStatus.Waiting);
+    private void launchMenu(String restaurantId){
+        Intent newIntent = new Intent(getContext(), RestaurantActivity.class);
+        newIntent.putExtra("eazydine-restaurantId", restaurantId); //TODO NFC reader to load restaurant id
+        startActivity(newIntent);
+    }
 
-        WaitlistService waitlistService = new WaitlistServiceImpl();
-        waitlistService.addUserToWaitList(waitlist);
+    private void addUserToWaitList(final String userId, final String restaurantId) {
+        waitlistService.getWaitStatus(restaurantId, userId, new UIWaitlistService() {
+            @Override
+            public void displayWaitStatus(Waitlist user) {
+                if (null != user && WaitStatus.Waiting.equals(user.getStatus())) {
+                    //do nothing
+                    launchMenu(restaurantId);
+                } else {
+                    openDialog(restaurantId);
+                }
+            }
+        });
+    }
+
+    private void openDialog(final String restaurantId) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+
+        alert.setTitle("Enter number of Seats");
+        alert.setMessage("");
+
+        final EditText input = new EditText(getActivity());
+        alert.setView(input);
+
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String value = input.getText().toString();
+                Waitlist waitlist = new Waitlist(userId, restaurantId, -1L, Integer.parseInt(value), WaitStatus.Waiting);
+                waitlistService.addUserToWaitList(waitlist);
+                launchMenu(restaurantId);
+            }
+        });
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+            }
+        });
+
+        alert.show();
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-       // setupRecyclerFood();
+        // setupRecyclerFood();
 //      setupRecyclerRestaurants();
     }
 
