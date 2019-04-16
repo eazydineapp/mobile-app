@@ -23,7 +23,7 @@ import butterknife.OnClick;
 
 public class SignInFragment extends Fragment {
     private AuthInnerInteractor innerInteractor;
-    EditText phoneNumber, pswd;
+    EditText phoneNumber;
     TextView errorTextView;
     private static final String TAG = SignInFragment.class.getName();
 
@@ -47,20 +47,21 @@ public class SignInFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
         phoneNumber = (EditText)  view.findViewById(R.id.phoneNumber);
-        pswd = (EditText)  view.findViewById(R.id.password);
         errorTextView = (TextView) view.findViewById(R.id.errorTextView);
         final Fragment thisFragment = this;
         view.findViewById(R.id.signIn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String phoneNumberStr = phoneNumber.getText().toString();
-                String password = pswd.getText().toString();
 
-                if(phoneNumberStr.isEmpty() || password.isEmpty()){
+                if(phoneNumberStr.isEmpty() || (phoneNumberStr.length() < 10 && phoneNumberStr.length() > 15)){
                     errorTextView.append("Invalid entry");
                     errorTextView.requestFocus();
                 }
-                else if(phoneNumberStr.length() > 0  && password.length() > 0 ){
+                else {
+                    if(phoneNumberStr.length() == 10) {
+                        phoneNumberStr = "+1"+phoneNumberStr;
+                    }
                     AndroidStoragePrefUtil storagePrefUtil = new AndroidStoragePrefUtil();
                     storagePrefUtil.saveRegisteredUser(thisFragment, phoneNumberStr);
                     Intent intent = new Intent(getActivity(), MainActivity.class);

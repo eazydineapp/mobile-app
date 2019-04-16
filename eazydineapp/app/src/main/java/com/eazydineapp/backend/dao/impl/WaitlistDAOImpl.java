@@ -54,7 +54,9 @@ public class WaitlistDAOImpl implements WaitlistDAO {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Waitlist waitUser = null;
-                            if(dataSnapshot.getValue() != null)dataSnapshot.getValue(Waitlist.class);
+                            if(dataSnapshot.getValue() != null){
+                                waitUser = dataSnapshot.getValue(Waitlist.class);
+                            }
                             UIWaitlistService.displayWaitStatus(waitUser);
                         }
 

@@ -23,11 +23,8 @@ import android.widget.Toast;
 import com.eazydineapp.R;
 import com.eazydineapp.activity.MainActivity;
 import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
-import com.eazydineapp.location.LocationActivity;
-import com.eazydineapp.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskExecutors;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
@@ -37,10 +34,6 @@ import com.google.firebase.auth.FirebaseAuthSettings;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -55,8 +48,9 @@ import static android.graphics.Color.WHITE;
 
 public class VerificationCodeFragment extends Fragment {
 
-    private String emailID, password, phoneNumber;
+    private String phoneNumber;
     private static final String TAG = VerificationCodeFragment.class.getName();
+    private AndroidStoragePrefUtil storagePrefUtil = new AndroidStoragePrefUtil();
     private EditText otp;
     private TextView errorTextView, dynamicPhoneNumber;
     private String smsCode;
@@ -91,12 +85,11 @@ public class VerificationCodeFragment extends Fragment {
         dynamicPhoneNumber = view.findViewById(R.id.dynamicPhoneNumber);
 
         Bundle bundle = getArguments();
-        emailID = bundle.getString("email");
-        password = bundle.getString("password");
         phoneNumber = bundle.getString("phone");
-        Log.d(TAG, "User Data:" + emailID + "  " + password + " " + phoneNumber);
+        Log.d(TAG, "User Data:" + phoneNumber);
         dynamicPhoneNumber.setText(phoneNumber);
-        sendVerificationCode(phoneNumber);
+        //sendVerificationCode(phoneNumber); //TODO uncomment when running on mobile app
+        startMainActivity();
         return view;
     }
 
@@ -131,7 +124,7 @@ public class VerificationCodeFragment extends Fragment {
         }
     }
 
-    private void createUser(String emailID, String password, String phonenumber){
+    /*private void createUser(String emailID, String password, String phonenumber){
         // Firebase database connection initialization
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference();
@@ -139,7 +132,7 @@ public class VerificationCodeFragment extends Fragment {
         User user = new User(emailID, password, phonenumber);
         usersRef.setValue(user);
         Log.d(TAG, "Created User:" + user.getEmail() + "  " + user.getPassword() + " " + user.getPhoneNumber() );
-    }
+    }*/
 
 
     private void sendVerificationCode(String mobile) {
@@ -218,15 +211,8 @@ public class VerificationCodeFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithCredential:success");
-                            //createUser(emailID, password, phoneNumber);
-                            FirebaseUser user = task.getResult().getUser();
-                            //verification successful we will start the Main activity
-                            Intent intent = new Intent(mActivity, MainActivity.class);
-                            intent.putExtra("Status","Success");
-                            mActivity.startActivity(intent);
-                            mActivity.finish();
+                            startMainActivity();
                         } else {
-                            //verification unsuccessful.. display an error message
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 errorTextView.setText("Invalid Code.Try again.");
@@ -234,5 +220,15 @@ public class VerificationCodeFragment extends Fragment {
                         }
                     }
                 });
+    }
+
+    private void startMainActivity() {
+        if(!phoneNumber.equals(storagePrefUtil.getRegisteredUser(this))) {
+            storagePrefUtil.saveRegisteredUser(this, phoneNumber);
+        }
+        Intent intent = new Intent(mActivity, MainActivity.class);
+        intent.putExtra("Status","Success");
+        mActivity.startActivity(intent);
+        mActivity.finish();
     }
 }

@@ -117,7 +117,7 @@ public class CartActivity extends AppCompatActivity {
             waitlistService.getWaitStatus(order.getRestaurantId(), order.getUserId(), new UIWaitlistService() {
                 @Override
                 public void displayWaitStatus(Waitlist user) {
-                    if(null != user && WaitStatus.Assigned == user.getStatus()) {
+                    if(null != user && WaitStatus.Assigned.equals(user.getStatus())) {
                         order.setOrderStatus(OrderStatus.Placed);
                         createOrder();
                     }else {
