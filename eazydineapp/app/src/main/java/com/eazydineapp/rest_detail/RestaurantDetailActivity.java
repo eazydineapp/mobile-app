@@ -96,7 +96,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
             @Override
             public void displayOrder(Order dbOrder) {
                 int NOTIFICATION_COUNT = 0;
-                if(null != dbOrder) {
+                if(null != dbOrder && dbOrder.getRestaurantId().equals(String.valueOf(restaurant.getId()))) {
                     NOTIFICATION_COUNT = dbOrder.getItemList().size();
                 }
                 if (cartNotificationCount != null) {

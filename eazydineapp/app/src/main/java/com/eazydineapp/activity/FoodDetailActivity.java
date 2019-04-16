@@ -189,7 +189,7 @@ public class FoodDetailActivity extends AppCompatActivity {
             @Override
             public void displayOrder(Order dbOrder) {
                 int NOTIFICATION_COUNT = 0;
-                if(null != dbOrder) {
+                if(null != dbOrder && dbOrder.getRestaurantId().equals(restaurantMenu.getRestaurantId())) {
                     NOTIFICATION_COUNT = cartItemCount = dbOrder.getItemList().size();
                 }
                 if (cartNotificationCount != null) {

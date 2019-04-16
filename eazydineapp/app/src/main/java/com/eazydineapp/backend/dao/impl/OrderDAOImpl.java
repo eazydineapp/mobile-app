@@ -43,7 +43,7 @@ public class OrderDAOImpl implements OrderDAO {
                         Order dbOrder = null;
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             dbOrder = snapshot.getValue(Order.class);
-                            if (dbOrder.getRestaurantId() == order.getRestaurantId()) break;
+                            if (dbOrder.getRestaurantId().equals(order.getRestaurantId())) break;
                         }
                         updateCartItems(dbOrder, order.getItemList());
                     } else {
