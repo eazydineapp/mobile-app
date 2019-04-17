@@ -15,6 +15,14 @@ import android.view.ViewGroup;
 import com.eazydineapp.R;
 import com.eazydineapp.adapter.HistoryAdapter;
 import com.eazydineapp.adapter.OrdersAdapter;
+import com.eazydineapp.backend.service.api.OrderService;
+import com.eazydineapp.backend.service.impl.OrderServiceImpl;
+import com.eazydineapp.backend.ui.api.UIOrderService;
+import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
+import com.eazydineapp.backend.vo.Order;
+import com.eazydineapp.backend.vo.OrderStatus;
+
+import java.util.List;
 
 
 /**
@@ -23,6 +31,7 @@ import com.eazydineapp.adapter.OrdersAdapter;
 
 public class HistoryFragment extends Fragment {
     private RecyclerView recyclerOrders;
+    private HistoryAdapter historyAdapter;
 
     public HistoryFragment() {
         // Required empty public constructor
@@ -37,7 +46,26 @@ public class HistoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
         recyclerOrders = view.findViewById(R.id.recyclerOrders);
+        historyAdapter = new HistoryAdapter(getContext());
+        loadUserOrderHistory();
         return view;
+    }
+
+    private void loadUserOrderHistory() {
+        AndroidStoragePrefUtil storagePrefUtil = new AndroidStoragePrefUtil();
+        String userId = storagePrefUtil.getRegisteredUser(this);
+        OrderService orderService = new OrderServiceImpl();
+        orderService.getOrderByUser(userId, new UIOrderService() {
+            @Override
+            public void displayAllOrders(List<Order> orders) {
+                historyAdapter.setOrders(orders);
+            }
+
+            @Override
+            public void displayOrder(Order order) {
+
+            }
+        });
     }
 
     @Override
@@ -48,6 +76,6 @@ public class HistoryFragment extends Fragment {
 
     private void setupOrdersRecycler() {
         recyclerOrders.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerOrders.setAdapter(new HistoryAdapter(getContext()));
+        recyclerOrders.setAdapter(historyAdapter);
     }
 }

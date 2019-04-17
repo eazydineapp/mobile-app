@@ -43,9 +43,11 @@ public class OrderDAOImpl implements OrderDAO {
                         Order dbOrder = null;
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             dbOrder = snapshot.getValue(Order.class);
-                            if (dbOrder.getRestaurantId().equals(order.getRestaurantId())) break;
+                            if (dbOrder.getRestaurantId().equals(order.getRestaurantId())){
+                                updateCartItems(dbOrder, order.getItemList());
+                                break;
+                            }
                         }
-                        updateCartItems(dbOrder, order.getItemList());
                     } else {
                         createCart(order);
 
@@ -129,28 +131,28 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public void getOrderByUser(String userId, final UIOrderService UIOrderService) throws ItemException {
         try {
-            System.out.println("List of all orders for given restaurant..");
             final String orderPath = PathUtil.getUserPath() + userId + PathUtil.getOrderPath();
-            DAOUtil.getDatabaseReference().child(orderPath).addValueEventListener(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            List<Order> orders = new ArrayList<>();
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                Order order = snapshot.getValue(Order.class);
-                                orders.add(order);
-                            }
-                            UIOrderService.displayAllOrders(orders);
+            DatabaseReference orderReference = DAOUtil.getDatabaseReference().child(orderPath);
+            Query query = orderReference.orderByChild("orderStatus").equalTo(OrderStatus.Paid.toString());
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null) {
+                        List<Order> dbOrders = new ArrayList<>();
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            dbOrders.add(snapshot.getValue(Order.class));
                         }
+                        UIOrderService.displayAllOrders(dbOrders);
+                    }
+                }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                        }
-                    });
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
         } catch (Exception exception) {
-            Log.e(TAG, "Error getting item", exception);
+            Log.e(TAG, "Error getting order", exception);
             throw new ItemException("Error", exception);
-
         }
     }
 
