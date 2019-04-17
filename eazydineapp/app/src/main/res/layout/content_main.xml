@@ -6,6 +6,7 @@
     android:fitsSystemWindows="false">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarContentMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay"
@@ -24,12 +25,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="EazydineApp"
-                    android:textColor="@android:color/white" />
 
 
             </LinearLayout>

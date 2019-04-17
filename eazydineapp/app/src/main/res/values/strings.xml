@@ -11,6 +11,7 @@
     <string name="label_restaurants">Restaurants near you</string>
     <string name="rs">"$"</string>
     <string name="cart_title">Your cart</string>
+    <string name="pay_title">Make Payment</string>
     <string name="search_title">Search</string>
     <string name="label_refine">Refine</string>
     <string name="refine_reset_title">Reset</string>

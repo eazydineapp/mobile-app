@@ -6,7 +6,15 @@
     android:orientation="vertical"
     tools:context="com.eazydineapp.activity.RefineActivity">
 
-    <include layout="@layout/toolbar" />
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbarCart"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_collapseMode="pin"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     <LinearLayout
         android:id="@+id/orderDatePlaceTotal"
@@ -15,7 +23,7 @@
         android:background="@android:color/white"
         android:orientation="horizontal"
         android:padding="@dimen/dp16"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/toolbarCart">
 
         <TextView
             android:id="@+id/orderDate"

@@ -9,11 +9,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.eazydineapp.R;
+import com.eazydineapp.activity.CartActivity;
+import com.eazydineapp.activity.PaymentActivity;
 import com.eazydineapp.activity.RestaurantMenuActivity;
 import com.eazydineapp.adapter.OrdersAdapter;
 import com.eazydineapp.backend.service.api.OrderService;
@@ -124,6 +128,8 @@ public class OrdersFragment extends Fragment {
         loadOrdersForUser();
 
         View view = inflater.inflate(R.layout.fragment_orders, container, false);
+        setHasOptionsMenu(true);
+
         TextView checkOut = view.findViewById(R.id.checkoutText);
         checkOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,6 +168,21 @@ public class OrdersFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setupOrdersRecycler();
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        inflater.inflate(R.menu.menu_pay, menu);
+        View payActionView = menu.findItem(R.id.action_pay).getActionView();
+        payActionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //startActivity(new Intent(getContext(), PaymentActivity.class));
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
 
     private void setupOrdersRecycler() {
         recyclerOrders.setLayoutManager(new LinearLayoutManager(getContext()));
