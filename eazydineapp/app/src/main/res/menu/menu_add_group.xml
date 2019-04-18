@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/addGroupIcon"
+        android:icon="@drawable/ic_add_group_icon_24dp"
+        android:title="Add Group"
+        app:actionLayout="@layout/layout_add_group"
+        app:showAsAction="always" />
+</menu>

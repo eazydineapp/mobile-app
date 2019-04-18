@@ -1,6 +1,6 @@
 package com.eazydineapp.activity;
 
-import android.content.Intent;
+
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -18,24 +18,16 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.bumptech.glide.Glide;
-import com.eazydineapp.backend.service.api.OrderService;
-import com.eazydineapp.backend.service.impl.OrderServiceImpl;
-import com.eazydineapp.backend.ui.api.UIOrderService;
-import com.eazydineapp.backend.vo.Order;
 import com.eazydineapp.fragment.DetailsFragment;
-import com.eazydineapp.fragment.FavoriteFragment;
+import com.eazydineapp.fragment.GroupsFragment;
 import com.eazydineapp.fragment.HistoryFragment;
 import com.eazydineapp.fragment.HomeFragment;
-import com.eazydineapp.fragment.MyReviewsFragment;
 import com.eazydineapp.fragment.OrdersFragment;
 import com.eazydineapp.R;
-import com.eazydineapp.fragment.SupportFragment;
 import com.eazydineapp.adapter.DrawerListAdapter;
-import com.eazydineapp.location.LocationActivity;
 import com.eazydineapp.model.NavItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     ListView mDrawerList;
@@ -49,12 +41,15 @@ public class MainActivity extends AppCompatActivity {
 
     private Handler mHandler;
     private final String FRAG_TAG_HOME = "EazyDine";
-    private final String FRAG_TAG_FAVORITE = "Recommendations";
-    private final String FRAG_TAG_REVIEWS = "My Reviews";
-    private final String FRAG_TAG_SUPPORT = "Contact us";
     private final String FRAG_TAG_ORDERS = "My Orders";
     private final String FRAG_TAG_HISTORY = "History";
     private final String FRAG_TAG_DETAILS = "My Details";
+    private final String FRAG_TAG_GROUPS = "Groups";
+
+//    private final String FRAG_TAG_FAVORITE = "Recommendations";
+//    private final String FRAG_TAG_REVIEWS = "My Reviews";
+//    private final String FRAG_TAG_SUPPORT = "Contact us";
+
     private String fragTagCurrent = null;
     private int REQUEST_CODE_LOCATION = 99;
     private String restaurantId;
@@ -76,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         mNavItems.add(new NavItem("My orders", "Current orders", R.drawable.ic_shopping_cart_white_24dp));
         mNavItems.add(new NavItem("History", "Past orders", R.drawable.ic_restaurant_menu_white_24dp));
         mNavItems.add(new NavItem("My details", "Profile, address, payment info", R.drawable.ic_person_pin_white_24dp));
+        mNavItems.add(new NavItem("Groups", "List of Groups", R.drawable.ic_group_white_24dp));
         /*mNavItems.add(new NavItem("Recommendations", "Recommendations", R.drawable.ic_favorite_white_24dp));
         mNavItems.add(new NavItem("Reviews", "List of reviews", R.drawable.ic_local_activity_white_24dp));
         mNavItems.add(new NavItem("Support", "Have a chat with us", R.drawable.ic_chat_white_24dp));
@@ -108,15 +104,17 @@ public class MainActivity extends AppCompatActivity {
                         fragTagCurrent = FRAG_TAG_DETAILS;
                         break;
                     case 4:
-                        fragTagCurrent = FRAG_TAG_FAVORITE;
-                        break;
+                        fragTagCurrent = FRAG_TAG_GROUPS;
+//                    case 4:
+//                        fragTagCurrent = FRAG_TAG_FAVORITE;
+//                        break;
+//                    case 5:
+//                        fragTagCurrent = FRAG_TAG_REVIEWS;
+//                        break;
+//                    case 6:
+//                        fragTagCurrent = FRAG_TAG_SUPPORT;
+//                        break;
                     case 5:
-                        fragTagCurrent = FRAG_TAG_REVIEWS;
-                        break;
-                    case 6:
-                        fragTagCurrent = FRAG_TAG_SUPPORT;
-                        break;
-                    case 7:
                         break;
                 }
                 mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -167,24 +165,28 @@ public class MainActivity extends AppCompatActivity {
                 toolbarLayout.setVisibility(View.VISIBLE);
                 fragment = new HomeFragment();
                 break;
-            case FRAG_TAG_FAVORITE:
-                fragment = new FavoriteFragment();
-                break;
-            case FRAG_TAG_REVIEWS:
-                fragment = new MyReviewsFragment();
-                break;
             case FRAG_TAG_DETAILS:
                 fragment = new DetailsFragment();
                 break;
             case FRAG_TAG_ORDERS:
                 fragment = new OrdersFragment();
                 break;
-            case FRAG_TAG_SUPPORT:
-                fragment = new SupportFragment();
-                break;
             case FRAG_TAG_HISTORY:
                 fragment = new HistoryFragment();
                 break;
+            case FRAG_TAG_GROUPS:
+                fragment = new GroupsFragment();
+                break;
+//            case FRAG_TAG_SUPPORT:
+//                fragment = new SupportFragment();
+//                break;
+//            case FRAG_TAG_FAVORITE:
+//                fragment = new FavoriteFragment();
+//                break;
+//            case FRAG_TAG_REVIEWS:
+//                fragment = new MyReviewsFragment();
+//                break;
+
         }
 
         getSupportActionBar().setTitle(fragTag);

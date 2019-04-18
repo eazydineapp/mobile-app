@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.eazydineapp.activity.GroupDetailActivity">
+
+    <include
+        android:id="@+id/toolbarGroup"
+        layout="@layout/toolbar"/>
+
+    <LinearLayout
+        android:id="@+id/groupNameLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:background="@android:color/white"
+        android:padding="@dimen/dp16"
+        android:layout_below="@+id/toolbarGroup">
+
+        <EditText
+            android:id="@+id/editGroupName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/group_name"
+            android:inputType="textPersonName"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageViewEditIcon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/ic_edit_gray_24dp" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/groupUsersListRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"
+        android:layout_above="@+id/saveGroup"
+        android:layout_below="@+id/groupNameLinear"/>
+
+    <LinearLayout
+        android:id="@+id/saveGroup"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp4">
+
+
+        <TextView
+            android:id="@+id/saveTextView"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/groupUsersListRecycler"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/dp16"
+            android:background="@drawable/round_accent"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="@string/save"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</RelativeLayout>

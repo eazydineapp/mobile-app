@@ -32,6 +32,9 @@
     <string name="chinese_food_south_indian_food">Chinese food, south indian food</string>
     <string name="golden_fusion_china_chef">Golden fusion china chef</string>
     <string name="_4_8">4.8</string>
-    <string name="todo">TODO</string>
+    <string name="todo1">TODO</string>
     <string name="todo2">TODO2</string>
+    <string name="save">Save</string>
+    <string name="todo">TODO</string>
+    <string name="group_name">Group Name</string>
 </resources>
