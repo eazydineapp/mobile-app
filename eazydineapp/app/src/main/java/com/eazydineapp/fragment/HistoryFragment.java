@@ -22,6 +22,7 @@ import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
 import com.eazydineapp.backend.vo.Order;
 import com.eazydineapp.backend.vo.OrderStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,6 +33,7 @@ import java.util.List;
 public class HistoryFragment extends Fragment {
     private RecyclerView recyclerOrders;
     private HistoryAdapter historyAdapter;
+    private ArrayList<Order> orders = new ArrayList <>();
 
     public HistoryFragment() {
         // Required empty public constructor
@@ -58,6 +60,9 @@ public class HistoryFragment extends Fragment {
         orderService.getOrderByUser(userId, new UIOrderService() {
             @Override
             public void displayAllOrders(List<Order> orders) {
+                orders.add(new Order("14 May", "China gate chef", "Mulund, Mumbai", 1225, 0));
+                orders.add(new Order("10 May", "Sugar and spice chef", "Vila parle, Mumbai", 980, 1));
+                orders.add(new Order("9 May", "Old spice chef", "Mulund, Mumbai", 1258, 1));
                 historyAdapter.setOrders(orders);
             }
 

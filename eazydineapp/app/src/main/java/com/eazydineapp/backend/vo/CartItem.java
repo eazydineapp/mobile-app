@@ -20,7 +20,7 @@ public class CartItem implements Serializable {
     private String itemId;
     private String itemStatus;
 
-    public CartItem(){}
+    public CartItem(String ginger_chicken_curry, int i, int i1, int rest_res_1){}
 
     public CartItem(String name, String category, float price, int quantity, String photoPath, String itemId) {
         this.name = name;

@@ -37,4 +37,12 @@
     <string name="save">Save</string>
     <string name="todo">TODO</string>
     <string name="group_name">Group Name</string>
+    <string name="hotel_name">Hotel Name</string>
+    <string name="place1">Place</string>
+    <string name="subtotal1">Subtotal:</string>
+    <string name="service_charge">Service charge:</string>
+    <string name="reorder">Reorder</string>
+    <string name="preparing1">Preparing</string>
+    <string name="add_group">Add Group</string>
+    <string name="add_user">Add User</string>
 </resources>
