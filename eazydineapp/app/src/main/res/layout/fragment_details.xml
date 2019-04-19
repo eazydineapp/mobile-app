@@ -30,10 +30,11 @@
                 android:textStyle="bold" />
 
             <ImageView
+                android:id="@+id/saveUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp4"
-                android:src="@drawable/ic_edit_gray_24dp" />
+                android:src="@drawable/ic_done_gray_24dp" />
         </LinearLayout>
 
         <ScrollView
@@ -83,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dp8">
 
-                    <EditText
+                    <TextView
                         android:id="@+id/phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -94,42 +95,4 @@
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/savedAddressHeading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp8"
-            android:text="Your saved addresses"
-            android:textColor="@color/colorDarkText4"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerAddress"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/addAddress"
-            android:layout_below="@+id/savedAddressHeading"
-            android:background="@color/colorBackground" />
-
-        <TextView
-            android:id="@+id/addAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:drawableLeft="@drawable/ic_add_circle_outline_accent_24dp"
-            android:drawablePadding="@dimen/dp4"
-            android:padding="@dimen/dp4"
-            android:text="Add new address"
-            android:textColor="@color/colorAccent"
-            android:textSize="16sp" />
-    </RelativeLayout>
 </LinearLayout>

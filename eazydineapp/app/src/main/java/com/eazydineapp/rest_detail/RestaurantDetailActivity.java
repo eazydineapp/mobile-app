@@ -150,7 +150,10 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         ViewPagerStateAdapter adapter = new ViewPagerStateAdapter(getSupportFragmentManager());
         adapter.addFrag(cuisineFragment, "Cuisine");
         //adapter.addFrag(new ReviewFragment(), "Review");
-        adapter.addFrag(new InfoFragment(), "Info");
+
+        InfoFragment infoFragment = new InfoFragment();
+        infoFragment.setRestaurantDetails(restaurant);
+        adapter.addFrag(infoFragment, "Info");
 
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);

@@ -4,6 +4,8 @@ public class User {
     String phoneNumber;
     UserStatus status;
     String activeRestaurantId;
+    String name;
+    String email;
 
     public User() {
     }
@@ -36,5 +38,21 @@ public class User {
 
     public void setActiveRestaurantId(String activeRestaurantId) {
         this.activeRestaurantId = activeRestaurantId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

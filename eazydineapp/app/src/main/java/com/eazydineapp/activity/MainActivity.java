@@ -77,8 +77,6 @@ public class MainActivity extends AppCompatActivity {
         storagePrefUtil = new AndroidStoragePrefUtil();
 
         ImageView background = findViewById(R.id.background);
-        ImageView headerIcon = findViewById(R.id.headerIcon);
-        Glide.with(this).load(R.drawable.chef_logo).into(headerIcon);
         Glide.with(this).load(R.drawable.background).into(background);
 
         mNavItems.add(new NavItem("Home", "List of restaurants", R.drawable.ic_store_white_24dp));
