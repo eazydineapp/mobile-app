@@ -1,6 +1,7 @@
 package com.eazydineapp.fragment;
 
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -91,7 +92,12 @@ public class HomeFragment extends Fragment {
         searchTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), RestaurantActivity.class));
+                String searchText = searchTab.getText().toString();
+                Intent newIntent = new Intent(getContext(), RestaurantActivity.class);
+                if(null != searchText && !searchText.isEmpty()) {
+                    newIntent.putExtra("eazydineapp-searchStr", searchText);
+                }
+                startActivity(newIntent);
             }
         });
 
