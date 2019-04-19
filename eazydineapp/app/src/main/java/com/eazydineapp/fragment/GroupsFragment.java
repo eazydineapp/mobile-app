@@ -81,8 +81,8 @@ public class GroupsFragment extends Fragment {
         // Inflate the menu; this adds items to the action bar if it is present.
         inflater.inflate(R.menu.menu_add_group, menu);
         View addGroup = menu.findItem(R.id.addGroupIcon).getActionView();
-        // By default the user is the admin of the group when he clicks new group icon
 
+        // By default the user is the admin of the group when he clicks new group icon
         adminFlag = true;
         addGroup.setOnClickListener(new View.OnClickListener() {
             @Override

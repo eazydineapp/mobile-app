@@ -2,25 +2,25 @@ package com.eazydineapp.activity;
 
 
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.eazydineapp.R;
 import com.eazydineapp.adapter.GroupUserAdapter;
+import com.eazydineapp.backend.vo.Item;
 import com.eazydineapp.model.User;
 
 import java.util.ArrayList;
@@ -35,6 +35,8 @@ public class GroupDetailActivity extends AppCompatActivity {
     String groupName;
     GroupUserAdapter groupUserAdapter;
     private ArrayList<User> members = new ArrayList <>();
+    private Item addUserIcon;
+    private  String newUserNumber  = "";
 
 
     @Override
@@ -84,6 +86,7 @@ public class GroupDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if("Save".equals(tv.getText())) {
                     createOrupdateGroup();
+                    onBackPressed();
                 }else {
                     onBackPressed();
                 }
@@ -92,17 +95,58 @@ public class GroupDetailActivity extends AppCompatActivity {
 
     }
 
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Show add user icon if the user is the admin
         if(adminFlag){
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_add_user, menu);
+            View addUser = menu.findItem(R.id.addUserIcon).getActionView();
+            addUser.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getGroupMember();
+                }
+            });
         }
         return true;
     }
 
+    private void getGroupMember(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(GroupDetailActivity.this);
+        builder.setMessage("Enter the user number to add to this group");
+        // Set up the input
+        final EditText input = new EditText(this);
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        builder.setView(input);
+        builder.setCancelable(true);
+
+        builder.setPositiveButton(
+                "Add",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                         newUserNumber = input.getText().toString();
+                         members.add(new User("New User", "", newUserNumber));
+                        // Add the new user to the group in firebase
+                        dialog.cancel();
+                    }
+                });
+
+        builder.setNegativeButton(
+                "Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder.create();
+        alert11.show();
+    }
+
     private void setupGroupUserRecycler() {
-        members.add(new User("User 1", "", "889776554"));
+        members.add(new User("User 1", "", "8897765534"));
         members.add(new User("User 2", "", "8705395678"));
         groupUserAdapter.setGroupMemebers(members);
         LayoutInflater inflator = (LayoutInflater) this .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
