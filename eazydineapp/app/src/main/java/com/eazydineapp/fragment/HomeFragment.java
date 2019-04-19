@@ -124,9 +124,6 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
-
-        UserService userService = new UserServiceImpl();
-        userService.updateUser(new User(userId, UserStatus.IN, restaurantId));
     }
 
     private void openDialog(final String restaurantId) {
@@ -143,6 +140,8 @@ public class HomeFragment extends Fragment {
                 String value = input.getText().toString();
                 Waitlist waitlist = new Waitlist(userId, restaurantId, -1L, Integer.parseInt(value), WaitStatus.Waiting);
                 waitlistService.addUserToWaitList(waitlist);
+                UserService userService = new UserServiceImpl();
+                userService.updateUser(new User(userId, UserStatus.IN, restaurantId));
                 launchMenu(restaurantId);
             }
         });

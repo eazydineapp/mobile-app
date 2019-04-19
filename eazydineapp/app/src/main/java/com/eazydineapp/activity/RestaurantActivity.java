@@ -61,9 +61,13 @@ public class RestaurantActivity extends AppCompatActivity {
         });
         recyclerRestaurants = findViewById(R.id.recyclerRestaurants);
         setupRecyclerRestaurants();
-        loadRestaurants();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadRestaurants();
+    }
 
     private void setupRecyclerRestaurants() {
         recyclerRestaurants.setNestedScrollingEnabled(false);
@@ -73,7 +77,9 @@ public class RestaurantActivity extends AppCompatActivity {
     }
 
     private void loadRestaurants() {
-        String restaurantId = getIntent().getStringExtra("eazydine-restaurantId");
+        AndroidStoragePrefUtil storagePrefUtil = new AndroidStoragePrefUtil();
+        String restaurantIdSharedPref = storagePrefUtil.getValue(this, "RESTAURANT_ID");
+        String restaurantId = restaurantIdSharedPref == null || restaurantIdSharedPref.isEmpty() ? getIntent().getStringExtra("eazydine-restaurantId"): restaurantIdSharedPref;
         if(null == restaurantId) {
             loadAllRestaurants();
         }else {

@@ -30,7 +30,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void getUserStatus(String userId, final UIUserService uiUserService)  throws ItemException {
         try {
-            final String userPath = PathUtil.getUserDetailPath() + userId;
+            final String userPath = PathUtil.getUserStatusPath() + userId;
             DatabaseReference orderReference = DAOUtil.getDatabaseReference().child(userPath);
            // Query query = orderReference.orderByChild("status").equalTo(UserStatus.OUT.toString());
             orderReference.addValueEventListener(new ValueEventListener() {
@@ -56,7 +56,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void updateUser(User user) throws ItemException {
         try {
-            final String userPath = PathUtil.getUserDetailPath() + user.getPhoneNumber();
+            final String userPath = PathUtil.getUserStatusPath() + user.getPhoneNumber();
             DAOUtil.getDatabaseReference().child(userPath).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {

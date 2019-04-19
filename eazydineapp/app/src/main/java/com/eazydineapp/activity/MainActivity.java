@@ -178,16 +178,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadRestaurantMenu() {
-        String userId = storagePrefUtil.getRegisteredUser(this);
+        final String userId = storagePrefUtil.getRegisteredUser(this);
 
-        UserService userService = new UserServiceImpl();
+        final UserService userService = new UserServiceImpl();
         userService.getUserStatus(userId, new UIUserService() {
             @Override
             public void displayUserInfo(User user) {
-                if (null == user || UserStatus.OUT.equals(user.getStatus())) {
-                    clearSharedPref();
-                } else {
+                if(user == null) {
+                    userService.updateUser(new User(userId, UserStatus.START, ""));
+                }
+                else if (UserStatus.IN.equals(user.getStatus())) {
                     startRestaurantActivity();
+                }else if(UserStatus.OUT.equals(user.getStatus())) {
+                    clearSharedPref();
                 }
             }
         });
@@ -203,7 +206,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void clearSharedPref() {
+        String userId = storagePrefUtil.getRegisteredUser(this);
         storagePrefUtil.putKeyValue(this, "RESTAURANT_ID", null);
+        UserService userService = new UserServiceImpl();
+        userService.updateUser(new User(userId, UserStatus.START, ""));
+        startActivity(new Intent(this, MainActivity.class));
         //onRestart();
     }
 

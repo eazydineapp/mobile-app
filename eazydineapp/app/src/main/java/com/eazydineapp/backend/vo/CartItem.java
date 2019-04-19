@@ -19,10 +19,11 @@ public class CartItem implements Serializable {
     private String photoPath;
     private String itemId;
     private String itemStatus;
+    private String instr;
 
     public CartItem(){}
 
-    public CartItem(String name, String category, float price, int quantity, String photoPath, String itemId) {
+    public CartItem(String name, String category, float price, int quantity, String photoPath, String itemId, String instr) {
         this.name = name;
         this.category = category;
         this.price = AppUtil.round(price);
@@ -30,6 +31,7 @@ public class CartItem implements Serializable {
         this.priceTotal = AppUtil.round(this.price * this.quantity);
         this.photoPath = photoPath;
         this.itemId = itemId;
+        this.instr = instr;
     }
 
     public void setQuantity(int quantity) {
@@ -71,5 +73,13 @@ public class CartItem implements Serializable {
 
     public void setItemStatus(String itemStatus) {
         this.itemStatus = itemStatus;
+    }
+
+    public String getInstr() {
+        return instr;
+    }
+
+    public void setInstr(String instr) {
+        this.instr = instr;
     }
 }

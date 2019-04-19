@@ -166,19 +166,7 @@ public class OrderPaymentActivity extends AppCompatActivity {
         userService.updateUser(new User(userId, UserStatus.OUT, ""));
 
         final OrderService orderService = new OrderServiceImpl();
-        orderService.getOrderByUserAndRestaurant(userId, restaurantId, new UIOrderService() {
-            @Override
-            public void displayAllOrders(List<Order> orders) {
-                for (Order order : orders) {
-                    order.setOrderStatus(OrderStatus.Paid);
-                    orderService.updateOrder(order);
-                }
-            }
-
-            @Override
-            public void displayOrder(Order order) {
-            }
-        });
+        orderService.updateOrderByUserAndRestaurant(userId, restaurantId);
 
         startActivity(new Intent(this, MainActivity.class));
     }

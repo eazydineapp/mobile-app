@@ -59,6 +59,14 @@ public class OrderServiceImpl implements OrderService {
         } catch (ItemException e) {
             e.printStackTrace();
         }
+    }
 
+    @Override
+    public void updateOrderByUserAndRestaurant(String userId, String restaurantId) {
+        try {
+            orderDAO.updateOrderByUserAndRestaurant(userId, restaurantId);
+        } catch (ItemException e) {
+            e.printStackTrace();
+        }
     }
 }

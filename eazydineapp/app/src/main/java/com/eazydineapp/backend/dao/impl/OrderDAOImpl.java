@@ -241,4 +241,38 @@ public class OrderDAOImpl implements OrderDAO {
             throw new ItemException("Error", exception);
         }
     }
+
+    @Override
+    public void updateOrderByUserAndRestaurant(String userId, final String restaurantId) throws ItemException {
+        try {
+            System.out.println("List of all orders for given restaurant and user");
+            final String orderPath = PathUtil.getUserPath() + userId + PathUtil.getOrderPath();
+            DAOUtil.getDatabaseReference().child(orderPath).addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            List<Order> orders = new ArrayList<>();
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                Order order = snapshot.getValue(Order.class);
+                                if(restaurantId.equals(order.getRestaurantId()) && OrderStatus.Served.equals(order.getOrderStatus())){
+                                    order.setOrderStatus(OrderStatus.Paid);
+                                    try {
+                                        updateOrder(order);
+                                    } catch (ItemException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+        } catch (Exception exception) {
+            Log.e(TAG, "Error getting order by restaurant and user", exception);
+            throw new ItemException("Error", exception);
+
+        }
+    }
 }

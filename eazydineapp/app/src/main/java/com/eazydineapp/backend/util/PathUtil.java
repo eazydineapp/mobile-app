@@ -101,9 +101,9 @@ public class PathUtil {
         return itemPath.toString();
     }
 
-    public static String getUserDetailPath(){
+    public static String getUserStatusPath(){
         StringBuffer itemPath = getRootPath();
-        itemPath.append(CommonConstants.USER_DETAIL_PATH);
+        itemPath.append(CommonConstants.USER_STATUS_PATH);
         itemPath.append(CommonConstants.SEPARATOR);
         return itemPath.toString();
     }

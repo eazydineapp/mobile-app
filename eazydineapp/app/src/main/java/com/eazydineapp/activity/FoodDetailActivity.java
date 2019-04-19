@@ -3,6 +3,7 @@ package com.eazydineapp.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +13,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.eazydineapp.R;
 import com.eazydineapp.backend.service.api.OrderService;
 import com.eazydineapp.backend.service.impl.OrderServiceImpl;
@@ -99,7 +102,9 @@ public class FoodDetailActivity extends AppCompatActivity {
         ArrayList<CartItem> cartItems = new ArrayList<>();
 
         Integer quantity = Integer.parseInt(itemQuantity.getText().toString());
-        CartItem cartItem = new CartItem(restaurantMenu.getName(), restaurantMenu.getCategory(), restaurantMenu.getPrice(), quantity, restaurantMenu.getImagePath(), restaurantMenu.getId());
+        String instr = ((EditText)findViewById(R.id.foodInstruction)).getText().toString();
+
+        CartItem cartItem = new CartItem(restaurantMenu.getName(), restaurantMenu.getCategory(), restaurantMenu.getPrice(), quantity, restaurantMenu.getImagePath(), restaurantMenu.getId(), instr);
         cartItems.add(cartItem);
 
         Order order = new Order("order Id to be generated", OrderStatus.Cart, Calendar.getInstance().getTime().toString(), cartItem.getPriceTotal(), false,
@@ -119,6 +124,9 @@ public class FoodDetailActivity extends AppCompatActivity {
 
         TextView descriptionView = findViewById(R.id.foodDesc);
         descriptionView.setText(restaurantMenu.getDescription());
+
+        ImageView imageView = findViewById(R.id.food_dtl_img);
+        Glide.with(getApplicationContext()).load(restaurantMenu.getImagePath()).into(imageView);
     }
 
     private void initUi() {

@@ -51,7 +51,6 @@ public class CartActivity extends AppCompatActivity {
     CartAdapter cartAdapter;
     private ArrayList<CartItem> cartItems;
     private Order order;
-    private Handler mHandler;
     private TextView tv,orderPlaceName, orderPlaceAddress, orderTotal, serviceCharge, subTotal, tax, orderDate;
     private String userId, restaurantId;
 
@@ -59,7 +58,7 @@ public class CartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbarCart);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(R.drawable.ic_keyboard_arrow_left_white_24dp);
@@ -93,25 +92,6 @@ public class CartActivity extends AppCompatActivity {
         });
     }
 
-    private void loadOrdersFragment() {
-        Runnable mPendingRunnable = new Runnable() {
-            @Override
-            public void run() {
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-                fragmentTransaction.replace(R.id.mainFrame, new OrdersFragment(), "My Orders");
-                fragmentTransaction.commitAllowingStateLoss();
-            }
-        };
-
-        getSupportActionBar().setTitle("My Orders");
-
-        if (mHandler == null) {
-            mHandler = new Handler();
-        }
-        mHandler.post(mPendingRunnable);
-    }
-
     private void placeOrder() {
         if(null != order) {
             WaitlistService waitlistService = new WaitlistServiceImpl();
@@ -132,10 +112,11 @@ public class CartActivity extends AppCompatActivity {
     private void createOrder() {
         OrderService orderService = new OrderServiceImpl();
         orderService.updateOrder(order);
-        loadOrdersFragment();
+       // loadOrdersFragment();
 
-        tv.setText("Continue To Order");
-        tv.setGravity(Gravity.CENTER);
+       // tv.setText("Continue To Order");
+        //tv.setGravity(Gravity.CENTER);
+        startActivity(new Intent(this, RestaurantActivity.class));
     }
     private void displayPreOrderDialog() {
 
