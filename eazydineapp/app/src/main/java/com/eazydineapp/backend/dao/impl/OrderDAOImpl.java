@@ -275,4 +275,25 @@ public class OrderDAOImpl implements OrderDAO {
 
         }
     }
+
+    @Override
+    public void removeOrder(Order order) throws ItemException {
+        try {
+            final String orderPath = PathUtil.getUserPath() + order.getUserId() + PathUtil.getOrderPath() + order.getOrderId();
+            DAOUtil.getDatabaseReference().child(orderPath).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.d(TAG, "Success updating order");
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Log.e(TAG, "Error adding order", exception);
+                }
+            });
+        } catch (Exception exception) {
+            Log.e(TAG, "Error removing order", exception);
+            throw new ItemException("Error", exception);
+        }
+    }
 }

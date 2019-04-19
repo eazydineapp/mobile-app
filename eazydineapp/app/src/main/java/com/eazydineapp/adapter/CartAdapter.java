@@ -10,7 +10,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.eazydineapp.R;
+import com.eazydineapp.backend.service.api.OrderService;
+import com.eazydineapp.backend.service.impl.OrderServiceImpl;
 import com.eazydineapp.backend.vo.CartItem;
+import com.eazydineapp.backend.vo.Order;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,7 @@ import java.util.List;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> {
     private Context context;
     private ArrayList<CartItem> dataList;
+    private Order order;
 
     public CartAdapter(Context context) {
         this.context = context;
@@ -35,8 +39,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         this.dataList = new ArrayList<>(dataList);
     }
 
-    public void setCartItems(List<CartItem> dataList) {
+    public void setCartItems(List<CartItem> dataList, Order order) {
         this.dataList = new ArrayList<>(dataList);
+        this.order = order;
         notifyDataSetChanged();
     }
 
@@ -57,7 +62,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView name, price, priceTotal, quantity;
-        private ImageView itemImage;
+        private ImageView itemImage, removeItem;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -66,6 +71,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             priceTotal = itemView.findViewById(R.id.itemPriceTotal);
             quantity = itemView.findViewById(R.id.itemQuantity);
             itemImage = itemView.findViewById(R.id.itemImage);
+            removeItem = itemView.findViewById(R.id.removeItem);
 
             /*itemView.findViewById(R.id.itemQuantityMinus).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -76,15 +82,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                         notifyItemChanged(pos);
                     }
                 }
-            });
-            itemView.findViewById(R.id.itemQuantityPlus).setOnClickListener(new View.OnClickListener() {
+            });*/
+            removeItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int pos = getAdapterPosition();
-                    dataList.get(pos).setQuantity(dataList.get(pos).getQuantity() + 1);
-                    notifyItemChanged(pos);
+                    dataList.remove(pos);
+                    OrderService orderService = new OrderServiceImpl();
+                    if(dataList.isEmpty()) {
+                        orderService.removeOrder(order);
+                    }else {
+                        order.setItemList(dataList);
+                        orderService.updateOrder(order);
+                        notifyItemChanged(pos);
+                    }
                 }
-            });*/
+            });
         }
 
         public void setData(CartItem cartItem) {

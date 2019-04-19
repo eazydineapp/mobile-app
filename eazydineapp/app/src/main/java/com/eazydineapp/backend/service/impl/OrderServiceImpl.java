@@ -69,4 +69,13 @@ public class OrderServiceImpl implements OrderService {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void removeOrder(Order order) {
+        try {
+            orderDAO.removeOrder(order);
+        } catch (ItemException e) {
+            e.printStackTrace();
+        }
+    }
 }

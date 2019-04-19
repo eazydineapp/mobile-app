@@ -13,4 +13,5 @@ public interface OrderService {
     void getCartByUser(String userId, UIOrderService uiOrderService);
     void updateOrder(Order order);
     void updateOrderByUserAndRestaurant(String userId, String restaurantId);
+    void removeOrder(Order order);
 }

@@ -181,7 +181,7 @@ public class CartActivity extends AppCompatActivity {
                     orderDate.setText(String.valueOf(date.getDate()) +" "+ new DateFormatSymbols().getMonths()[date.getMonth()]);
 
                     cartItems.addAll(dbOrder.getItemList());
-                    cartAdapter.setCartItems(cartItems);
+                    cartAdapter.setCartItems(cartItems, dbOrder);
                 }
             }
         });
