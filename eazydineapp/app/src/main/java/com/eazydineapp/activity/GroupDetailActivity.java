@@ -148,6 +148,8 @@ public class GroupDetailActivity extends AppCompatActivity {
     private void setupGroupUserRecycler() {
         members.add(new User("User 1", "", "8897765534"));
         members.add(new User("User 2", "", "8705395678"));
+
+
         groupUserAdapter.setGroupMemebers(members);
         LayoutInflater inflator = (LayoutInflater) this .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflator.inflate(R.layout.item_group_member, null);

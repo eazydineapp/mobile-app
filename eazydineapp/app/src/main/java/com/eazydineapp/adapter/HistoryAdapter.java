@@ -2,6 +2,7 @@ package com.eazydineapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.eazydineapp.R;
+import com.eazydineapp.activity.HistoryOrderDetailActivity;
 import com.eazydineapp.activity.MainActivity;
 import com.eazydineapp.activity.RestaurantActivity;
 import com.eazydineapp.backend.service.api.OrderService;
@@ -37,13 +39,17 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
     private Context context;
     private List<Order> dataList;
     boolean showContent = true;
+    private String restaurantName, restaurantPlace;
+    private float  orderTotalPrice;
+    private Order orderObj;
+
 
     public  HistoryAdapter(Context context) {
         this.context = context;
         this.dataList = new ArrayList<>();
-        /*this.dataList.add(new Order("14 May", "China gate chef", "Mulund, Mumbai", 1225, 0));
+        this.dataList.add(new Order("14 May", "China gate chef", "Mulund, Mumbai", 1225, 0));
         this.dataList.add(new Order("10 May", "Sugar and spice chef", "Vila parle, Mumbai", 980, 1));
-        this.dataList.add(new Order("9 May", "Old spice chef", "Mulund, Mumbai", 1258, 1));*/
+        this.dataList.add(new Order("9 May", "Old spice chef", "Mulund, Mumbai", 1258, 1));
         //loadOrdersForUser();
     }
     @Override
@@ -59,13 +65,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
             @Override
             public void onClick(View v)
             {
-                if (showContent) {
-                    holder.orderDetailsTab.setVisibility(View.VISIBLE);
-                    showContent = false;
-                } else {
-                    holder.orderDetailsTab.setVisibility(View.GONE);
-                    showContent = true;
-                }
+                Intent intent = new Intent(context, HistoryOrderDetailActivity.class);
+                intent.putExtra("Order", (Parcelable) orderObj);
+                context.startActivity(intent);
             }
         });
     }
@@ -81,9 +83,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView orderDate, orderPlaceName, orderPlaceAddress, orderTotal, orderStatus, reorderBtn;
+        private TextView orderDate, orderPlaceName, orderPlaceAddress, orderTotal, orderStatus;
         private LinearLayout orderTab;
-        private CardView orderDetailsTab;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -93,41 +94,17 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
             orderTotal = itemView.findViewById(R.id.orderTotal);
             orderStatus = itemView.findViewById(R.id.orderStatus);
             orderTab = itemView.findViewById(R.id.orderDatePlaceTotal);
-            orderDetailsTab = itemView.findViewById(R.id.cardViewOrderDetails);
-            reorderBtn = itemView.findViewById(R.id.reorderBtn);
         }
 
         public void setData(final Order order) {
+            orderObj = order;
             Date date = new Date(order.getOrderDate());
             orderDate.setText(String.valueOf(date.getDate()) +" "+ new DateFormatSymbols().getMonths()[date.getMonth()]);
             orderPlaceAddress.setText(order.getRestaurantAddress());
             orderPlaceName.setText(order.getRestaurantName());
             orderTotal.setText(String.valueOf(order.getTotalPrice()));
             orderStatus.setText(order.getOrderStatus().toString());
-            orderDetailsTab.setVisibility(View.GONE);
-            reorderBtn.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v)
-                {
-                    addItemToCart(order);
-                }
-            });
-
         }
-    }
-
-    private void addItemToCart(Order dbOrder) {
-        ArrayList<CartItem> cartItems = new ArrayList<>(dbOrder.getItemList());
-
-        Order order = new Order("order Id to be generated", OrderStatus.Cart, Calendar.getInstance().getTime().toString(), dbOrder.getTotalPrice(), false,
-                dbOrder.getUserId(), dbOrder.getRestaurantId(), dbOrder.getRestaurantName(), dbOrder.getRestaurantAddress(), cartItems);
-
-        OrderService orderService = new OrderServiceImpl();
-        orderService.addToCart(order);
-
-        Intent newIntent = new Intent(context, RestaurantActivity.class);
-        newIntent.putExtra("eazydine-restaurantId", dbOrder.getRestaurantId());
-        context.startActivity(newIntent);
     }
 }
 

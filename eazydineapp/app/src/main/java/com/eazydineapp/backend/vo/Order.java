@@ -14,7 +14,7 @@ public class Order {
     private String restaurantAddress;
     private List<CartItem> itemList;
 
-    public Order() {
+    public Order(String s, String china_gate_chef, String s1, int i, int i1) {
 
     }
 
