@@ -1,6 +1,7 @@
 package com.eazydineapp.activity;
 
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,17 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.bumptech.glide.Glide;
+import com.eazydineapp.backend.service.api.OrderService;
+import com.eazydineapp.backend.service.api.UserService;
+import com.eazydineapp.backend.service.impl.OrderServiceImpl;
+import com.eazydineapp.backend.service.impl.UserServiceImpl;
+import com.eazydineapp.backend.ui.api.UIOrderService;
+import com.eazydineapp.backend.ui.api.UIUserService;
+import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
+import com.eazydineapp.backend.vo.Order;
+import com.eazydineapp.backend.vo.OrderStatus;
+import com.eazydineapp.backend.vo.User;
+import com.eazydineapp.backend.vo.UserStatus;
 import com.eazydineapp.fragment.DetailsFragment;
 import com.eazydineapp.fragment.GroupsFragment;
 import com.eazydineapp.fragment.HistoryFragment;
@@ -52,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String fragTagCurrent = null;
     private int REQUEST_CODE_LOCATION = 99;
-    private String restaurantId;
+    AndroidStoragePrefUtil storagePrefUtil;
 
 
     @Override
@@ -61,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        storagePrefUtil = new AndroidStoragePrefUtil();
 
         ImageView background = findViewById(R.id.background);
         ImageView headerIcon = findViewById(R.id.headerIcon);
@@ -155,6 +169,42 @@ public class MainActivity extends AppCompatActivity {
 
         loadFragment(FRAG_TAG_HOME);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadRestaurantMenu();
+    }
+
+    private void loadRestaurantMenu() {
+        String userId = storagePrefUtil.getRegisteredUser(this);
+
+        UserService userService = new UserServiceImpl();
+        userService.getUserStatus(userId, new UIUserService() {
+            @Override
+            public void displayUserInfo(User user) {
+                if (null == user || UserStatus.OUT.equals(user.getStatus())) {
+                    clearSharedPref();
+                } else {
+                    startRestaurantActivity();
+                }
+            }
+        });
+    }
+
+    private void startRestaurantActivity() {
+        String restaurantId = storagePrefUtil.getValue(this, "RESTAURANT_ID");
+        if (null != restaurantId || !restaurantId.isEmpty()) {
+            Intent newIntent = new Intent(this, RestaurantActivity.class);
+            newIntent.putExtra("eazydine-restaurantId", restaurantId);
+            startActivity(newIntent);
+        }
+    }
+
+    private void clearSharedPref() {
+        storagePrefUtil.putKeyValue(this, "RESTAURANT_ID", null);
+        //onRestart();
     }
 
     private void loadFragment(final String fragTag) {

@@ -13,6 +13,7 @@ public interface CommonConstants {
     String ROOT_PATH = "/";
     String COOK_PATH = "cook";
     String USER_PATH = "users";
+    String USER_DETAIL_PATH = "userDetails";
     String RESTAURANT_PATH = "restaurants";
     String WAITLIST = "waitlist";
     String SEPARATOR = "/";

@@ -15,7 +15,7 @@
         android:padding="@dimen/dp16">
 
         <TextView
-            android:id="@+id/orderDate"
+            android:id="@+id/orderDateFg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="right"
@@ -39,7 +39,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/orderPlaceName"
+                android:id="@+id/orderPlaceNameFg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -50,7 +50,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/orderPlaceAddress"
+                android:id="@+id/orderPlaceAddressFg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -66,7 +66,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/orderTotal"
+                android:id="@+id/orderTotalFg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dp4"
@@ -228,7 +228,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/subTotal"
+                        android:id="@+id/subTotalFg"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.3"
@@ -255,7 +255,7 @@
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/serviceCharge"
+                        android:id="@+id/serviceChargeFg"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.3"
@@ -276,12 +276,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.7"
-                        android:text="Extra charges"
+                        android:text="Tax"
                         android:textColor="@color/colorDarkText3"
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/tax"
+                        android:id="@+id/taxFg"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.3"

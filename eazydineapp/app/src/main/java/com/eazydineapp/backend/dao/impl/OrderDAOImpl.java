@@ -7,6 +7,7 @@ import android.util.Log;
 import com.eazydineapp.backend.dao.api.OrderDAO;
 import com.eazydineapp.backend.exception.ItemException;
 import com.eazydineapp.backend.ui.api.UIOrderService;
+import com.eazydineapp.backend.util.AppUtil;
 import com.eazydineapp.backend.util.DAOUtil;
 import com.eazydineapp.backend.util.PathUtil;
 import com.eazydineapp.backend.vo.CartItem;
@@ -25,6 +26,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static java.lang.Math.round;
 
 public class OrderDAOImpl implements OrderDAO {
 
@@ -92,7 +95,7 @@ public class OrderDAOImpl implements OrderDAO {
         try {
             Map<String, CartItem> cartItemMap = new HashMap<>();
             cartItems.addAll(order.getItemList());
-            Double totalPrice = 0.0;
+            float totalPrice = 0.0f;
             for (CartItem item : cartItems) {
                 totalPrice += item.getPriceTotal();
                 if (cartItemMap.containsKey(item.getItemId())) {
@@ -108,7 +111,10 @@ public class OrderDAOImpl implements OrderDAO {
             for (String key : cartItemMap.keySet()) {
                 cartItemToStore.add(cartItemMap.get(key));
             }
+
+            totalPrice = AppUtil.round(totalPrice);
             order.setItemList(cartItemToStore);
+            order.setTotalPrice(totalPrice);
 
             final String orderPath = PathUtil.getUserPath() + order.getUserId() + PathUtil.getOrderPath() + order.getOrderId();
             DAOUtil.getDatabaseReference().child(orderPath).setValue(order).addOnSuccessListener(new OnSuccessListener<Void>() {

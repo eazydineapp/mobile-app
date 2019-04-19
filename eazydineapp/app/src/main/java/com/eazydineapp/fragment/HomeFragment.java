@@ -26,12 +26,16 @@ import com.eazydineapp.activity.RestaurantActivity;
 import com.eazydineapp.adapter.FoodCategoryAdapter;
 import com.eazydineapp.adapter.RestaurantAdapter;
 import com.eazydineapp.backend.service.api.OrderService;
+import com.eazydineapp.backend.service.api.UserService;
 import com.eazydineapp.backend.service.api.WaitlistService;
 import com.eazydineapp.backend.service.impl.OrderServiceImpl;
+import com.eazydineapp.backend.service.impl.UserServiceImpl;
 import com.eazydineapp.backend.service.impl.WaitlistServiceImpl;
 import com.eazydineapp.backend.ui.api.UIWaitlistService;
 import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
 import com.eazydineapp.backend.vo.OrderStatus;
+import com.eazydineapp.backend.vo.User;
+import com.eazydineapp.backend.vo.UserStatus;
 import com.eazydineapp.backend.vo.WaitStatus;
 import com.eazydineapp.backend.vo.Waitlist;
 
@@ -112,7 +116,7 @@ public class HomeFragment extends Fragment {
         waitlistService.getWaitStatus(restaurantId, userId, new UIWaitlistService() {
             @Override
             public void displayWaitStatus(Waitlist user) {
-                if (null != user && WaitStatus.Waiting.equals(user.getStatus())) {
+                if (null != user && (WaitStatus.Waiting.equals(user.getStatus()) || WaitStatus.Assigned.equals(user.getStatus()))) {
                     //do nothing
                     launchMenu(restaurantId);
                 } else {
@@ -120,6 +124,9 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
+
+        UserService userService = new UserServiceImpl();
+        userService.updateUser(new User(userId, UserStatus.IN, restaurantId));
     }
 
     private void openDialog(final String restaurantId) {

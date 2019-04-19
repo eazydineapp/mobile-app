@@ -1,6 +1,11 @@
 package com.eazydineapp.backend.vo;
 
+import com.eazydineapp.backend.util.AppUtil;
+
 import java.io.Serializable;
+import java.text.DecimalFormat;
+
+import static java.lang.Math.round;
 
 /**
  * Created by a_man on 24-01-2018.
@@ -20,16 +25,16 @@ public class CartItem implements Serializable {
     public CartItem(String name, String category, float price, int quantity, String photoPath, String itemId) {
         this.name = name;
         this.category = category;
-        this.price = price;
+        this.price = AppUtil.round(price);
         this.quantity = quantity;
-        this.priceTotal = this.price * this.quantity;
+        this.priceTotal = AppUtil.round(this.price * this.quantity);
         this.photoPath = photoPath;
         this.itemId = itemId;
     }
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-        this.priceTotal = this.price * this.quantity;
+        this.priceTotal = AppUtil.round(this.price * this.quantity);
     }
 
     public String getCategory() {

@@ -15,9 +15,14 @@ import android.view.ViewGroup;
 import com.eazydineapp.R;
 import com.eazydineapp.adapter.FoodCategoryAdapter;
 import com.eazydineapp.adapter.RestaurantAdapter;
+import com.eazydineapp.backend.service.api.OrderService;
 import com.eazydineapp.backend.service.api.RestaurantService;
+import com.eazydineapp.backend.service.impl.OrderServiceImpl;
 import com.eazydineapp.backend.service.impl.RestaurantServiceImpl;
+import com.eazydineapp.backend.ui.api.UIOrderService;
 import com.eazydineapp.backend.ui.api.UIRestaurantService;
+import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
+import com.eazydineapp.backend.vo.Order;
 import com.eazydineapp.backend.vo.Restaurant;
 import com.eazydineapp.rest_detail.RestaurantDetailActivity;
 import com.google.gson.Gson;
@@ -31,6 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RestaurantActivity extends AppCompatActivity {
 

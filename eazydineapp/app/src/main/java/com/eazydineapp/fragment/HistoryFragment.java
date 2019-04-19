@@ -47,7 +47,7 @@ public class HistoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
         recyclerOrders = view.findViewById(R.id.recyclerOrders);
         historyAdapter = new HistoryAdapter(getContext());
-        //loadUserOrderHistory();
+        loadUserOrderHistory();
         return view;
     }
 

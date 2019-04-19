@@ -15,7 +15,7 @@ import org.json.JSONObject;
 
 public class RestAPIUtil {
 
-    private final String BASE_URL = "http://10.0.0.160:8080";
+    private final String BASE_URL = "http://192.168.1.6:8080";
 
     public void executePostAPI(Context context, String uri, JSONObject jsonObject, final UIRestaurantService callback) {
         APIRequestQueue queue =  APIRequestQueue.getInstance(context);

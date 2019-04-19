@@ -86,6 +86,9 @@
         <activity
             android:name=".activity.FoodDetailActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.OrderPaymentActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"
