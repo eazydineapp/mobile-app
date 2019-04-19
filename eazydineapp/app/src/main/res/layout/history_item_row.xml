@@ -4,21 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/dp4"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:weightSum="2">
 
     <TextView
         android:id="@+id/historyItemName"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Ginger chicken curry (1)"
         android:textColor="@color/colorDarkText4" />
 
     <TextView
         android:id="@+id/historyItemPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="₹ 400"
+        android:layout_weight="1"
         android:textColor="@android:color/black"
         android:textStyle="bold" />
 </LinearLayout>

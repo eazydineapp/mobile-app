@@ -73,7 +73,7 @@
                 android:background="@drawable/round_circle_accent"
                 android:gravity="center"
                 android:padding="1dp"
-                android:text="Preparing"
+                android:text="@string/preparing1"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dp4"
                 android:gravity="right"
-                android:text="₹ 1225"
+                android:text="$0"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />

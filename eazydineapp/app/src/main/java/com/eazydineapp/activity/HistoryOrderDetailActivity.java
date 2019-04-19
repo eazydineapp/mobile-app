@@ -24,13 +24,17 @@ import com.eazydineapp.backend.vo.OrderStatus;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * Created by Harini on 14-04-2019.
+ */
+
 public class HistoryOrderDetailActivity extends AppCompatActivity {
     RecyclerView historyItemRecycler;
     String userId, restaurantId;
     TextView historyOrderDate, reorderBtn, historyOrderPlaceName, historyOrderPlaceAddress, subTotalTextView, serviceChargeTextView, totalAmountTextView;
     RecyclerView historyOrderItemsRecycler;
     HistoryItemAdapter historyItemAdapter;
-    ArrayList<CartItem> items;
+    ArrayList<CartItem> items = new ArrayList <>();
     Order order;
 
     @Override
@@ -60,6 +64,7 @@ public class HistoryOrderDetailActivity extends AppCompatActivity {
         userId = storagePrefUtil.getRegisteredUser(this);
         restaurantId = storagePrefUtil.getValue(this, "RESTAURANT_ID");
 
+        historyItemAdapter =  new HistoryItemAdapter(this, items);
         setupHistoryOrderItemsRecycler();
 
         // Get the order object from the History Fragment
@@ -73,6 +78,13 @@ public class HistoryOrderDetailActivity extends AppCompatActivity {
                 addItemToCart(order);
             }
         });
+
+        subTotalTextView.setText(String.valueOf(order.getTotalPrice()));
+        //Compute service fee and total price
+        float total = order.getTotalPrice();
+        int serviceFee = (int) (total * 0.15);
+        serviceChargeTextView.setText(serviceFee);
+        totalAmountTextView.setText((int) (total+serviceFee));
     }
 
     private void setupHistoryOrderItemsRecycler(){
@@ -81,9 +93,9 @@ public class HistoryOrderDetailActivity extends AppCompatActivity {
         items.add(new CartItem("Paneer khurchan", 1, 370, R.drawable.rest_res_2));
 
 
-        historyItemAdapter =  new HistoryItemAdapter(this, items);
         LayoutInflater inflator = (LayoutInflater) this .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflator.inflate(R.layout.history_item_row, null);
+        historyItemAdapter.setHistoryOrderItems(items);
         historyItemAdapter.notifyDataSetChanged();
         historyOrderItemsRecycler.setLayoutManager(new LinearLayoutManager(this));
         historyOrderItemsRecycler.setAdapter(historyItemAdapter);

@@ -39,18 +39,15 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
     private Context context;
     private List<Order> dataList;
     boolean showContent = true;
-    private String restaurantName, restaurantPlace;
-    private float  orderTotalPrice;
     private Order orderObj;
 
 
     public  HistoryAdapter(Context context) {
         this.context = context;
         this.dataList = new ArrayList<>();
-        this.dataList.add(new Order("14 May", "China gate chef", "Mulund, Mumbai", 1225, 0));
-        this.dataList.add(new Order("10 May", "Sugar and spice chef", "Vila parle, Mumbai", 980, 1));
-        this.dataList.add(new Order("9 May", "Old spice chef", "Mulund, Mumbai", 1258, 1));
-        //loadOrdersForUser();
+//        this.dataList.add(new Order("14 May", "China gate chef", "Mulund, Mumbai", 1225, 0));
+//        this.dataList.add(new Order("10 May", "Sugar and spice chef", "Vila parle, Mumbai", 980, 1));
+//        this.dataList.add(new Order("9 May", "Old spice chef", "Mulund, Mumbai", 1258, 1));
     }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

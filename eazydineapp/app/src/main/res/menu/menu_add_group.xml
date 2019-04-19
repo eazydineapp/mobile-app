@@ -5,7 +5,7 @@
     <item
         android:id="@+id/addGroupIcon"
         android:icon="@drawable/ic_add_group_icon_24dp"
-        android:title="Add Group"
+        android:title="@string/add_group"
         app:actionLayout="@layout/layout_add_group"
         app:showAsAction="always" />
 </menu>

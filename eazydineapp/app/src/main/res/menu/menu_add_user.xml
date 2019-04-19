@@ -5,7 +5,7 @@
     <item
         android:id="@+id/addUserIcon"
         android:icon="@drawable/ic_add_user_black_24dp"
-        android:title="Add User"
+        android:title="@string/add_user"
         app:actionLayout="@layout/layout_add_user_bagde"
         app:showAsAction="always" />
 </menu>
