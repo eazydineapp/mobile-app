@@ -36,6 +36,7 @@ import com.eazydineapp.backend.service.api.WaitlistService;
 import com.eazydineapp.backend.service.impl.OrderServiceImpl;
 import com.eazydineapp.backend.service.impl.UserServiceImpl;
 import com.eazydineapp.backend.service.impl.WaitlistServiceImpl;
+import com.eazydineapp.backend.ui.api.UIUserService;
 import com.eazydineapp.backend.ui.api.UIWaitlistService;
 import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
 import com.eazydineapp.backend.vo.OrderStatus;
@@ -53,6 +54,7 @@ public class HomeFragment extends Fragment {
     private String userId;
     private WaitlistService waitlistService = new WaitlistServiceImpl();
     private AndroidStoragePrefUtil storagePrefUtil = new AndroidStoragePrefUtil();
+    private User user;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -85,6 +87,7 @@ public class HomeFragment extends Fragment {
         searchTab = view.findViewById(R.id.search_tab);
         nfc = view.findViewById(R.id.nfcTag);
         userId = storagePrefUtil.getRegisteredUser(this);
+        loadUser();
         //recyclerFood = view.findViewById(R.id.recyclerFood);
         // recyclerRestaurants = view.findViewById(R.id.recyclerRestaurants);
         view.findViewById(R.id.refine).setOnClickListener(new View.OnClickListener() {
@@ -107,6 +110,7 @@ public class HomeFragment extends Fragment {
         });
 
         readFromIntent(getActivity().getIntent());
+
        /* nfc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,16 +128,28 @@ public class HomeFragment extends Fragment {
         startActivity(newIntent);
     }
 
-    private void addUserToWaitList(final String userId, final String restaurantId) {
-        waitlistService.getWaitStatus(restaurantId, userId, new UIWaitlistService() {
-            @Override
-            public void displayWaitStatus(Waitlist user) {
-                if (null != user && (WaitStatus.Waiting.equals(user.getStatus()) || WaitStatus.Assigned.equals(user.getStatus()))) {
-                    //do nothing
-                    launchMenu(restaurantId);
-                } else {
-                    openDialog(restaurantId);
+    private void checkUserWaitlist(final String userId, final String restaurantId) {
+        if(null != restaurantId && !restaurantId.isEmpty() && UserStatus.START.equals(user.getStatus())) {
+            waitlistService.getWaitStatus(restaurantId, userId, new UIWaitlistService() {
+                @Override
+                public void displayWaitStatus(Waitlist user) {
+                    if (null != user && (WaitStatus.Waiting.equals(user.getStatus()) || WaitStatus.Assigned.equals(user.getStatus()))) {
+                        //do nothing
+                        launchMenu(restaurantId);
+                    }
                 }
+            });
+        }
+    }
+
+    private void loadUser() {
+        final String userId = storagePrefUtil.getRegisteredUser(this);
+
+        final UserService userService = new UserServiceImpl();
+        userService.getUserStatus(userId, new UIUserService() {
+            @Override
+            public void displayUserInfo(User dbUser) {
+                user = dbUser;
             }
         });
     }
@@ -201,23 +217,24 @@ public class HomeFragment extends Fragment {
         }
     }
     private void buildTagViews(NdefMessage[] msgs) {
-        if (msgs == null || msgs.length == 0) return;
-
         String restaurantId = "";
-//        String tagId = new String(msgs[0].getRecords()[0].getType());
-        byte[] payload = msgs[0].getRecords()[0].getPayload();
-        String textEncoding = ((payload[0] & 128) == 0) ? "UTF-8" : "UTF-16"; // Get the Text Encoding
-        int languageCodeLength = payload[0] & 0063; // Get the Language Code, e.g. "en"
-        // String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
+        if (msgs != null && msgs.length != 0) {
+            byte[] payload = msgs[0].getRecords()[0].getPayload();
+            String textEncoding = ((payload[0] & 128) == 0) ? "UTF-8" : "UTF-16"; // Get the Text Encoding
+            int languageCodeLength = payload[0] & 0063; // Get the Language Code, e.g. "en"
+            // String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
 
-        try {
-            // Get the Text
-            restaurantId = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
-        } catch (UnsupportedEncodingException e) {
-            Log.e("UnsupportedEncoding", e.toString());
+            try {
+                // Get the Text
+                restaurantId = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
+            } catch (UnsupportedEncodingException e) {
+                Log.e("UnsupportedEncoding", e.toString());
+            }
+
+            storagePrefUtil.putKeyValue(getActivity(), "RESTAURANT_ID", restaurantId);
+            openDialog(restaurantId);
+        }else {
+            checkUserWaitlist(userId, restaurantId);
         }
-
-        storagePrefUtil.putKeyValue(getActivity(), "RESTAURANT_ID", restaurantId);
-        addUserToWaitList(userId, restaurantId);
     }
 }

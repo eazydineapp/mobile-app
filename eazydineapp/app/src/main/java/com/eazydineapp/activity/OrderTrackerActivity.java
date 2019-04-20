@@ -49,12 +49,17 @@ public class OrderTrackerActivity extends AppCompatActivity {
     }
 
     private void loadHistoryFragment() {
+        final HistoryFragment historyFragment = new HistoryFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("orderTrackerRestaurantId", restaurantId);
+        historyFragment.setArguments(bundle);
+
         Runnable mPendingRunnable = new Runnable() {
             @Override
             public void run() {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-                fragmentTransaction.replace(R.id.mainFrame, new HistoryFragment(), "Order History");
+                fragmentTransaction.replace(R.id.mainFrame, historyFragment, "Order History");
                 fragmentTransaction.commitAllowingStateLoss();
             }
         };

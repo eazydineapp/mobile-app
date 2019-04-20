@@ -10,16 +10,18 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/action_tb_history"
-        android:title="Order History"
-        app:actionLayout="@layout/layout_history_badge"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/action_cart"
-        android:icon="@drawable/ic_shopping_cart_white_24dp"
+        android:icon="@drawable/ic_shopping_cart_black_24dp"
         android:title="@string/cart_title"
         app:actionLayout="@layout/layout_badge"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_tb_history"
+        android:icon="@drawable/ic_history_24dp"
+        android:title="Order History"
+        app:actionLayout="@layout/layout_history_badge"
+        app:showAsAction="always" />
+
 
 </menu>

@@ -9,12 +9,12 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <TextView
+    <ImageView
         android:id="@+id/history_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="0dp"
         android:contentDescription="History Icon"
         android:gravity="center"
-        android:text="Order History" />
+        android:src="@drawable/ic_history_24dp"/>
 </RelativeLayout>

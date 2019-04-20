@@ -17,13 +17,18 @@ import com.eazydineapp.adapter.FoodCategoryAdapter;
 import com.eazydineapp.adapter.RestaurantAdapter;
 import com.eazydineapp.backend.service.api.OrderService;
 import com.eazydineapp.backend.service.api.RestaurantService;
+import com.eazydineapp.backend.service.api.UserService;
 import com.eazydineapp.backend.service.impl.OrderServiceImpl;
 import com.eazydineapp.backend.service.impl.RestaurantServiceImpl;
+import com.eazydineapp.backend.service.impl.UserServiceImpl;
 import com.eazydineapp.backend.ui.api.UIOrderService;
 import com.eazydineapp.backend.ui.api.UIRestaurantService;
+import com.eazydineapp.backend.ui.api.UIUserService;
 import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
 import com.eazydineapp.backend.vo.Order;
 import com.eazydineapp.backend.vo.Restaurant;
+import com.eazydineapp.backend.vo.User;
+import com.eazydineapp.backend.vo.UserStatus;
 import com.eazydineapp.rest_detail.RestaurantDetailActivity;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -44,6 +49,7 @@ public class RestaurantActivity extends AppCompatActivity {
     private Gson gson = new Gson();
     private RecyclerView recyclerRestaurants;
     private RestaurantAdapter restaurantAdapter;
+    private static String EXTRA_REST_NAME = "restaurant_name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,12 +83,10 @@ public class RestaurantActivity extends AppCompatActivity {
     }
 
     private void loadRestaurants() {
-        AndroidStoragePrefUtil storagePrefUtil = new AndroidStoragePrefUtil();
-        String restaurantIdSharedPref = storagePrefUtil.getValue(this, "RESTAURANT_ID");
         String restaurantId = getIntent().getStringExtra("eazydine-restaurantId");//restaurantIdSharedPref == null || restaurantIdSharedPref.isEmpty() ? getIntent().getStringExtra("eazydine-restaurantId"): restaurantIdSharedPref;
         String searchText = getIntent().getStringExtra("eazydineapp-searchStr");
 
-        if(null != restaurantId && !restaurantId.isEmpty() && !"No Key".equalsIgnoreCase(restaurantId)) {
+        if(null != restaurantId && !restaurantId.isEmpty()) {
             loadRestaurantById(restaurantId);
         }else if(null != searchText && !searchText.isEmpty()){
             searchRestaurants(searchText);
@@ -148,6 +152,8 @@ public class RestaurantActivity extends AppCompatActivity {
             @Override
             public void onSuccess(JSONObject jsonResponse) {
                 Restaurant restaurant = gson.fromJson(jsonResponse.toString(), Restaurant.class);
+                //Intent intent = new Intent(getApplicationContext(), RestaurantDetailActivity.class);
+                //intent.putExtra(EXTRA_REST_NAME, restaurant);
                 startActivity(RestaurantDetailActivity.newIntent(getApplicationContext(), restaurant));
             }
 

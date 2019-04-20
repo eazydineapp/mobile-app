@@ -89,7 +89,7 @@ public class VerificationCodeFragment extends Fragment {
         Log.d(TAG, "User Data:" + phoneNumber);
         dynamicPhoneNumber.setText(phoneNumber);
         sendVerificationCode(phoneNumber); //TODO uncomment when running on mobile app
-        startMainActivity();
+        //startMainActivity();
         return view;
     }
 
@@ -116,11 +116,8 @@ public class VerificationCodeFragment extends Fragment {
             errorTextView.setText("Cannot be empty.");
         }
         else{
-            //verifyPhoneNumberWithCode(mVerificationId, code);
-            Intent intent = new Intent(mActivity, MainActivity.class);
-            intent.putExtra("Status","Success");
-            mActivity.startActivity(intent);
-            mActivity.finish();
+            verifyPhoneNumberWithCode(mVerificationId, code);
+            startMainActivity();
         }
     }
 
@@ -205,12 +202,13 @@ public class VerificationCodeFragment extends Fragment {
 
 
     private void signInWithPhoneAuthCredential(final PhoneAuthCredential credential) {
+        Log.d(TAG, "######################################################signInWithCredential: phone"+phoneNumber);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "signInWithCredential:success");
+                            Log.d(TAG, "signInWithCredential:success phone"+phoneNumber);
                             startMainActivity();
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -223,9 +221,7 @@ public class VerificationCodeFragment extends Fragment {
     }
 
     private void startMainActivity() {
-        if(!phoneNumber.equals(storagePrefUtil.getRegisteredUser(this))) {
-            storagePrefUtil.saveRegisteredUser(this, phoneNumber);
-        }
+        storagePrefUtil.saveRegisteredUser(this, phoneNumber);
         Intent intent = new Intent(mActivity, MainActivity.class);
         intent.putExtra("Status","Success");
         mActivity.startActivity(intent);

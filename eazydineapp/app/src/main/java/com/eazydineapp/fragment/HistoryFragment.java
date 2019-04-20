@@ -22,6 +22,7 @@ import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
 import com.eazydineapp.backend.vo.Order;
 import com.eazydineapp.backend.vo.OrderStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -52,13 +53,29 @@ public class HistoryFragment extends Fragment {
     }
 
     private void loadUserOrderHistory() {
+        String arg = null;
+        if(null != getArguments()){
+            arg = getArguments().getString("orderTrackerRestaurantId");
+        }
+
+        final String restaurantId = arg;
         AndroidStoragePrefUtil storagePrefUtil = new AndroidStoragePrefUtil();
         String userId = storagePrefUtil.getRegisteredUser(this);
         OrderService orderService = new OrderServiceImpl();
         orderService.getOrderByUser(userId, new UIOrderService() {
             @Override
             public void displayAllOrders(List<Order> orders) {
-                historyAdapter.setOrders(orders);
+                if(restaurantId == null || restaurantId.isEmpty()) {
+                    historyAdapter.setOrders(orders);
+                }else {
+                    List<Order> dbOrders = new ArrayList<>();
+                    for(Order order : orders) {
+                        if(order.getRestaurantId().equals(restaurantId)) {
+                            dbOrders.add(order);
+                        }
+                        historyAdapter.setOrders(dbOrders);
+                    }
+                }
             }
 
             @Override
