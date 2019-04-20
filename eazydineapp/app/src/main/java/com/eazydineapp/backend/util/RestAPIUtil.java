@@ -15,7 +15,7 @@ import org.json.JSONObject;
 
 public class RestAPIUtil {
 
-    private final String BASE_URL = "http://192.168.1.6:8080";
+    private final String BASE_URL = "http://eazydine-menu-service-lb-298016264.us-east-1.elb.amazonaws.com";
 
     public void executePostAPI(Context context, String uri, JSONObject jsonObject, final UIRestaurantService callback) {
         APIRequestQueue queue =  APIRequestQueue.getInstance(context);

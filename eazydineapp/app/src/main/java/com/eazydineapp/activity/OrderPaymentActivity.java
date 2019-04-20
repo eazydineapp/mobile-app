@@ -104,7 +104,6 @@ public class OrderPaymentActivity extends AppCompatActivity {
                     //navigate to order summary screen
                     onBackPressed();
                 }else {
-                    //TODO update order status to paid, make payment with paypal, remove user from waitlist
                     makePayment();
                 }
             }

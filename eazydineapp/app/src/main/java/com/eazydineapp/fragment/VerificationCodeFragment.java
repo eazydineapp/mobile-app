@@ -88,7 +88,7 @@ public class VerificationCodeFragment extends Fragment {
         phoneNumber = bundle.getString("phone");
         Log.d(TAG, "User Data:" + phoneNumber);
         dynamicPhoneNumber.setText(phoneNumber);
-        //sendVerificationCode(phoneNumber); //TODO uncomment when running on mobile app
+        sendVerificationCode(phoneNumber); //TODO uncomment when running on mobile app
         startMainActivity();
         return view;
     }

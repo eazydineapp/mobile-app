@@ -82,7 +82,7 @@ public class RestaurantActivity extends AppCompatActivity {
         String restaurantId = getIntent().getStringExtra("eazydine-restaurantId");//restaurantIdSharedPref == null || restaurantIdSharedPref.isEmpty() ? getIntent().getStringExtra("eazydine-restaurantId"): restaurantIdSharedPref;
         String searchText = getIntent().getStringExtra("eazydineapp-searchStr");
 
-        if(null != restaurantId && !restaurantId.isEmpty() && "No Key".equalsIgnoreCase(restaurantId)) {
+        if(null != restaurantId && !restaurantId.isEmpty() && !"No Key".equalsIgnoreCase(restaurantId)) {
             loadRestaurantById(restaurantId);
         }else if(null != searchText && !searchText.isEmpty()){
             searchRestaurants(searchText);

@@ -116,7 +116,9 @@ public class CartActivity extends AppCompatActivity {
 
        // tv.setText("Continue To Order");
         //tv.setGravity(Gravity.CENTER);
-        startActivity(new Intent(this, RestaurantActivity.class));
+        Intent newIntent = new Intent(this, RestaurantActivity.class);
+        newIntent.putExtra("eazydine-restaurantId", order.getRestaurantId());
+        startActivity(newIntent);
     }
     private void displayPreOrderDialog() {
 
