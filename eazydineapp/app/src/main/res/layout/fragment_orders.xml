@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="China gate chef"
+                android:text=""
                 android:textColor="@color/colorDarkText4"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Muland, Mumbai"
+                android:text=""
                 android:textColor="@color/colorDarkText2"
                 android:textSize="16sp" />
         </LinearLayout>

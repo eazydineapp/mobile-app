@@ -30,8 +30,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     public CartAdapter(Context context) {
         this.context = context;
         this.dataList = new ArrayList<>();
-        //this.dataList.add(new CartItem("Ginger chicken curry", 1, 400, R.drawable.rest_res_1));
-        //this.dataList.add(new CartItem("Paneer khurchan", 1, 370, R.drawable.rest_res_2));
     }
 
     public CartAdapter(Context context, ArrayList<CartItem> dataList) {

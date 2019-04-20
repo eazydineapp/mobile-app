@@ -47,7 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp16"
-                    android:text="China gate chef"
+                    android:text=""
                     android:textColor="@color/colorDarkText4"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -55,7 +55,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Linking road, opp, KFC, mulund mumbai"
+                    android:text=""
                     android:textColor="@android:color/darker_gray" />
 
                 <TextView
@@ -85,13 +85,13 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Ginger chicken curry (1)"
+                        android:text=""
                         android:textColor="@color/colorDarkText4" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="₹ 400"
+                        android:text=""
                         android:textColor="@android:color/black"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -106,13 +106,13 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Paneer khurchan (2)"
+                        android:text=""
                         android:textColor="@color/colorDarkText4" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="₹ 740"
+                        android:text=""
                         android:textColor="@android:color/black"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -136,7 +136,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.2"
                         android:gravity="right"
-                        android:text="₹ 1140"
+                        android:text=""
                         android:textColor="@android:color/black" />
                 </LinearLayout>
 
@@ -159,7 +159,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.2"
                         android:gravity="right"
-                        android:text="₹ 45"
+                        android:text=""
                         android:textColor="@android:color/black" />
                 </LinearLayout>
 
@@ -175,14 +175,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.8"
                         android:gravity="right"
-                        android:text="Delivery charge: " />
+                        android:text="Tax: " />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.2"
                         android:gravity="right"
-                        android:text="₹ 40"
+                        android:text=""
                         android:textColor="@android:color/black" />
                 </LinearLayout>
 
@@ -209,7 +209,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="₹ 1225"
+                        android:text=""
                         android:textColor="@android:color/black"
                         android:textSize="16sp"
                         android:textStyle="bold" />

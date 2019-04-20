@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dp8"
-            android:text="Ginger chicken curry"
+            android:text=""
             android:textColor="@color/colorDarkText4"
             android:textSize="16sp" />
 
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dp8"
             android:layout_gravity="right"
-            android:text="₹999999"
+            android:text=""
             android:textColor="@android:color/black"
             android:textSize="16sp" />
         </LinearLayout>
