@@ -6,12 +6,14 @@ public class Waitlist {
     private Long tableId;
     private WaitStatus status;
     private Integer numSeats;
+    private String userName;
 
     public Waitlist() {}
 
-    public Waitlist(String userId, String restaurantId, Long tableId, Integer numSeats, WaitStatus status) {
+    public Waitlist(String userId, String restaurantId, String userName, Long tableId, Integer numSeats, WaitStatus status) {
         this.userId = userId;
         this.restaurantId = restaurantId;
+        this.userName = userName;
         this.numSeats = numSeats;
         this.status = status;
     }
@@ -55,4 +57,8 @@ public class Waitlist {
     public void setNumSeats(Integer numSeats) {
         this.numSeats = numSeats;
     }
+
+    public String getUserName() { return userName; }
+
+    public void setUserName(String userName) { this.userName = userName; }
 }

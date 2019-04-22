@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.eazydineapp.R;
@@ -156,17 +157,29 @@ public class HomeFragment extends Fragment {
 
     private void openDialog(final String restaurantId) {
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        LinearLayout layout = new LinearLayout(getActivity());
 
-        alert.setTitle("Enter number of Seats");
+        TextView userNameTV = new TextView(getActivity());
+        userNameTV.setText("Enter your Name:");
+        final EditText userName = new EditText(getActivity());
+        layout.addView(userNameTV);
+        layout.addView(userName);
+
+        TextView numOfSeatsTV = new TextView(getActivity());
+        numOfSeatsTV.setText("Enter number of Seats:");
+        final EditText numOfSeats = new EditText(getActivity());
+        layout.addView(numOfSeatsTV);
+        layout.addView(numOfSeats);
+
+        layout.setOrientation(LinearLayout.VERTICAL);
         alert.setMessage("");
-
-        final EditText input = new EditText(getActivity());
-        alert.setView(input);
+        alert.setView(layout);
 
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                String value = input.getText().toString();
-                Waitlist waitlist = new Waitlist(userId, restaurantId, -1L, Integer.parseInt(value), WaitStatus.Waiting);
+                String numOfSeatsStr = numOfSeats.getText().toString();
+                String userNameStr = userName.getText().toString();
+                Waitlist waitlist = new Waitlist(userId, restaurantId, userNameStr, -1L, Integer.parseInt(numOfSeatsStr), WaitStatus.Waiting);
                 waitlistService.addUserToWaitList(waitlist);
                 UserService userService = new UserServiceImpl();
                 userService.updateUser(new User(userId, UserStatus.IN, restaurantId));
