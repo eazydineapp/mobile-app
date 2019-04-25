@@ -1,17 +1,18 @@
 package com.eazydineapp.fragment;
 
-import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.os.Bundle;;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.eazydineapp.R;
 import com.eazydineapp.adapter.ViewPagerAdapter;
 import com.eazydineapp.interactor.AuthInnerInteractor;
 import com.eazydineapp.interactor.AuthMainInteractor;
+import com.google.android.material.tabs.TabLayout;
 
 public class AuthFragment extends Fragment {
     private String FRAG_TAG_FORGET_PASSWORD = "ForgetPassword";

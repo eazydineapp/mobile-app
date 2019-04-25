@@ -16,7 +16,7 @@
         android:layout_margin="0dp"
         android:contentDescription="Notification Icon"
         android:gravity="center"
-        android:src="@drawable/ic_shopping_cart_white_24dp" />
+        android:src="@drawable/ic_shopping_cart_black_24dp" />
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/notification_count"

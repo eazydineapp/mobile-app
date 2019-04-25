@@ -2,8 +2,9 @@ package com.eazydineapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.eazydineapp.R;
 import com.eazydineapp.util.IntentKeyConstants;

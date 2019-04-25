@@ -4,18 +4,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.eazydineapp.R;
 import com.eazydineapp.adapter.CartAdapter;
@@ -51,7 +49,6 @@ public class CartActivity extends AppCompatActivity {
     CartAdapter cartAdapter;
     private ArrayList<CartItem> cartItems;
     private Order order;
-    private Handler mHandler;
     private TextView tv,orderPlaceName, orderPlaceAddress, orderTotal, serviceCharge, subTotal, tax, orderDate;
     private String userId, restaurantId;
 
@@ -59,7 +56,7 @@ public class CartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbarCart);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(R.drawable.ic_keyboard_arrow_left_white_24dp);
@@ -93,25 +90,6 @@ public class CartActivity extends AppCompatActivity {
         });
     }
 
-    private void loadOrdersFragment() {
-        Runnable mPendingRunnable = new Runnable() {
-            @Override
-            public void run() {
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-                fragmentTransaction.replace(R.id.mainFrame, new OrdersFragment(), "My Orders");
-                fragmentTransaction.commitAllowingStateLoss();
-            }
-        };
-
-        getSupportActionBar().setTitle("My Orders");
-
-        if (mHandler == null) {
-            mHandler = new Handler();
-        }
-        mHandler.post(mPendingRunnable);
-    }
-
     private void placeOrder() {
         if(null != order) {
             WaitlistService waitlistService = new WaitlistServiceImpl();
@@ -132,10 +110,13 @@ public class CartActivity extends AppCompatActivity {
     private void createOrder() {
         OrderService orderService = new OrderServiceImpl();
         orderService.updateOrder(order);
-        loadOrdersFragment();
+       // loadOrdersFragment();
 
-        tv.setText("Continue To Order");
-        tv.setGravity(Gravity.CENTER);
+       // tv.setText("Continue To Order");
+        //tv.setGravity(Gravity.CENTER);
+        Intent newIntent = new Intent(this, RestaurantActivity.class);
+        newIntent.putExtra("eazydine-restaurantId", order.getRestaurantId());
+        startActivity(newIntent);
     }
     private void displayPreOrderDialog() {
 
@@ -173,7 +154,7 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private void loadCartValue() {
-        order = new Order();
+        //order = new Order();
         cartItems = new ArrayList<>();
 
         OrderService orderService = new OrderServiceImpl();
@@ -200,7 +181,7 @@ public class CartActivity extends AppCompatActivity {
                     orderDate.setText(String.valueOf(date.getDate()) +" "+ new DateFormatSymbols().getMonths()[date.getMonth()]);
 
                     cartItems.addAll(dbOrder.getItemList());
-                    cartAdapter.setCartItems(cartItems);
+                    cartAdapter.setCartItems(cartItems, dbOrder);
                 }
             }
         });

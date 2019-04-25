@@ -2,17 +2,18 @@ package com.eazydineapp.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 
 import com.eazydineapp.R;
 import com.eazydineapp.adapter.ViewPagerStateAdapter;
 import com.eazydineapp.fragment.RestaurantMenuFragment;
 import com.eazydineapp.model.Restaurant;
+import com.google.android.material.tabs.TabLayout;
 
 public class RestaurantMenuActivity extends AppCompatActivity {
 

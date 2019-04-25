@@ -50,4 +50,24 @@ public class RestaurantServiceImpl implements RestaurantService {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void searchRestaurantByZipCode(Context context, int zipCode, UIRestaurantService uiRestaurantService) {
+        try {
+            String uri = "/api/restaurants/search?zipcode=" + zipCode;
+            restAPIUtil.executeGetListAPI(context, uri, uiRestaurantService);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void searchRestaurant(Context context, String searchText, UIRestaurantService uiRestaurantService) {
+        try {
+            String uri = "/api/restaurants/search?name=" + searchText;
+            restAPIUtil.executeGetListAPI(context, uri, uiRestaurantService);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

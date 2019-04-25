@@ -1,12 +1,14 @@
 package com.eazydineapp.backend.dao.impl;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
+
+import androidx.annotation.NonNull;
 
 import com.eazydineapp.backend.dao.api.OrderDAO;
 import com.eazydineapp.backend.exception.ItemException;
 import com.eazydineapp.backend.ui.api.UIOrderService;
+import com.eazydineapp.backend.util.AppUtil;
 import com.eazydineapp.backend.util.DAOUtil;
 import com.eazydineapp.backend.util.PathUtil;
 import com.eazydineapp.backend.vo.CartItem;
@@ -25,6 +27,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static java.lang.Math.round;
 
 public class OrderDAOImpl implements OrderDAO {
 
@@ -92,7 +96,7 @@ public class OrderDAOImpl implements OrderDAO {
         try {
             Map<String, CartItem> cartItemMap = new HashMap<>();
             cartItems.addAll(order.getItemList());
-            Double totalPrice = 0.0;
+            float totalPrice = 0.0f;
             for (CartItem item : cartItems) {
                 totalPrice += item.getPriceTotal();
                 if (cartItemMap.containsKey(item.getItemId())) {
@@ -108,7 +112,10 @@ public class OrderDAOImpl implements OrderDAO {
             for (String key : cartItemMap.keySet()) {
                 cartItemToStore.add(cartItemMap.get(key));
             }
+
+            totalPrice = AppUtil.round(totalPrice);
             order.setItemList(cartItemToStore);
+            order.setTotalPrice(totalPrice);
 
             final String orderPath = PathUtil.getUserPath() + order.getUserId() + PathUtil.getOrderPath() + order.getOrderId();
             DAOUtil.getDatabaseReference().child(orderPath).setValue(order).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -232,6 +239,61 @@ public class OrderDAOImpl implements OrderDAO {
             });
         } catch (Exception exception) {
             Log.e(TAG, "Error updating order", exception);
+            throw new ItemException("Error", exception);
+        }
+    }
+
+    @Override
+    public void updateOrderByUserAndRestaurant(String userId, final String restaurantId) throws ItemException {
+        try {
+            System.out.println("List of all orders for given restaurant and user");
+            final String orderPath = PathUtil.getUserPath() + userId + PathUtil.getOrderPath();
+            DAOUtil.getDatabaseReference().child(orderPath).addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            List<Order> orders = new ArrayList<>();
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                Order order = snapshot.getValue(Order.class);
+                                if(restaurantId.equals(order.getRestaurantId()) && OrderStatus.Served.equals(order.getOrderStatus())){
+                                    order.setOrderStatus(OrderStatus.Paid);
+                                    try {
+                                        updateOrder(order);
+                                    } catch (ItemException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+        } catch (Exception exception) {
+            Log.e(TAG, "Error getting order by restaurant and user", exception);
+            throw new ItemException("Error", exception);
+
+        }
+    }
+
+    @Override
+    public void removeOrder(Order order) throws ItemException {
+        try {
+            final String orderPath = PathUtil.getUserPath() + order.getUserId() + PathUtil.getOrderPath() + order.getOrderId();
+            DAOUtil.getDatabaseReference().child(orderPath).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.d(TAG, "Success updating order");
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Log.e(TAG, "Error adding order", exception);
+                }
+            });
+        } catch (Exception exception) {
+            Log.e(TAG, "Error removing order", exception);
             throw new ItemException("Error", exception);
         }
     }

@@ -1,19 +1,16 @@
 package com.eazydineapp.activity;
 
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.eazydineapp.R;
-import com.eazydineapp.adapter.FoodCategoryAdapter;
 import com.eazydineapp.adapter.RestaurantAdapter;
 import com.eazydineapp.backend.service.api.RestaurantService;
 import com.eazydineapp.backend.service.impl.RestaurantServiceImpl;
@@ -21,10 +18,6 @@ import com.eazydineapp.backend.ui.api.UIRestaurantService;
 import com.eazydineapp.backend.vo.Restaurant;
 import com.eazydineapp.rest_detail.RestaurantDetailActivity;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,12 +25,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+
 public class RestaurantActivity extends AppCompatActivity {
 
     private RestaurantService restaurantService = new RestaurantServiceImpl();
     private Gson gson = new Gson();
     private RecyclerView recyclerRestaurants;
     private RestaurantAdapter restaurantAdapter;
+    private static String EXTRA_REST_NAME = "restaurant_name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +50,13 @@ public class RestaurantActivity extends AppCompatActivity {
         });
         recyclerRestaurants = findViewById(R.id.recyclerRestaurants);
         setupRecyclerRestaurants();
-        loadRestaurants();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadRestaurants();
+    }
 
     private void setupRecyclerRestaurants() {
         recyclerRestaurants.setNestedScrollingEnabled(false);
@@ -67,11 +66,67 @@ public class RestaurantActivity extends AppCompatActivity {
     }
 
     private void loadRestaurants() {
-        String restaurantId = getIntent().getStringExtra("eazydine-restaurantId");
-        if(null == restaurantId) {
-            loadAllRestaurants();
-        }else {
+        String restaurantId = getIntent().getStringExtra("eazydine-restaurantId");//restaurantIdSharedPref == null || restaurantIdSharedPref.isEmpty() ? getIntent().getStringExtra("eazydine-restaurantId"): restaurantIdSharedPref;
+        String searchText = getIntent().getStringExtra("eazydineapp-searchStr");
+
+        if(null != restaurantId && !restaurantId.isEmpty()) {
             loadRestaurantById(restaurantId);
+        }else if(null != searchText && !searchText.isEmpty()){
+            searchRestaurants(searchText);
+        } else {
+            loadAllRestaurants();
+        }
+    }
+
+    private void searchRestaurants(String searchText) {
+        if(searchText.length() == 5 && Character.isDigit(searchText.charAt(0))){
+            restaurantService.searchRestaurantByZipCode(getApplicationContext(), Integer.parseInt(searchText), new UIRestaurantService() {
+                @Override
+                public void onSuccess(JSONObject jsonResponse) {
+                }
+
+                @Override
+                public void onSuccess(JSONArray jsonArray) {
+                    try {
+                        ArrayList<Restaurant> restaurants = new ArrayList<>();
+                        for(int index=0; index < jsonArray.length(); index++) {
+                            restaurants.add(gson.fromJson(jsonArray.getJSONObject(index).toString(), Restaurant.class));
+                        }
+                        restaurantAdapter.setRestaurants(restaurants);
+                    }catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(String message) {
+                    Log.e("Get Restauarnts", message);
+                }
+            });
+        }else {
+            restaurantService.searchRestaurant(getApplicationContext(), searchText, new UIRestaurantService() {
+                @Override
+                public void onSuccess(JSONObject jsonResponse) {
+                }
+
+                @Override
+                public void onSuccess(JSONArray jsonArray) {
+                    try {
+                        ArrayList<Restaurant> restaurants = new ArrayList<>();
+                        for(int index=0; index < jsonArray.length(); index++) {
+                            restaurants.add(gson.fromJson(jsonArray.getJSONObject(index).toString(), Restaurant.class));
+                        }
+                        restaurantAdapter.setRestaurants(restaurants);
+                    }catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(String message) {
+                    Log.e("Get Restauarnts", message);
+                }
+            });
         }
     }
 
@@ -80,6 +135,8 @@ public class RestaurantActivity extends AppCompatActivity {
             @Override
             public void onSuccess(JSONObject jsonResponse) {
                 Restaurant restaurant = gson.fromJson(jsonResponse.toString(), Restaurant.class);
+                //Intent intent = new Intent(getApplicationContext(), RestaurantDetailActivity.class);
+                //intent.putExtra(EXTRA_REST_NAME, restaurant);
                 startActivity(RestaurantDetailActivity.newIntent(getApplicationContext(), restaurant));
             }
 

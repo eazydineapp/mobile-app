@@ -11,7 +11,7 @@
     </style>
 
     <style name="MyOverflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
-        <item name="android:tint">#FFFFFF</item>
+        <item name="android:tint">@android:color/white</item>
     </style>
 
     <style name="AppThemeFullScreen" parent="Theme.AppCompat.Light.NoActionBar">
@@ -54,6 +54,10 @@
         <item name="cardElevation">@dimen/card_elevation</item>
         <item name="cardPreventCornerOverlap">false</item>
         <item name="cardUseCompatPadding">true</item>
+    </style>
+
+    <style name="Widget.Support.CoordinatorLayout" parent="android:Widget">
+        @null
     </style>
 
 </resources>

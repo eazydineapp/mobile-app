@@ -1,14 +1,14 @@
 package com.eazydineapp.backend.dao.impl;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.eazydineapp.backend.dao.api.WaitlistDAO;
 import com.eazydineapp.backend.exception.ItemException;
 import com.eazydineapp.backend.ui.api.UIWaitlistService;
 import com.eazydineapp.backend.util.DAOUtil;
 import com.eazydineapp.backend.util.PathUtil;
-import com.eazydineapp.backend.vo.Order;
 import com.eazydineapp.backend.vo.Waitlist;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

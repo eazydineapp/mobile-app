@@ -1,9 +1,6 @@
 package com.eazydineapp.adapter;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +8,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.eazydineapp.R;
-import com.eazydineapp.backend.vo.Category;
 import com.eazydineapp.model.CuisineCategory;
 import com.eazydineapp.model.RestaurantMenu;
 
@@ -36,17 +36,6 @@ public class CuisineAdapter extends RecyclerView.Adapter<CuisineAdapter.MyViewHo
         this.listToggleListener = listToggleListener;
         this.dataList = new ArrayList<>();
         this.menus = new HashMap<>();
-        /*this.dataList.add(new CuisineCategory("Popular"));
-        this.dataList.add(new CuisineCategory("Main course"));
-        this.dataList.add(new CuisineCategory("Lunch"));
-        this.dataList.add(new CuisineCategory("Breakfast"));
-        this.dataList.add(new CuisineCategory("Dinner"));
-        this.dataList.add(new CuisineCategory("Appetizer"));
-        this.dataList.add(new CuisineCategory("Main course"));
-        this.dataList.add(new CuisineCategory("Lunch"));
-        this.dataList.add(new CuisineCategory("Breakfast"));
-        this.dataList.add(new CuisineCategory("Dinner"));
-        this.dataList.add(new CuisineCategory("Appetizer"));*/
     }
 
     public void setCategories(ArrayList<CuisineCategory> categories) {

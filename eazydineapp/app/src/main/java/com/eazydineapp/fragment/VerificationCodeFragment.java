@@ -4,10 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,22 +12,24 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.eazydineapp.R;
 import com.eazydineapp.activity.MainActivity;
 import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthSettings;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import java.util.concurrent.TimeUnit;
@@ -88,8 +86,8 @@ public class VerificationCodeFragment extends Fragment {
         phoneNumber = bundle.getString("phone");
         Log.d(TAG, "User Data:" + phoneNumber);
         dynamicPhoneNumber.setText(phoneNumber);
-        //sendVerificationCode(phoneNumber); //TODO uncomment when running on mobile app
-        startMainActivity();
+        sendVerificationCode(phoneNumber); //TODO uncomment when running on mobile app
+        //startMainActivity();
         return view;
     }
 
@@ -116,11 +114,8 @@ public class VerificationCodeFragment extends Fragment {
             errorTextView.setText("Cannot be empty.");
         }
         else{
-            //verifyPhoneNumberWithCode(mVerificationId, code);
-            Intent intent = new Intent(mActivity, MainActivity.class);
-            intent.putExtra("Status","Success");
-            mActivity.startActivity(intent);
-            mActivity.finish();
+            verifyPhoneNumberWithCode(mVerificationId, code);
+            startMainActivity();
         }
     }
 
@@ -205,12 +200,13 @@ public class VerificationCodeFragment extends Fragment {
 
 
     private void signInWithPhoneAuthCredential(final PhoneAuthCredential credential) {
+        Log.d(TAG, "######################################################signInWithCredential: phone"+phoneNumber);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(mActivity, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "signInWithCredential:success");
+                            Log.d(TAG, "signInWithCredential:success phone"+phoneNumber);
                             startMainActivity();
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -223,9 +219,7 @@ public class VerificationCodeFragment extends Fragment {
     }
 
     private void startMainActivity() {
-        if(!phoneNumber.equals(storagePrefUtil.getRegisteredUser(this))) {
-            storagePrefUtil.saveRegisteredUser(this, phoneNumber);
-        }
+        storagePrefUtil.saveRegisteredUser(this, phoneNumber);
         Intent intent = new Intent(mActivity, MainActivity.class);
         intent.putExtra("Status","Success");
         mActivity.startActivity(intent);

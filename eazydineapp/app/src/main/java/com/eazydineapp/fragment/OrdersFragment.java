@@ -2,11 +2,6 @@ package com.eazydineapp.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,9 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.eazydineapp.R;
 import com.eazydineapp.activity.CartActivity;
-import com.eazydineapp.activity.PaymentActivity;
+import com.eazydineapp.activity.OrderPaymentActivity;
 import com.eazydineapp.activity.RestaurantMenuActivity;
 import com.eazydineapp.adapter.OrdersAdapter;
 import com.eazydineapp.backend.service.api.OrderService;
@@ -27,8 +28,10 @@ import com.eazydineapp.backend.service.impl.RestaurantServiceImpl;
 import com.eazydineapp.backend.ui.api.UIOrderService;
 import com.eazydineapp.backend.ui.api.UIRestaurantService;
 import com.eazydineapp.backend.util.AndroidStoragePrefUtil;
+import com.eazydineapp.backend.util.AppUtil;
 import com.eazydineapp.backend.vo.CartItem;
 import com.eazydineapp.backend.vo.Order;
+import com.eazydineapp.backend.vo.OrderPayment;
 import com.eazydineapp.backend.vo.Restaurant;
 import com.eazydineapp.rest_detail.RestaurantDetailActivity;
 import com.google.gson.Gson;
@@ -48,6 +51,7 @@ public class OrdersFragment extends Fragment {
     private List<Order> dataList;
     private OrdersAdapter ordersAdapter;
     private String restaurantId, userId;
+    private OrderPayment payment;
     private TextView orderPlaceName, orderPlaceAddress, orderTotal, serviceCharge, subTotal, tax, orderDate;
 
     public OrdersFragment() {
@@ -61,7 +65,10 @@ public class OrdersFragment extends Fragment {
         orderService.getOrderByUserAndRestaurant(userId, restaurantId, new UIOrderService() {
             @Override
             public void displayAllOrders(List<Order> orders) {
-                if(null == orders || null == orders.get(0).getItemList())return;
+                if(null == orders || orders.isEmpty() || null == orders.get(0).getItemList()){
+                    dataList = new ArrayList<>();
+                    return;
+                }
                 dataList.addAll(orders);
                 List<CartItem> cartItems = new ArrayList<>();
                 float totalAmount = 0f;
@@ -75,29 +82,31 @@ public class OrdersFragment extends Fragment {
 
                 Order dbOrder = orders.get(0);
                 if(null != getActivity()) {
-                    orderPlaceName = getActivity().findViewById(R.id.orderPlaceName);
+                    orderPlaceName = getActivity().findViewById(R.id.orderPlaceNameFg);
                     orderPlaceName.setText(dbOrder.getRestaurantName());
 
-                    orderPlaceAddress  = getActivity().findViewById(R.id.orderPlaceAddress);
+                    orderPlaceAddress  = getActivity().findViewById(R.id.orderPlaceAddressFg);
                     orderPlaceAddress.setText(dbOrder.getRestaurantAddress());
 
-                    float serviceChargeVal = round(0.04f*totalAmount);
-                    serviceCharge  = getActivity().findViewById(R.id.serviceCharge);
+                    float serviceChargeVal = AppUtil.round(0.04f*totalAmount);
+                    serviceCharge  = getActivity().findViewById(R.id.serviceChargeFg);
                     serviceCharge.setText("$"+String.valueOf(serviceChargeVal));
 
-                    float taxVal = round(0.1f*totalAmount);
-                    tax = getActivity().findViewById(R.id.tax);
+                    float taxVal = AppUtil.round(0.1f*totalAmount);
+                    tax = getActivity().findViewById(R.id.taxFg);
                     tax.setText("$"+String.valueOf(taxVal));
 
-                    subTotal  = getActivity().findViewById(R.id.subTotal);
-                    subTotal.setText("$"+String.valueOf(dbOrder.getTotalPrice()));
+                    subTotal  = getActivity().findViewById(R.id.subTotalFg);
+                    subTotal.setText("$"+String.valueOf(totalAmount));
 
-                    float orderTotalVal = round(serviceChargeVal + taxVal + totalAmount);
-                    orderTotal  = getActivity().findViewById(R.id.orderTotal);
+                    float orderTotalVal = AppUtil.round(serviceChargeVal + taxVal + totalAmount);
+                    orderTotal  = getActivity().findViewById(R.id.orderTotalFg);
                     orderTotal.setText("$"+String.valueOf(orderTotalVal));
 
+                    payment = new OrderPayment(orderTotalVal, totalAmount, serviceChargeVal, taxVal);
+
                     Date date = new Date(dbOrder.getOrderDate());
-                    orderDate = getActivity().findViewById(R.id.orderDate);
+                    orderDate = getActivity().findViewById(R.id.orderDateFg);
                     orderDate.setText(String.valueOf(date.getDate()) +" "+ new DateFormatSymbols().getMonths()[date.getMonth()]);
                 }
                 ordersAdapter.setOrderItems(cartItems);
@@ -177,7 +186,9 @@ public class OrdersFragment extends Fragment {
         payActionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(getContext(), PaymentActivity.class));
+                Intent newIntent = new Intent(getContext(), OrderPaymentActivity.class);
+                newIntent.putExtra("eazydineapp-payment", payment);
+                startActivity(newIntent);
             }
         });
         super.onCreateOptionsMenu(menu, inflater);

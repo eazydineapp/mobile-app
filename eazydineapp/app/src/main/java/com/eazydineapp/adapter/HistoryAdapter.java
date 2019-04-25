@@ -3,26 +3,31 @@ package com.eazydineapp.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.eazydineapp.R;
 import com.eazydineapp.activity.HistoryOrderDetailActivity;
-import com.eazydineapp.activity.MainActivity;
-import com.eazydineapp.activity.RestaurantActivity;
 import com.eazydineapp.backend.service.api.OrderService;
+import com.eazydineapp.backend.service.api.RestaurantService;
 import com.eazydineapp.backend.service.impl.OrderServiceImpl;
+import com.eazydineapp.backend.service.impl.RestaurantServiceImpl;
+import com.eazydineapp.backend.ui.api.UIRestaurantService;
 import com.eazydineapp.backend.vo.CartItem;
 import com.eazydineapp.backend.vo.Order;
 import com.eazydineapp.backend.vo.OrderStatus;
+import com.eazydineapp.backend.vo.Restaurant;
+import com.eazydineapp.rest_detail.RestaurantDetailActivity;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -48,6 +53,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
 //        this.dataList.add(new Order("14 May", "China gate chef", "Mulund, Mumbai", 1225, 0));
 //        this.dataList.add(new Order("10 May", "Sugar and spice chef", "Vila parle, Mumbai", 980, 1));
 //        this.dataList.add(new Order("9 May", "Old spice chef", "Mulund, Mumbai", 1258, 1));
+        //loadOrdersForUser();
     }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -102,6 +108,40 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
             orderTotal.setText(String.valueOf(order.getTotalPrice()));
             orderStatus.setText(order.getOrderStatus().toString());
         }
+    }
+    private void addItemToCart(Order dbOrder) {
+        ArrayList<CartItem> cartItems = new ArrayList<>(dbOrder.getItemList());
+
+        Order order = new Order("order Id to be generated", OrderStatus.Cart, Calendar.getInstance().getTime().toString(), dbOrder.getTotalPrice(), false,
+                dbOrder.getUserId(), dbOrder.getRestaurantId(), dbOrder.getRestaurantName(), dbOrder.getRestaurantAddress(), cartItems);
+
+        OrderService orderService = new OrderServiceImpl();
+        orderService.addToCart(order);
+        loadRestaurantById(context, dbOrder.getRestaurantId());
+
+        //Intent newIntent = new Intent(context, RestaurantActivity.class);
+        //newIntent.putExtra("eazydine-restaurantId", dbOrder.getRestaurantId());
+        //context.startActivity(newIntent);
+    }
+
+    private void loadRestaurantById(final Context context, String restaurantId) {
+        RestaurantService restaurantService = new RestaurantServiceImpl();
+        restaurantService.getRestaurantById(context, Long.parseLong(restaurantId), new UIRestaurantService() {
+            @Override
+            public void onSuccess(JSONObject jsonResponse) {
+                Gson gson = new Gson();
+                Restaurant restaurant = gson.fromJson(jsonResponse.toString(), Restaurant.class);
+                context.startActivity(RestaurantDetailActivity.newIntent(context, restaurant));
+            }
+
+            @Override
+            public void onSuccess(JSONArray jsonArray) { }
+
+            @Override
+            public void onError(String message) {
+                Log.e("Get Restauarnts", message);
+            }
+        });
     }
 }
 

@@ -3,10 +3,11 @@ package com.eazydineapp.backend.util;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
 
 import com.eazydineapp.backend.storage.api.ProfilePicService;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -20,9 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * Created by ravisha on 10/24/16.
- */
+
 public class StorageUtil {
     private static StorageReference mStorageRef;
     private static final String TAG = "StorageUtil";

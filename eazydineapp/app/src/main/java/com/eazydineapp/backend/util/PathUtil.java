@@ -101,6 +101,13 @@ public class PathUtil {
         return itemPath.toString();
     }
 
+    public static String getUserStatusPath(){
+        StringBuffer itemPath = getRootPath();
+        itemPath.append(CommonConstants.USER_STATUS_PATH);
+        itemPath.append(CommonConstants.SEPARATOR);
+        return itemPath.toString();
+    }
+
     public static String getUserIdPath(String userId){
         StringBuffer itemPath = getRootPath();
         itemPath.append(CommonConstants.USER_PATH);

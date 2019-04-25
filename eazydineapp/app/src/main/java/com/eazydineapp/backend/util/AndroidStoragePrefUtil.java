@@ -1,9 +1,10 @@
 package com.eazydineapp.backend.util;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * Used for stroring and reading the key value.

@@ -94,7 +94,7 @@
             android:background="@null"
             android:inputType="number"
             android:letterSpacing="@dimen/text_line_spacing"
-            android:maxLength="4"
+            android:maxLength="6"
             android:textSize="@dimen/textSize20sp"
             android:textStyle="bold" />
 
@@ -139,6 +139,22 @@
                 android:layout_weight="1"
                 android:background="@color/Gray" />
 
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/mar_0_2"
+                android:layout_marginLeft="@dimen/mar_10"
+                android:layout_marginTop="@dimen/mar_8"
+                android:layout_weight="1"
+                android:background="@color/Gray" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/mar_0_2"
+                android:layout_marginLeft="@dimen/mar_10"
+                android:layout_marginTop="@dimen/mar_8"
+                android:layout_weight="1"
+                android:background="@color/Gray" />
+
         </LinearLayout>
 
         <TextView
@@ -149,7 +165,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:text=""
-            android:textColor="#c60000"
+            android:textColor="@color/Red"
             android:textSize="@dimen/textSize14sp" />
 
         <Button

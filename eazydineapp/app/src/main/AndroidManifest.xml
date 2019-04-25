@@ -11,15 +11,17 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-feature android:name="android.hardware.nfc" android:required="true" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        tools:replace="android:appComponentFactory"
-        android:appComponentFactory="anystrings be placeholder">
+        android:theme="@style/AppTheme">
+        <!--tools:replace="android:appComponentFactory"-->
+        <!--android:appComponentFactory="anystrings be placeholder"-->
         <activity android:name=".activity.HistoryOrderDetailActivity"/>
         <activity android:name=".activity.GroupDetailActivity" />
 
@@ -39,13 +41,24 @@
 
         <activity android:name=".activity.RestaurantActivity" />
         <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="portrait">
+        <intent-filter>
+            <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <data android:mimeType="text/plain" />
+        </intent-filter>
+        <meta-data
+            android:name="android.nfc.action.TECH_DISCOVERED"
+            android:resource="@xml/nfc_tech" />
+        </activity>
+        <activity
             android:name=".activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeFullScreen"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -61,9 +74,6 @@
             android:name=".activity.LoginSignUpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeFullScreen" />
-        <activity
-            android:name=".activity.MainActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.CartActivity"
             android:label="@string/label_cart"
@@ -89,6 +99,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.FoodDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.OrderPaymentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.OrderTrackerActivity"
             android:screenOrientation="portrait" />
 
         <meta-data

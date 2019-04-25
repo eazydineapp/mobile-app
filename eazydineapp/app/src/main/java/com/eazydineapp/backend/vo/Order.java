@@ -1,5 +1,7 @@
 package com.eazydineapp.backend.vo;
 
+import com.eazydineapp.backend.util.AppUtil;
+
 import java.util.List;
 
 public class Order {
@@ -23,7 +25,7 @@ public class Order {
         this.orderId = orderId;
         this.orderStatus = orderStatus;
         this.orderDate = orderDate;
-        this.totalPrice = totalPrice;
+        this.totalPrice = AppUtil.round(totalPrice);
         this.isPaid = isPaid;
         this.userId = userId;
         this.restaurantId = restaurantId;
@@ -61,7 +63,7 @@ public class Order {
     }
 
     public void setTotalPrice(float totalPrice) {
-        this.totalPrice = totalPrice;
+        this.totalPrice = AppUtil.round(totalPrice);
     }
 
     public boolean isPaid() {

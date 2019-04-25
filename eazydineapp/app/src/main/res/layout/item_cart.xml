@@ -60,13 +60,6 @@
                     android:paddingRight="@dimen/dp8"
                     android:textColor="@color/colorDarkText4" />
 
-                <!--<ImageView
-                    android:id="@+id/itemQuantityPlus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/dp4"
-                    android:src="@drawable/ic_plus_white_24dp" />-->
-
                 <TextView
                     android:id="@+id/itemPrice"
                     android:layout_width="wrap_content"
@@ -74,6 +67,14 @@
                     android:layout_gravity="center_vertical"
                     android:text=""
                     android:textColor="@color/colorDarkText3" />
+
+                <ImageView
+                    android:id="@+id/removeItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp4"
+                    android:src="@drawable/ic_minus_primary_24dp" />
+
             </LinearLayout>
         </LinearLayout>
 
@@ -83,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
             android:gravity="right"
-            android:text=""
+            android:text="6.99"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
     </LinearLayout>

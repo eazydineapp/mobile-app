@@ -31,7 +31,7 @@
             android:layout_marginBottom="@dimen/dp4"
             android:gravity="center"
             android:text=""
-            android:textColor="#c60000" />
+            android:textColor="@color/Red" />
 
         <Button
             android:id="@+id/register_btn"

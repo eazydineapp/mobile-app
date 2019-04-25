@@ -2,23 +2,21 @@ package com.eazydineapp.rest_detail;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
+
 import com.bumptech.glide.Glide;
 import com.eazydineapp.R;
 import com.eazydineapp.activity.CartActivity;
+import com.eazydineapp.activity.OrderTrackerActivity;
 import com.eazydineapp.backend.service.api.OrderService;
 import com.eazydineapp.backend.service.api.RestaurantService;
 import com.eazydineapp.backend.service.impl.OrderServiceImpl;
@@ -33,6 +31,9 @@ import com.eazydineapp.adapter.ViewPagerStateAdapter;
 import com.eazydineapp.backend.vo.Restaurant;
 import com.eazydineapp.model.CuisineCategory;
 import com.eazydineapp.model.RestaurantMenu;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -71,6 +72,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_rest_detail, menu);
+
         View cartActionView = menu.findItem(R.id.action_cart).getActionView();
         cartNotificationCount = ((TextView) cartActionView.findViewById(R.id.notification_count));
         cartActionView.setOnClickListener(new View.OnClickListener() {
@@ -79,9 +81,35 @@ public class RestaurantDetailActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), CartActivity.class));
             }
         });
+
+
+        View myOrdersView = menu.findItem(R.id.action_tb_myorder).getActionView();
+        myOrdersView.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                startOrderTrackerActivity("MY ORDERS");
+            }
+        });
+
+        View historyView = menu.findItem(R.id.action_tb_history).getActionView();
+        historyView.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                startOrderTrackerActivity("HISTORY");
+            }
+        });
         setCartCount();
         return super.onCreateOptionsMenu(menu);
     }
+
+    private void startOrderTrackerActivity(String value) {
+        Intent intent = new Intent(this, OrderTrackerActivity.class);
+        intent.putExtra("eazydineapp-screen", value);
+        startActivity(intent);
+    }
+
 
     private void setCartCount() {
         AndroidStoragePrefUtil storagePrefUtil = new AndroidStoragePrefUtil();
@@ -119,7 +147,10 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         ViewPagerStateAdapter adapter = new ViewPagerStateAdapter(getSupportFragmentManager());
         adapter.addFrag(cuisineFragment, "Cuisine");
         //adapter.addFrag(new ReviewFragment(), "Review");
-        adapter.addFrag(new InfoFragment(), "Info");
+
+        InfoFragment infoFragment = new InfoFragment();
+        infoFragment.setRestaurantDetails(restaurant);
+        adapter.addFrag(infoFragment, "Info");
 
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);

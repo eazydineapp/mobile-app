@@ -18,7 +18,7 @@
     <string name="label_cart">Cart</string>
     <string name="label_support">Contact us</string>
     <string name="label_reviews">My reviews</string>
-    <string name="date">10\nMay</string>
+    <string name="date">10\nFeb</string>
     <string name="label_restaurant_menu">Menu</string>
     <string name="share">Share</string>
     <string name="sample_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</string>
@@ -30,7 +30,7 @@
     <string name="_45_mins">45 mins</string>
     <string name="avg_delivery">Avg. delivery</string>
     <string name="chinese_food_south_indian_food">Chinese food, south indian food</string>
-    <string name="golden_fusion_china_chef">Golden fusion china chef</string>
+    <string name="golden_fusion_china_chef">Paradise Biryani</string>
     <string name="_4_8">4.8</string>
     <string name="todo1">TODO</string>
     <string name="todo2">TODO2</string>
